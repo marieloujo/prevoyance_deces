@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_carnet"
+            android:icon="@drawable/carnet_icon"
+            android:title="@string/mon_carnet" />
+        <item
+            android:id="@+id/nav_marchands"
+            android:icon="@drawable/marchands_icon"
+            android:title="@string/marchands" />
+        <item
+            android:id="@+id/nav_discussion"
+            android:icon="@drawable/discussion_icon"
+            android:title="@string/discussion" />
+
+    </group>
+
+    <item android:title="Autres">
+        <menu>
+            <item
+                android:id="@+id/nav_produits_services"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/produits_et_services" />
+            <item
+                android:id="@+id/nav_boutique_virtuelle"
+                android:icon="@drawable/boutique_virtuelle_icon"
+                android:title="@string/boutique_virtuelle" />
+            <item
+                android:id="@+id/nav_partager"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/partager" />
+        </menu>
+    </item>
+
+</menu>

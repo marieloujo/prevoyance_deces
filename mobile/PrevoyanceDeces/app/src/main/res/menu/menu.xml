@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_carnet"
+        android:title="@string/mon_carnet"
+        android:icon="@drawable/carnet_icon"
+        android:checked="true" />
+
+    <item
+        android:id="@+id/bottom_marchands"
+        android:title="@string/marchands"
+        android:icon="@drawable/marchands_icon"/>
+
+    <item
+        android:id="@+id/bottom_discussion"
+        android:title="@string/discussion"
+        android:icon="@drawable/discussion_icon"/>
+
+</menu>

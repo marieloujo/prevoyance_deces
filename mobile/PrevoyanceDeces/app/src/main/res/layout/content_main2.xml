@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.Main2Activity"
+    tools:showIn="@layout/app_bar_main2">
+
+    <!--me.ibrahimsn.lib.SmoothBottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:backgroundColor="@color/white"
+        app:textColor="@color/text_black"
+        app:indicatorColor="@color/rougeTransparent"
+        app:menu="@menu/menu"
+        app:iconTint="#da000000"
+        android:layout_alignParentBottom="true"
+        app:textSize="14sp"
+        app:iconSize="20dp" /-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/content_main"
+        android:orientation="vertical"/>
+
+    <com.fxn.BubbleTabBar
+        android:visibility="invisible"
+        android:id="@+id/bubbleTabBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFF"
+        android:elevation="16dp"
+        android:padding="7dp"
+        app:bubbletab_menuResource="@menu/menu"
+        app:bubbletab_disabled_icon_color="@color/colorPrimaryDark"
+        app:bubbletab_horizontal_padding="20dp"
+        app:bubbletab_icon_size="20dp"
+        app:bubbletab_title_size="16sp"
+        app:bubbletab_vertical_padding="10dp">
+    </com.fxn.BubbleTabBar>
+
+    <com.fxn.BubbleTabBar
+        android:visibility="invisible"
+        android:id="@+id/bubbleTabBar_marchand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFF"
+        android:elevation="16dp"
+        android:padding="7dp"
+        app:bubbletab_menuResource="@menu/marchan_bottom_menu"
+        app:bubbletab_disabled_icon_color="@color/colorPrimaryDark"
+        app:bubbletab_horizontal_padding="20dp"
+        app:bubbletab_icon_size="20dp"
+        app:bubbletab_title_size="16sp"
+        app:bubbletab_vertical_padding="10dp">
+    </com.fxn.BubbleTabBar>
+
+</RelativeLayout>

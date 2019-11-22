@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">Prévoyance Décès</string>
+    <string name="app_description">Prévoyance Décès</string>
+    <string name="app_qualification">FIABLE - PRATIQUE - ASSURÉ</string>
+
+    <!--- Textes des menus de bas -->
+    <string name="acceuil">Accueil</string>
+    <string name="marchands">Les Marchands</string>
+    <string name="mon_carnet">Mon carnet</string>
+    <string name="boutique_virtuelle">Boutique virtuelle</string>
+    <string name="discussion">Mes Discussions</string>
+    <string name="notifications">Notifications</string>
+
+
+    <!-- Drawer menu section tittle -->
+    <string name="title_section1">Menu principal</string>
+    <string name="title_section2">Menu secondaire</string>
+    <string name="title_section3">Autres</string>
+    <string name="title_activity_welcome">Welcome</string>
+
+
+    <string name="se_connecter">Se connecter</string>
+    <string name="visiter">Visiter</string>
+
+
+    <string name="lorem">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper, ipsum eget .
+    </string>
+
+    <string name="lorem2">
+        Lorem ipsum dolor sit amet, consectetur
+    </string>
+
+    <string name="connexion">Connexion</string>
+    <string name="telephone">Téléphone</string>
+    <string name="password">Mot de passe</string>
+    <string name="oublie">Mot de passe oublié</string>
+
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="produits_et_services">Produits et services</string>
+    <string name="partager">Partager</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="numero">000 000 00</string>
+    <string name="email">contact@gmail.com</string>
+    <string name="name">BOUCOUZAN Alphonse</string>
+    <string name="prenom">Alphonse</string>
+    <string name="date">22 Nov 2019</string>
+    <string name="profession">Web designer</string>
+    <string name="nb_souscription">3</string>
+    <string name="duree">2 ans</string>
+    <string name="solde">100 000 FCFA</string>
+    <string name="souscription">Souscription(s)</string>
+    <string name="duree_souscription">Durée</string>
+    <string name="solde_souscription">Solde</string>
+    <string name="assure">Assurance pour:</string>
+    <string name="date_debut">Débuté le:</string>
+    <string name="marchand">Marchand</string>
+    <string name="b_n_ficier">Bénéficier</string>
+    <string name="dernier_paiement">Dernier paiement</string>
+    <string name="prochain_paiement">Prochain paiement</string>
+    <string name="approvisionement">Crédit virtuel :</string>
+    <string name="_300_000">300 000</string>
+    <string name="commission">Commission</string>
+    <string name="liste_des_clients">Liste des clients</string>
+    <string name="nom">AFOUGNE</string>
+    <string name="prenoms">Bernard</string>
+    <string name="mes_clients">Mes clients</string>
+    <string name="inscrire_un_client">Inscrire un client</string>
+    <string name="mes_statistiques">Mes statistiques</string>
+    <string name="portefeuil">Portefeuil</string>
+
+
+</resources>
