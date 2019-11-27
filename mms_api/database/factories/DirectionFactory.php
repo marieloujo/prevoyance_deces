@@ -3,14 +3,13 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Direction;
-use App\User;
+use App\Models\Role;
 use Faker\Generator as Faker;
 
 $factory->define(Direction::class, function (Faker $faker) {
     return [
-        'role' => $faker->randomElement(['Directeur','Secrétaire','Comptable']),
-        'user_id' => function(){
-            return  User::all()->random();
+        'role_id' => function(){
+            return  Role::all()->random();
         },
     ];
 });

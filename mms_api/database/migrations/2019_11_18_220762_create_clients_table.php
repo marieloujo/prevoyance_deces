@@ -17,19 +17,7 @@ class CreateClientsTable extends Migration
             $table->bigIncrements('id');
             $table->string('profession');
             $table->string('employeur');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('marchand_id');
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->ondelete('cascade');
-    
-            $table->foreign('marchand_id')
-                ->references('id')
-                ->on('marchands')
-                ->ondelete('cascade');
-                
+            
             $table->timestamps();
         });
     }

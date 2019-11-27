@@ -10,10 +10,10 @@ $factory->define(Message::class, function (Faker $faker) {
     return [
         'body' => $faker->realText($faker->numberBetween(10,15)), 
         'read_at' => $faker->dateTimeInInterval('now','+ 20 days'),
-        'from_id' => function(){
+        'from_user_id' => function(){
             return  User::all()->random();
         },
-        'to_id' => function(){
+        'to_user_id' => function(){
             return  User::all()->random();
         },
     ];

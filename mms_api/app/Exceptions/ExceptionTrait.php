@@ -61,7 +61,7 @@ trait ExceptionTrait{
     
     protected function ModelResponse($e){
         return response()->json([
-            "errors" => 'Aucun resultat'
+            "errors" => 'Aucun résultat'
         ],Response::HTTP_NOT_FOUND);
     }
 

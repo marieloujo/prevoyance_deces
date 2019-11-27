@@ -24,7 +24,9 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'profession '  => ['required', 'string'],
+            'profession '  => ['bail', 'string'],
+            'employeur '  => ['bail', 'string'],
+
         ];
     }
 }

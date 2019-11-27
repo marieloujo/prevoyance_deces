@@ -12,9 +12,7 @@ $factory->define(Marchand::class, function (Faker $faker) {
         'matricule' => $faker->swiftBicNumber, 
         'credit_virtuel' => $faker->randomNumber(5),
         'commission' => $faker->randomNumber(4),
-        'user_id' => function(){
-            return  User::all()->random();
-        },        
+          
         'super_marchand_id' => function(){
             return  SuperMarchand::all()->random();
         },

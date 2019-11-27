@@ -15,12 +15,13 @@ class CreateDirectionsTable extends Migration
     {
         Schema::create('directions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('role');
-            $table->unsignedBigInteger('user_id');
+            $table->string('commission')->default('0');
+             
+            $table->unsignedBigInteger('role_id');
 
-            $table->foreign('user_id')
+            $table->foreign('role_id')
                 ->references('id')
-                ->on('users')
+                ->on('roles')
                 ->ondelete('cascade');
             $table->timestamps();
         });

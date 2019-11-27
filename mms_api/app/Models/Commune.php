@@ -20,6 +20,6 @@ class Commune extends Model
         return $this->belongsTo('App\Models\Departement');
     }
     public function users(){
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany('App\User');
     }
 }

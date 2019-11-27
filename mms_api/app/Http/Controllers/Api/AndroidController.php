@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ClientResources\ClientResource;
+use App\Http\Resources\Souscripteur\ClientResource;
 use App\Http\Resources\MarchandResources\MarchandResource;
+use App\Http\Resources\UsersResource;
 use App\Http\Resources\SuperMarchandResources\SuperMarchandResource;
 use App\Models\Client;
 use App\Models\Marchand;
@@ -28,7 +29,7 @@ class AndroidController extends Controller
      */
     public function index()
     {
-        //
+        return ClientResource::collection(Client::all());
     }
 
     /**

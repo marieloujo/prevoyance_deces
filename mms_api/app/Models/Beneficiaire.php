@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Beneficiaire extends Model
 {
 
+    public $incrementing=true;
     public $table='beneficiaires';
     /**
      * The attributes that are mass assignable.
@@ -14,16 +15,21 @@ class Beneficiaire extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
+        'id',
     ];
 
     public function user(){
-        return $this->belongsTo('App\User','user_id');
+        return $this->morphOne('App\User','usereable');
     }
 
-    public function assures(){
-        return $this->belongsToMany('App\Models\Assure','benefices')->using('App\Models\Benefice')->withPivot([
-            'statut','taux',
-        ])->withTimestamps('updated_at');
+    public function benefices(){
+        return $this->hasMany('App\Models\Benefice');
     }
+
+    public function contrats(){
+        return $this->belongsToMany('App\Models\Contrat','benefices','beneficiaire_id','contrat_id')->using('App\Models\Benefice')->withPivot([
+            'statut','taux',
+        ])->withTimestamps();
+    }
+
 }

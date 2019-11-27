@@ -16,14 +16,7 @@ class CreateSuperMarchandsTable extends Migration
         Schema::create('super_marchands', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('matricule');
-            $table->string('credit_virtuel');
-            $table->string('commission');
-            $table->unsignedBigInteger('user_id');
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->ondelete('cascade');
+            $table->string('commission')->default(0);
             $table->timestamps();
         });
     }

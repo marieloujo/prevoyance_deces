@@ -12,13 +12,13 @@ class SuperMarchand extends Model
      * @var array
      */
     protected $fillable = [
-        'matricule','user_id','commission',
+        'matricule','commission',
     ];
-
-    public function user(){
-        return $this->belongsTo('App\User','user_id');
-    }
     
+    public function user(){
+        return $this->morphOne('App\User','usereable');
+    }
+
     public function comptes(){
         return $this->morphMany('App\Models\Compte','compteable');
     }

@@ -18,12 +18,6 @@ class CreateAssuresTable extends Migration
             $table->boolean('etat');
             $table->string('profession');
             $table->string('employeur');
-            $table->unsignedBigInteger('user_id');
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->ondelete('cascade');
             $table->timestamps();
         });
     }

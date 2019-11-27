@@ -12,7 +12,7 @@ $factory->define(Assurance::class, function (Faker $faker) {
     $debut= $faker->dateTimeInInterval('now','+ 2 days');
     return [
 
-        'duree' => $d,
+        'duree' => 1,
         'garantie' => 1000000,
         'prime' => $faker->randomElement([5000,10000]),
         'numero_police_assurance' =>$faker->randomNumber(5).$faker->swiftBicNumber, 
