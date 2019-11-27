@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#000</color>
+
+    <color name="white">#ffffff</color>
+    <color name="gray">#dedede</color>
+    <color name="grayTransparent">#32dedede</color>
+    <color name="grayPale">#f2f2f2</color>
+    
+    <!-- Les couleurs du logo -->
+    <color name="vertPrincipal">#029b31</color>
+    <color name="rougePrincipal">#c60c11</color>
+    <color name="jaunePrincipal">#f7d358</color>
+    <color name="violetPrincipal">#544c87</color>
+
+
+    <color name="vertFade">#2dad58</color>
+    <color name="rougeFade">#d2383a</color>
+    <color name="jauneFade">#fce99d</color>
+
+    <color name="vert_gradient">#67f293</color>
+    <color name="rougeGradiant">#ef6a6c</color>
+    <color name="rougeTransparent">#1ec60c12</color>
+
+    <color name="text_black">#cc000000</color>
+    <color name="text_gray">#c7211515</color>
+
+</resources>
