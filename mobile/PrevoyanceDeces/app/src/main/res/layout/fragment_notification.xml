@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.Notification">
+    tools:context=".fragment.client.Notification">
 
     <include layout="@layout/item_notification"/>
 
@@ -12,6 +12,6 @@
 
     <include layout="@layout/item_notification"/>
 
-
+    <include layout="@layout/item_notification"/>
 
 </LinearLayout>

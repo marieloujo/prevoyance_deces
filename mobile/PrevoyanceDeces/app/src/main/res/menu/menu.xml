@@ -2,19 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/bottom_carnet"
+        android:id="@+id/bottom_nav_accueil"
+        android:title="@string/acceuil"
+        android:icon="@drawable/acceuil"
+        android:checked="true"
+        android:iconTint="@color/black_light" />
+
+    <item
+        android:id="@+id/bottom_nav_marchands"
+        android:title="@string/marchands"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black_light"/>
+
+    <item
+        android:id="@+id/bottom_nav_discussion"
+        android:title="@string/discussion"
+        android:icon="@drawable/ic_chat"
+        android:iconTint="@color/black_light"/>
+
+    <item
+        android:id="@+id/bottom_nav_carnet"
         android:title="@string/mon_carnet"
         android:icon="@drawable/carnet_icon"
-        android:checked="true" />
+        android:iconTint="@color/black_light"/>
 
-    <item
-        android:id="@+id/bottom_marchands"
-        android:title="@string/marchands"
-        android:icon="@drawable/marchands_icon"/>
-
-    <item
-        android:id="@+id/bottom_discussion"
-        android:title="@string/discussion"
-        android:icon="@drawable/discussion_icon"/>
 
 </menu>

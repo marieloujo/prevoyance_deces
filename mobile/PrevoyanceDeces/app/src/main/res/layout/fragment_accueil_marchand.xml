@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.marchand.Accueil"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            android:layout_margin="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/black_background"
+                android:padding="15dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nom_prenom"
+                            style="@style/TextAppearance.AppCompat"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/policy_number"
+                            style="@style/TextAppearance.AppCompat"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:textColor="@color/white"/>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/circle_black"
+                        android:src="@drawable/ic_add_"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/balance"
+                    style="@style/TextAppearance.AppCompat"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_1000_fcfa"
+                        style="@style/TextAppearance.AppCompat"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_12000_fcfa"
+                        style="@style/TextAppearance.AppCompat"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/white"/>
+
+                </RelativeLayout>
+
+                <SeekBar
+                    android:id="@+id/simpleSeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp"
+                    android:max="200"
+                    android:progress="150" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.legacy.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                style="@style/TextAppearance.AppCompat"
+                android:text="@string/transactions"
+                android:textColor="@color/black_background"/>
+
+            <TextView
+                android:id="@+id/view_historique"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:text="@string/historique"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:drawableEnd="@drawable/ic_chevron_right"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:drawablePadding="6dp"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                app:cardBackgroundColor="@color/black_background"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="@string/cette_semaine"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_alignParentEnd="true"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="5dp"
+                android:layout_alignParentRight="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="Ce mois"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black_background"
+                    style="@style/TextAppearance.AppCompat" />
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <include layout="@layout/item_transaction"/>
+        <include layout="@layout/item_transaction"/>
+        <include layout="@layout/item_transaction"/>
+        <include layout="@layout/item_transaction"/>
+        <include layout="@layout/item_transaction"/>
+        <include layout="@layout/item_transaction"/>
+        <include layout="@layout/item_transaction"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

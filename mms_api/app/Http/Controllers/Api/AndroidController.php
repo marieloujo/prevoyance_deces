@@ -18,7 +18,7 @@ class AndroidController extends Controller
     //protected $user_repository;
     public function __construct(/* UserRepositoryInterface $userRepositoryInterface */)
     {
-        //$this->user_repository=$userRepositoryInterface;    
+        //$this->user_repository=$userRepositoryInterface;
     }
 
     /**
@@ -68,7 +68,7 @@ class AndroidController extends Controller
      * Display the specified resource.
      *
      * @param  int $assure
-     * @return \Illuminate\Http\Response
+     * @return ClientResource
      */
     public function client($assure)
     {
@@ -88,7 +88,7 @@ class AndroidController extends Controller
     }
 
     public function marchandzone()
-    { 
+    {
 
     }
 

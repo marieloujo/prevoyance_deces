@@ -5,10 +5,10 @@
 
     <!--- Textes des menus de bas -->
     <string name="acceuil">Accueil</string>
-    <string name="marchands">Les Marchands</string>
+    <string name="marchands">Les marchands</string>
     <string name="mon_carnet">Mon carnet</string>
     <string name="boutique_virtuelle">Boutique virtuelle</string>
-    <string name="discussion">Mes Discussions</string>
+    <string name="discussion">Mes discussions</string>
     <string name="notifications">Notifications</string>
 
 
@@ -21,62 +21,87 @@
 
     <string name="se_connecter">Se connecter</string>
     <string name="visiter">Visiter</string>
+    <string name="connexion">Connexion</string>
+    <string name="oublie">Mot de passe oublié</string>
+
+    <string name="alert_password_not_write">Veuillez saisir le mot de passe</string>
+    <string name="alert_telephone_not_write">Veuillez saisir votre numéro de télephone</string>
 
 
     <string name="lorem">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper, ipsum eget .
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper . . .
     </string>
 
     <string name="lorem2">
         Lorem ipsum dolor sit amet, consectetur
     </string>
 
-    <string name="connexion">Connexion</string>
-    <string name="telephone">Téléphone</string>
-    <string name="password">Mot de passe</string>
-    <string name="oublie">Mot de passe oublié</string>
-
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="produits_et_services">Produits et services</string>
-    <string name="partager">Partager</string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="numero">000 000 00</string>
-    <string name="email">contact@gmail.com</string>
-    <string name="name">BOUCOUZAN Alphonse</string>
-    <string name="prenom">Alphonse</string>
-    <string name="date">22 Nov 2019</string>
-    <string name="profession">Web designer</string>
-    <string name="nb_souscription">3</string>
-    <string name="duree">2 ans</string>
-    <string name="solde">100 000 FCFA</string>
-    <string name="souscription">Souscription(s)</string>
-    <string name="duree_souscription">Durée</string>
-    <string name="solde_souscription">Solde</string>
-    <string name="assure">Assurance pour:</string>
-    <string name="date_debut">Débuté le:</string>
-    <string name="marchand">Marchand</string>
-    <string name="b_n_ficier">Bénéficier</string>
-    <string name="dernier_paiement">Dernier paiement</string>
-    <string name="prochain_paiement">Prochain paiement</string>
-    <string name="approvisionement">Crédit virtuel :</string>
-    <string name="_300_000">300 000</string>
-    <string name="commission">Commission</string>
-    <string name="liste_des_clients">Liste des clients</string>
-    <string name="nom">AFOUGNE</string>
-    <string name="prenoms">Bernard</string>
+    <string name="todo">TODO</string>
+    <string name="montant_menstruel">Montant menstruel</string>
+    <string name="_1000_fcfa">1000 fcfa</string>
+    <string name="_12000_fcfa">12000 fcfa</string>
+    <string name="bonjour_joan">Salut, Joan</string>
+    <string name="immobilier">Gestion immobilière</string>
+    <string name="nos_services">Nos services</string>
+    <string name="mes_assurances">Mes assurances</string>
+    <string name="nom_prenom">AKLOUGAN Cossi</string>
+    <string name="policy_number">013386478</string>
+    <string name="active">actif</string>
+    <string name="tel">+229 000 000 00</string>
+    <string name="adresse">Adresse</string>
+    <string name="mobile">Mobile</string>
+    <string name="mail_adresse">contact@gmail.com</string>
+    <string name="il_a_8h">Il a 8h</string>
+    <string name="profession">Developpeur web</string>
+    <string name="funeral">Organisation des funérailles</string>
+    <string name="heure">14:45</string>
+    <string name="bonjour">Bonjour</string>
+    <string name="robert">Robert</string>
+    <string name="balance">Balance</string>
+    <string name="transactions">Transactions</string>
+    <string name="historique">Historique</string>
+    <string name="cette_semaine">Cette semaine</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="numero_tel">Téléphone</string>
+    <string name="user">Nom prénoms</string>
+    <string name="valider">Valider</string>
+    <string name="credit_virtuel">Mon crédit virtuel</string>
+    <string name="mes_commisions">Mes commisions</string>
     <string name="mes_clients">Mes clients</string>
-    <string name="inscrire_un_client">Inscrire un client</string>
-    <string name="mes_statistiques">Mes statistiques</string>
-    <string name="portefeuil">Portefeuil</string>
+    <string name="mes_prospects">Mes prospects</string>
+    <string name="nom">Nom</string>
+    <string name="pr_noms">Prénoms</string>
+    <string name="email">Email</string>
+    <string name="situation_matrimoniale">Situation matrimoniale</string>
+    <string name="adresse_du_domicile">Adresse du domicile</string>
+    <string name="sexe">Sexe</string>
+    <string name="annuler">Annuler</string>
+    <string name="suivant">Suivant</string>
+    <string name="qualification">Qualification</string>
+    <string name="dur_e_du_contrat">Durée du contrat</string>
+    <string name="date_de_paiement_de_prime">Date de paiement de prime</string>
+    <string name="date_de_prise_d_effet_du_contrat">Date de prise d\'effet du contrat</string>
+    <string name="date_d_ch_ance">Date d\'échéance</string>
+    <string name="info_client">Informations personnels du client</string>
+    <string name="mes_marchands">Mes marchands</string>
+    <string name="mon_profil">Mon profil</string>
+    <string name="assurance_d_c_s">Assurance décès</string>
+    <string name="notre_boutique">Notre boutique</string>
+    <string name="ajout_d_un_paiement_de_prime">Ajout d\'un paiement de prime</string>
+    <string name="date">Date</string>
+    <string name="montant">Montant</string>
+
+
+    <string name="job_success">Job Success</string>
+    <string name="ui_ux_designer">UI/UX Designer</string>
+    <string name="my_desc">Doing at the sweet spot between aesthetics and elegance to give life to your brand.My opinion belong to nobody but myself.</string>
+    <string name="about_me">About Me</string>
+    <string name="contact">Contact</string>
+    <string name="skills">Skills</string>
+    <string name="ratings">Star Ratings</string>
+    <string name="samplereview">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium bibendum sapien, ut euismod massa. Duis convallis sem sed turpis elementum auctor.</string>
 
 
 </resources>

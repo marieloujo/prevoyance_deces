@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".fragment.marchand.AddClientStepTwo"
+    android:layout_margin="15dp"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginStart="-20dp"
+        android:layout_marginLeft="-20dp"
+        android:layout_marginBottom="15dp">
+
+        <com.github.vipulasri.timelineview.TimelineView
+            android:id="@+id/timeline"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            app:marker="@drawable/marker_style"
+            app:markerSize="15dp"
+            app:lineWidth="2dp"
+            app:markerInCenter="true"
+            app:startLineColor="@color/white"
+            app:endLineColor="@color/input_border"
+            app:lineOrientation="horizontal"/>
+
+        <com.github.vipulasri.timelineview.TimelineView
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            app:marker="@drawable/timeline_active"
+            app:markerSize="15dp"
+            app:lineWidth="2dp"
+            app:markerInCenter="true"
+            app:startLineColor="@color/input_border"
+            app:endLineColor="@color/input_border"
+            app:lineOrientation="horizontal"/>
+
+        <com.github.vipulasri.timelineview.TimelineView
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            app:marker="@drawable/timeline_inactive"
+            app:markerSize="15dp"
+            app:lineWidth="2dp"
+            app:markerInCenter="true"
+            app:startLineColor="@color/input_border"
+            app:endLineColor="@color/white"
+            app:lineOrientation="horizontal"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_marginBottom="15dp"
+        android:textAlignment="center"
+        android:text="@string/info_client"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@drawable/input_style"
+        android:hint="@string/nom"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:inputType="text"
+        android:textSize="16sp"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@drawable/input_style"
+        android:hint="@string/pr_noms"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:inputType="text"
+        android:textSize="16sp"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@drawable/input_style"
+        android:hint="@string/email"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:inputType="text"
+        android:textSize="16sp"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@drawable/input_style"
+        android:hint="@string/adresse_du_domicile"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:inputType="text"
+        android:textSize="16sp"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@drawable/input_style"
+        android:hint="@string/situation_matrimoniale"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:inputType="text"
+        android:textSize="16sp"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="47dp"
+            android:background="@drawable/input_style"
+            android:hint="@string/sexe"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            style="@style/TextAppearance.AppCompat"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="10dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@drawable/input_style"
+            android:hint="Date de naissance"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            style="@style/TextAppearance.AppCompat"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@drawable/input_style"
+        android:hint="@string/mot_de_passe"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:inputType="text"
+        android:textSize="16sp"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_marginBottom="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+        <Button
+            android:id="@+id/annuler"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/annuler"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="@drawable/button_cancel"/>
+
+        <Button
+            android:id="@+id/suivant"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/suivant"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/button_next"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>

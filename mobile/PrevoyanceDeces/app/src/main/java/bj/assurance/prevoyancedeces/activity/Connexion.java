@@ -29,6 +29,8 @@ public class Connexion extends AppCompatActivity {
         errorPassword = findViewById(R.id.errorPassword);
         errorTelephone = findViewById(R.id.errorUsername);
 
+        users = "";
+
     }
 
     public void valider(View view) {
@@ -36,18 +38,20 @@ public class Connexion extends AppCompatActivity {
         if(dataisCorrect()) {
 
             if (telephone.getRawText().equals("00000000")) {
-                users = "client";
+                Intent intent = new Intent(Connexion.this, Main2Activity.class);
+                startActivity(intent);
             } else if (telephone.getRawText().equals("11111111")) {
-                users = "marchands";
+                Intent intent = new Intent(Connexion.this, MarchandMainActivity.class);
+                startActivity(intent);
             } else if (telephone.getRawText().equals("22222222")) {
                 users = "super marchants";
+                Intent intent = new Intent(Connexion.this, MarchandMainActivity.class);
+                startActivity(intent);
             } else {
                 errorTelephone.setText("Numéro de téléphone non reconnu");
                 return;
             }
 
-            Intent intent = new Intent(Connexion.this, Main2Activity.class);
-            startActivity(intent);
         } else return;
     }
 
@@ -56,12 +60,13 @@ public class Connexion extends AppCompatActivity {
         boolean bool = true;
 
         if (telephone.getRawText().isEmpty()) {
-            errorTelephone.setText("Veillez saisir votre numéro de télephone");
+            errorTelephone.setText(getString(R.string.alert_telephone_not_write));
             bool = false;
         } else errorTelephone.setText("");
 
 
         if (password.getText().toString().isEmpty()) {
+            errorPassword.setText(getString(R.string.alert_password_not_write));
             bool = false;
         } else  errorPassword.setText("");
 
@@ -75,6 +80,5 @@ public class Connexion extends AppCompatActivity {
     public void makeError() {
 
     }
-
 
 }

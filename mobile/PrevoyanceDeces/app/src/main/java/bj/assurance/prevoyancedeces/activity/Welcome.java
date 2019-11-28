@@ -9,6 +9,8 @@ import android.view.View;
 
 public class Welcome extends AppCompatActivity {
 
+    static boolean visiteur = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,12 +18,15 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void connexion(View view) {
+        visiteur = false;
         Intent intent = new Intent(Welcome.this, Connexion.class);
         startActivity(intent);
     }
 
     public void visiter(View view) {
-        Intent intent = new Intent(Welcome.this, MainActivity.class);
+        visiteur = true;
+        Intent intent = new Intent(Welcome.this, Main2Activity.class);
         startActivity(intent);
     }
+
 }

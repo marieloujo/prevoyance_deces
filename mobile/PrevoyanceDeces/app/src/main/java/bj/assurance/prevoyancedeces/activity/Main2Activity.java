@@ -1,45 +1,34 @@
 package bj.assurance.prevoyancedeces.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.fxn.BubbleTabBar;
 import com.fxn.OnBubbleClickListener;
 
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.fragment.BoutiqueVirtuelle;
-import bj.assurance.prevoyancedeces.fragment.Discussion;
-import bj.assurance.prevoyancedeces.fragment.Marchand.Accueil;
-import bj.assurance.prevoyancedeces.fragment.Marchand.InscriptionClient;
-import bj.assurance.prevoyancedeces.fragment.Marchand.Statistique;
+import bj.assurance.prevoyancedeces.fragment.client.Accueil;
+import bj.assurance.prevoyancedeces.fragment.client.Discussion;
 import bj.assurance.prevoyancedeces.fragment.client.Marchands;
-import bj.assurance.prevoyancedeces.fragment.client.MonCarnet;
-import bj.assurance.prevoyancedeces.fragment.Notification;
-import bj.assurance.prevoyancedeces.fragment.ProduitsServices;
+import bj.assurance.prevoyancedeces.fragment.client.MonProfile;
+import bj.assurance.prevoyancedeces.fragment.client.Notification;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Objects;
+public class Main2Activity extends AppCompatActivity {
 
-public class Main2Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
-    BubbleTabBar bubbleTabBar, bubbleTabBarM;
+    BubbleTabBar bubbleTabBar, bubbleTabBarV;
     FragmentTransaction fragmentTransaction;
-    TextView title;
+    @SuppressLint("StaticFieldLeak")
+    static TextView title,backTitle;
+    ImageView alert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,56 +36,37 @@ public class Main2Activity extends AppCompatActivity
         setContentView(R.layout.activity_main2);
 
         init();
+        setView();
+        setOnclickListner();
+
     }
 
     public void init() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-
-        title = findViewById(R.id.toolbarTextView);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
+        title = findViewById(R.id.frame_title);
+        backTitle = findViewById(R.id.back_frame);
+        alert = findViewById(R.id.alertIcon);
         bubbleTabBar = findViewById(R.id.bubbleTabBar);
-        bubbleTabBarM = findViewById(R.id.bubbleTabBar_marchand);
+        bubbleTabBarV = findViewById(R.id.bubbleTabBarV);
 
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+    }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        if (Connexion.users.equals("client")) {
-            navigationView.getMenu().clear();
-            navigationView.inflateMenu(R.menu.client_drawer_menu);
-
-            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.content_main,new MonCarnet());
+    public void setView() {
+        if (Welcome.visiteur) {
+            fragmentTransaction.add(R.id.content_main,new bj.assurance.prevoyancedeces.fragment.visiteur.Accueil());
             fragmentTransaction.commit();
-            title.setText(getResources().getString(R.string.mon_carnet));
+            bubbleTabBarV.setVisibility(View.VISIBLE);
+            bubbleTabBar.setVisibility(View.INVISIBLE);
 
-            bubbleTabBar.setVisibility(View.VISIBLE);
-
-        } else if (Connexion.users.equals("marchands")) {
-            navigationView.getMenu().clear();
-            navigationView.inflateMenu(R.menu.marchand_drawer_menu);
-
-            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        } else {
             fragmentTransaction.add(R.id.content_main,new Accueil());
             fragmentTransaction.commit();
-            title.setText(getResources().getString(R.string.mon_carnet));
-
-            bubbleTabBarM.setVisibility(View.VISIBLE);
-
-        } else if (Connexion.users.equals("super marchants")) {
-            navigationView.getMenu().clear();
-            navigationView.inflateMenu(R.menu.super_marchand_drawer_menu);
+            bubbleTabBarV.setVisibility(View.INVISIBLE);
+            bubbleTabBar.setVisibility(View.VISIBLE);
         }
+    }
 
-
+    public void setOnclickListner() {
         bubbleTabBar.addBubbleListener(new OnBubbleClickListener() {
             @Override
             public void onBubbleClick(int i) {
@@ -104,10 +74,17 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
-        bubbleTabBarM.addBubbleListener(new OnBubbleClickListener() {
+        bubbleTabBarV.addBubbleListener(new OnBubbleClickListener() {
             @Override
             public void onBubbleClick(int i) {
-                buttomNavigationItemClicked(i);
+                buttomNavigationVItemClicked(i);
+            }
+        });
+
+        alert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new Notification(), getResources().getString(R.string.notifications));
             }
         });
     }
@@ -116,25 +93,36 @@ public class Main2Activity extends AppCompatActivity
 
         switch (id) {
 
-            case R.id.bottom_discussion:
+            case R.id.bottom_nav_discussion:
                 replaceFragment(new Discussion(), getResources().getString(R.string.discussion));
                 break;
 
-            case R.id.bottom_carnet:
-                replaceFragment(new MonCarnet(), getResources().getString(R.string.mon_carnet));
+            case R.id.bottom_nav_carnet:
+                Intent intent = new Intent(Main2Activity.this, MonProfile.class);
+                startActivity(intent);
                 break;
 
-            case R.id.bottom_marchands:
+            case R.id.bottom_nav_marchands:
                 replaceFragment(new Marchands(), getResources().getString(R.string.marchands));
                 break;
 
-            case R.id.bottom_marchand_acceuil:
-                replaceFragment(new Accueil(), getResources().getString(R.string.acceuil));
+            case R.id.bottom_nav_accueil:
+                replaceFragment(new Accueil(), getResources().getString(R.string.bonjour_joan));
+
+        }
+    }
+
+    public void buttomNavigationVItemClicked(int id) {
+
+        switch (id) {
+
+            case R.id.bottom_nav_boutique:
+                replaceFragment(new Accueil(), getResources().getString(R.string.mon_carnet));
                 break;
 
-            case R.id.bottom_statistic:
-                replaceFragment(new Statistique(), getResources().getString(R.string.mes_statistiques));
-                break;
+            case R.id.bottom_nav_accueil:
+                replaceFragment(new bj.assurance.prevoyancedeces.fragment.visiteur.Accueil(), getResources().getString(R.string.bonjour_joan));
+
         }
     }
 
@@ -143,73 +131,7 @@ public class Main2Activity extends AppCompatActivity
         fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
 
         title.setText(titre);
-    }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main2, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_arlert) {
-            replaceFragment(new Notification(), getResources().getString(R.string.notifications));
-        } else if (id == R.id.action_chat) {
-            replaceFragment(new Discussion(), getResources().getString(R.string.discussion));
-        } else if (id == R.id.action_share) {
-            share();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_marchands) {
-            replaceFragment(new Marchands(), getResources().getString(R.string.marchands));
-        } else if (id == R.id.nav_discussion) {
-            replaceFragment(new Discussion(), getResources().getString(R.string.discussion));
-        } else if (id == R.id.nav_carnet) {
-            replaceFragment(new MonCarnet(), getResources().getString(R.string.mon_carnet));
-        } else if (id == R.id.nav_produits_services) {
-            replaceFragment(new ProduitsServices(), getResources().getString(R.string.produits_et_services));
-        } else if (id == R.id.nav_boutique_virtuelle) {
-            replaceFragment(new BoutiqueVirtuelle(),  getResources().getString(R.string.boutique_virtuelle));
-        } else if (id == R.id.nav_partager) {
-            share();
-        } else if (id == R.id.nav_accueil_marchand) {
-            replaceFragment(new Accueil(),  getResources().getString(R.string.acceuil));
-        } else if (id == R.id.nav_inscrire_client) {
-            replaceFragment(new InscriptionClient(),  getResources().getString(R.string.inscrire_un_client));
-        } else if (id == R.id.nav_statistic) {
-            replaceFragment(new Statistique(),  getResources().getString(R.string.mes_statistiques));
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     public void share(){
@@ -221,5 +143,21 @@ public class Main2Activity extends AppCompatActivity
         sendIntent.putExtra(Intent.EXTRA_TEXT, url);
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
+    }
+
+    public static TextView getTextTitle() {
+        return title;
+    }
+
+    public static void setTitle(TextView title) {
+        Main2Activity.title = title;
+    }
+
+    public static TextView getBackTitle() {
+        return backTitle;
+    }
+
+    public static void setBackTitle(TextView backTitle) {
+        Main2Activity.backTitle = backTitle;
     }
 }

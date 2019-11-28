@@ -3,8 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.Discussion">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    tools:context=".fragment.client.Discussion"
+    app:layout_goneMarginTop="15dp">
 
-   <include layout="@layout/item_discussion"/>
+    <include layout="@layout/item_discussion"/>
+    <include layout="@layout/item_discussion"/>
+    <include layout="@layout/item_discussion"/>
+    <include layout="@layout/item_discussion"/>
+    <include layout="@layout/item_discussion"/>
+    <include layout="@layout/item_discussion"/>
+    <include layout="@layout/item_discussion"/>
+    <include layout="@layout/item_discussion"/>
+    <include layout="@layout/item_discussion"/>
+    <include layout="@layout/item_discussion"/>
 
 </LinearLayout>

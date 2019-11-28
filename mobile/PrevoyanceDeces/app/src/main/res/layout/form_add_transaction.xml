@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        style="@style/TextAppearance.AppCompat"
+        android:text="@string/ajout_d_un_paiement_de_prime"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/input_border"
+        android:layout_marginBottom="15dp"/>
+
+    <!--TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        style="@style/TextAppearance.AppCompat"
+        android:text="@string/numero_tel"
+        android:layout_marginBottom="10dp"/>
+
+    <br.com.sapereaude.maskedEditText.MaskedEditText
+        android:id="@+id/etTelephone"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/input_style"
+        android:inputType="phone"
+        android:typeface="monospace"
+        mask:allowed_chars="1234567890"
+        mask:mask="+229 ### - ### - ##"
+        android:hint="1234567890"
+        app:keep_hint="false"
+        android:drawablePadding="15dp"
+        android:layout_marginBottom="15dp"/-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        style="@style/TextAppearance.AppCompat"
+        android:text="@string/user"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:hint="@string/user"
+        android:id="@+id/password"
+        android:layout_marginBottom="5dp"
+        android:inputType="textPassword"
+        android:lines="1"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="15dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                style="@style/TextAppearance.AppCompat"
+                android:text="@string/date"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="@string/date"
+                android:layout_marginBottom="5dp"
+                android:inputType="textPassword"
+                android:lines="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                style="@style/TextAppearance.AppCompat"
+                android:text="@string/montant"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="@string/montant"
+                android:drawablePadding="15dp"
+                android:layout_marginBottom="5dp"
+                android:inputType="textPassword"
+                android:lines="1"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/yellow_active"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/valider"
+        android:textSize="16sp"
+        android:textAllCaps="false"/>
+
+
+</LinearLayout>
