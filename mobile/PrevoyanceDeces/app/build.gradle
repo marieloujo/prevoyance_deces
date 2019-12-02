@@ -27,26 +27,33 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.0.0-alpha1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-alpha1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
 
-    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.2'
-    implementation 'com.oprisnik:navdrawer:1.0.4'
+
     implementation 'ru.egslava:MaskedEditText:1.0.5'
     implementation 'com.fxn769:bubbletabbar:1.0.1'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
-    implementation 'br.com.simplepass:loading-button-android:2.2.0'
-    implementation 'com.gjiazhe:wavesidebar:1.3'
     implementation "com.arthurivanets.bottomsheet:bottomsheets-core:1.1.2"
     implementation 'ir.farshid_roohi:linegraph:0.1.1'
     implementation 'com.github.vipulasri:timelineview:1.1.1'
-    implementation 'com.github.stfalcon:chatkit:0.3.3'
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
     implementation 'com.diegodobelo.expandingview:expanding-view:0.9.4'
+    implementation 'com.github.TutorialsAndroid:KAlertDialog:v4.1'
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.0.6'
+    implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+
+    //Optional: see how to use the utility.
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
+    implementation 'com.andreabaccega:android-form-edittext:1.3.5'
+    implementation 'com.github.salahamassi:android-mask-date-editText:v1.02'
+    implementation 'com.github.drawers:SpinnerDatePicker:2.0.1'
+
 
 
 

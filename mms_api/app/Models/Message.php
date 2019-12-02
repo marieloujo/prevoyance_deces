@@ -11,6 +11,6 @@ class Message extends Pivot
     public $table='messages';
 
     protected $fillable = [
-        'body','read_at','from_id','to_id',
+        'body','read_at','from_user_id','to_user_id',
     ];
 }

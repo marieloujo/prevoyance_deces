@@ -48,7 +48,6 @@ public class Historique extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_historique, container, false);
 
-        MarchandMainActivity.getFloatingActionButton().setVisibility(View.VISIBLE);
         lineChart = view.findViewById(R.id.lineChart);
 
         ChartEntity firstChartEntity = new  ChartEntity(Color.WHITE, graph1);

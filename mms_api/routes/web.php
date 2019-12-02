@@ -204,20 +204,20 @@ Route::get('/', function () {
 
     ];
 
-    // $dep_data = [
-    //     ['nom' => 'Alibori','created_at' => now(),'updated_at' => now()],
-    //     ['nom' =>'Atacora','created_at' => now(),'updated_at' => now()],
-    //     ['nom' =>'Atlantique','created_at' => now(),'updated_at' => now()],
-    //     ['nom' =>'Borgou','created_at' => now(),'updated_at' => now()],
-    //     ['nom' =>'Colline','created_at' => now(),'updated_at' => now()],
-    //     ['nom' => 'Couffo','created_at' => now(),'updated_at' => now()],
-    //     ['nom' =>'Donga','created_at' => now(),'updated_at' => now()],
-    //     ['nom' =>'Littoral','created_at' => now(),'updated_at' => now()],
-    //     ['nom' =>'Mono','created_at' => now(),'updated_at' => now()],
-    //     ['nom' =>'Oueme','created_at' => now(),'updated_at' => now()],
-    //     ['nom' =>'Plateau','created_at' => now(),'updated_at' => now()],
-    //     ['nom' =>'Zou','created_at' => now(),'updated_at' => now()],
-    // ];
+    $dep_data = [
+        ['nom' => 'Alibori','created_at' => now(),'updated_at' => now()],
+        ['nom' =>'Atacora','created_at' => now(),'updated_at' => now()],
+        ['nom' =>'Atlantique','created_at' => now(),'updated_at' => now()],
+        ['nom' =>'Borgou','created_at' => now(),'updated_at' => now()],
+        ['nom' =>'Colline','created_at' => now(),'updated_at' => now()],
+        ['nom' => 'Couffo','created_at' => now(),'updated_at' => now()],
+        ['nom' =>'Donga','created_at' => now(),'updated_at' => now()],
+        ['nom' =>'Littoral','created_at' => now(),'updated_at' => now()],
+        ['nom' =>'Mono','created_at' => now(),'updated_at' => now()],
+        ['nom' =>'Oueme','created_at' => now(),'updated_at' => now()],
+        ['nom' =>'Plateau','created_at' => now(),'updated_at' => now()],
+        ['nom' =>'Zou','created_at' => now(),'updated_at' => now()],
+    ];
 
     //Departement::insert($dep_data);
     //Commune::insert($data);
@@ -225,8 +225,4 @@ Route::get('/', function () {
  
 //DB::insert('insert into communes (nom,departement_id,created_at,updated_at) values (?, ?, ?, ?)',$data);
 
-
-
 });
-
-Route::get('test','ModelsClientController@index');

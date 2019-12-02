@@ -12,7 +12,17 @@ class Direction extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id','role',
+        'role_id','commission',
     ];
+
+
+    public function user(){
+        return $this->morphOne('App\User','usereable');
+    }
+
+
+    public function role(){
+        return $this->belongsTo('App\Models\Role');
+    }
 
 }

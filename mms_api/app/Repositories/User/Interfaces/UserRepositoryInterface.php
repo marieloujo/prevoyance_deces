@@ -2,6 +2,8 @@
 
 namespace App\Repositories\User\Interfaces;
 
+use App\User;
+
 interface UserRepositoryInterface
 {
 
@@ -18,7 +20,6 @@ interface UserRepositoryInterface
      * @return mixed
      */
     public function logout();
-
 
     /**
      * Deletes an user.
@@ -41,19 +42,37 @@ interface UserRepositoryInterface
      */
     public function getByName($name);
 
+    public function getEvolution();
+
+
+    /**
+     * Get's an user by it's name
+     *
+     * @param string
+     */
+    public function getByPhone($phone);
+
+
+    /**
+     * Get's an user authenticate
+     *
+     * @param string
+     */
+    public function getAuth();
+
     /**
      * Login an user.
      *
      * @param array
      */
-    public function login(array $user_data);
+    public function login(array $user_data,$client_id,$client_secret);
 
     /**
      * Register an user.
      *
      * @param array
      */
-    public function register(array $user_data);
+    public function register(array $user_data,$model_id,$model_type,$actif,$prospect);
 
     /**
      * Update an user.
@@ -61,7 +80,6 @@ interface UserRepositoryInterface
      * @param int
      * @param array
      */
-    public function update($id, array $user_data);
-
+    public function update($id, array $user_data,$actif,$prospect,$model_id,$model_type);
 
 }

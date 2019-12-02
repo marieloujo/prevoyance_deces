@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\User\Interfaces\UserRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,22 +17,43 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->post('/logout', function (Request $request) {
+//     $request->user()->token()->revoke();
+//     return response()->json([
+//         'message' => 'Successfully logged out'
+//     ]);
+// });
 
-
-Route::post('login','Api\UserController@login');
-Route::post('logout','Api\UserController@logout');
-Route::post('register','Api\UserController@register');
-
-//Route::group(['middleware' => 'auth:api'], function() {
+Route::group(['middleware' => 'auth:api'], function(){
     
     Route::get('user','Api\UserController@user');
+    Route::get('marchands/commune','Api\MarchandController@showByCommune');
+    
     Route::post('logout','Api\UserController@logout');
-                
-    Route::get('clients/{name}','Api\AndroidController@client');
-    Route::get('marchands/{name}','Api\AndroidController@marchand');
-    Route::get('clients/','Api\AndroidController@marchandzone');
-    Route::get('super_marchands/{name}','Api\AndroidController@super_marchand');
-//});
+    
+    Route::apiResource('clients','Api\ClientController');
+    Route::apiResource('users','Api\UserController');
+
+    Route::get('search-user-name/{name}','Api\UserController@showByName');
+    Route::get('search-user-phone/{phone}','Api\UserController@showByPhone');
+    Route::get('statistique','Api\UserController@statistique');
+    Route::get('marchands/{departement}','Api\MarchandController@showByCommune');
+});
+
+Route::post('login','Api\UserController@login');
+Route::post('register','Api\UserController@register');
+
+
+//save client
+
+// souscrire pour client //get client
+
+//depot dans portefeuille
+
+//demande de payement
+
+//
+
+//enregistrer prospect
+
+//

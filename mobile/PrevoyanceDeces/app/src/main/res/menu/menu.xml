@@ -6,25 +6,31 @@
         android:title="@string/acceuil"
         android:icon="@drawable/acceuil"
         android:checked="true"
-        android:iconTint="@color/black_light" />
+        android:iconTint="@color/black" />
 
     <item
         android:id="@+id/bottom_nav_marchands"
         android:title="@string/marchands"
         android:icon="@drawable/marchands_icon"
-        android:iconTint="@color/black_light"/>
+        android:iconTint="@color/black"/>
 
     <item
         android:id="@+id/bottom_nav_discussion"
         android:title="@string/discussion"
         android:icon="@drawable/ic_chat"
-        android:iconTint="@color/black_light"/>
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/bottom_nav_boutique"
+        android:title="@string/boutique_virtuelle"
+        android:icon="@drawable/boutique_virtuelle_icon"
+        android:iconTint="@color/black"/>
 
     <item
         android:id="@+id/bottom_nav_carnet"
         android:title="@string/mon_carnet"
         android:icon="@drawable/carnet_icon"
-        android:iconTint="@color/black_light"/>
+        android:iconTint="@color/black"/>
 
 
 </menu>

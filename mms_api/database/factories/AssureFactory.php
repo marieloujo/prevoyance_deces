@@ -10,11 +10,7 @@ $factory->define(Assure::class, function (Faker $faker) {
     return [
         'profession' => $faker->randomElement(['Commerçant','Conducteur','Agriculteur','Artisan','Ingenieur','Policier']),
         'employeur' => $faker->name,
-        'etat' => $faker->randomElement([true,false]),
-        'user_id' => function(){
-            return  User::all()->random();
-        },
-    
-        //
+        'etat' => $faker->randomElement([true,false]),   
+        
     ];
 });

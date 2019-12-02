@@ -10,12 +10,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.FragmentManager;
 import bj.assurance.prevoyancedeces.R;
 import bj.assurance.prevoyancedeces.activity.MarchandMainActivity;
+import bj.assurance.prevoyancedeces.fragment.client.Marchands;
 
 public class AddClient extends Fragment {
+
+    private Button cancel, next;
 
     public AddClient() {
         // Required empty public constructor
@@ -36,9 +40,36 @@ public class AddClient extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_main_marchand, new AddClientStepOne()).commit();
 
-
-        MarchandMainActivity.getFloatingActionButton().setVisibility(View.INVISIBLE);
-
         return view;
+    }
+
+    public void init(View view) {
+
+        cancel = view.findViewById(R.id.annuler);
+        next = view.findViewById(R.id.suivant);
+    }
+
+    public void setClickListener() {
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFraglent(new ListeClients());
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFraglent(new AddClientStepTwo());
+            }
+        });
+    }
+
+
+    public void replaceFraglent(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_form, fragment).commit();
+
     }
 }

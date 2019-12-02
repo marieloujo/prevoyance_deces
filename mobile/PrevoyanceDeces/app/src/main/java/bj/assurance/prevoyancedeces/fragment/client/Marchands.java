@@ -8,20 +8,40 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.diegodobelo.expandingview.ExpandingItem;
 import com.diegodobelo.expandingview.ExpandingList;
-import com.gjiazhe.wavesidebar.WaveSideBar;
+import com.kinda.alert.KAlertDialog;
 
-import androidx.appcompat.app.AlertDialog;
+import java.util.List;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.Utils.AccessToken;
+import bj.assurance.prevoyancedeces.Utils.ApiError;
+import bj.assurance.prevoyancedeces.Utils.Utils;
 import bj.assurance.prevoyancedeces.activity.Main2Activity;
-import bj.assurance.prevoyancedeces.activity.MarchandMainActivity;
+import bj.assurance.prevoyancedeces.adapter.DiscussionAdapter;
+import bj.assurance.prevoyancedeces.model.Commune;
+import bj.assurance.prevoyancedeces.model.Departement;
+import bj.assurance.prevoyancedeces.model.Message;
+import bj.assurance.prevoyancedeces.model.Utilisateur;
+import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
+import bj.assurance.prevoyancedeces.retrofit.Service.ClientService;
+import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
+import bj.assurance.prevoyancedeces.retrofit.TokenManager;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 public class Marchands extends Fragment {
 
@@ -43,51 +63,20 @@ public class Marchands extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_marchands, container, false);
 
-        // MarchandMainActivity.getFloatingActionButton().setVisibility(View.VISIBLE);
-
-        // init(view);
-
-        mExpandingList = view.findViewById(R.id.expanding_list_main);
-        createItems();
+        init(view);
+        getMessageofUser(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken());
 
         return view;
     }
 
     public void init(View view) {
-        Main2Activity.getTextTitle().setVisibility(View.VISIBLE);
-        Main2Activity.getBackTitle().setVisibility(View.INVISIBLE);
 
-        Main2Activity.getBackTitle().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                return;
-            }
-        });
+        mExpandingList = view.findViewById(R.id.expanding_list_main);
 
-        LinearLayout linearLayout = view.findViewById(R.id.item_marchand);
-
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_main, new DetailMarchand()).commit();
-            }
-        });
     }
 
-    private void createItems() {
-        addItem("John", new String[]{"House", "Boat", "Candy", "Collection", "Sport", "Ball", "Head"});
-        addItem("Mary", new String[]{"Dog", "Horse", "Boat"});
-        addItem("Ana", new String[]{"Cat"});
-        addItem("Peter", new String[]{"Parrot", "Elephant", "Coffee"});
-        addItem("Joseph", new String[]{});
-        addItem("Paul", new String[]{"Golf", "Football"});
-        addItem("Larry", new String[]{"Ferrari", "Mazda", "Honda", "Toyota", "Fiat"});
-        addItem("Moe", new String[]{"Beans", "Rice", "Meat"});
-        addItem("Bart", new String[]{"Hamburger", "Ice cream", "Candy"});
-    }
-
-    private void addItem(String title, String[] subItems) {
+    @SuppressLint("SetTextI18n")
+    private void addItem(String title, List<Utilisateur> subItems) {
         //Let's create an item with R.layout.expanding_layout
         final ExpandingItem item = mExpandingList.createNewItem(R.layout.expanding_layout);
 
@@ -97,67 +86,83 @@ public class Marchands extends Fragment {
             item.setIndicatorIconRes(R.drawable.ic_location_black);
             //It is possible to get any view inside the inflated layout. Let's set the text in the item
 
-            // ((TextView) item.findViewById(R.id.title)).setText(title);
+            ((TextView) item.findViewById(R.id.title)).setText(title);
 
             //We can create items in batch.
-            item.createSubItems(subItems.length);
-            for (int i = 0; i < item.getSubItemsCount(); i++) {
-                //Let's get the created sub item by its index
-                final View view = item.getSubItemView(i);
+            item.createSubItems(subItems.size());
 
-                //Let's set some values in
-                configureSubItem(item, view, subItems[i]);
+            for (int i = 0; i < subItems.size(); i++) {
+                View subItemZero = item.getSubItemView(i);
+                ((TextView) subItemZero.findViewById(R.id.nom_prenom_marchand)).setText(subItems.get(i).getNom()+ " " +
+                                subItems.get(i).getPrenom());
+                ((TextView) subItemZero.findViewById(R.id.numero_marchand)).setText(subItems.get(i).getTelephone());
+
             }
 
-            /*item.findViewById(R.id.).setOnClickListener(new View.OnClickListener() {<
-                @Override
-                public void onClick(View v) {
-                    showInsertDialog(new OnItemCreated() {
-                        @Override
-                        public void itemCreated(String title) {
-                            View newSubItem = item.createSubItem();
-                            configureSubItem(item, newSubItem, title);
-                        }
-                    });
-                }
-            });
-
-            item.findViewById(R.id.remove_item).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mExpandingList.removeItem(item);
-                }
-            });*/
         }
+
     }
 
-    private void configureSubItem(final ExpandingItem item, final View view, String subTitle) {
-        //((TextView) view.findViewById(R.id.sub_title)).setText(subTitle);
-        /*view.findViewById(R.id.remove_sub_item).setOnClickListener(new View.OnClickListener() {
+    public void getMessageofUser(AccessToken accessToken) {
+
+        Call<Departement> call;
+        ClientService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(ClientService.class);
+        call = service.getMarchandsinClient();
+        call.enqueue(new Callback<Departement>() {
             @Override
-            public void onClick(View v) {
-                item.removeSubItem(view);
+            public void onResponse(Call<Departement> call, Response<Departement> response) {
+
+                if (response.isSuccessful()) {
+                    System.out.println(response.body());
+
+                    for (int i = 0; i < response.body().getCommunes().size(); i++) {
+                        if (!(response.body().getCommunes().get(i).getUtilisateurs().size() == 0)) {
+                            addItem(response.body().getCommunes().get(i).getNom(), response.body().getCommunes().get(i).getUtilisateurs());
+
+                        }
+                    }
+
+                } else {
+                    if (response.code() == 422) {
+                        System.out.println(response.errorBody().source());
+                        handleErrors(response.errorBody());
+                    }
+                    if (response.code() == 401) {
+                        ApiError apiError = Utils.converErrors(response.errorBody());
+                        Toast.makeText(getContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
             }
-        });*/
-    }
 
-    /*private void showInsertDialog(final OnItemCreated positive) {
-        final EditText text = new EditText(getContext());
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setView(text);
-        builder.setTitle(R.string.enter_title);
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                positive.itemCreated(text.getText().toString());
+            public void onFailure(Call<Departement> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage());
+                //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+
+                new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
+                        .setTitleText("Connexion impossibe au serveur")
+                        .setContentText("Oups!!! quelque chose s'est mal passé vérifier votre connexion internet et réessayer")
+                        .showCancelButton(true)
+                        .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.cancel();
+                            }
+                        })
+                        .show();
             }
         });
-        builder.setNegativeButton(android.R.string.cancel, null);
-        builder.show();
-    }*/
-
-    interface OnItemCreated {
-        void itemCreated(String title);
     }
+
+    private void handleErrors(ResponseBody response) {
+
+        ApiError apiError = Utils.converErrors(response);
+
+    }
+
+
+
+
 
 }

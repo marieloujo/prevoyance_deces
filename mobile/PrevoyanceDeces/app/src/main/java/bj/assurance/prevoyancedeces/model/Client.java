@@ -2,6 +2,7 @@ package bj.assurance.prevoyancedeces.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,21 +17,24 @@ public class Client {
     @SerializedName("employeur")
     private String employeur;
 
-    @SerializedName("information_personnelle")
+    @SerializedName("contrats")
+    private List<Contrat> contrats = new ArrayList<>();
+
+    @SerializedName("user")
     private Utilisateur utilisateur;
 
-    @SerializedName("marchand")
-    private List<Marchand> marchand;
+    @SerializedName("created_at")
+    private String createdAt;
 
-    private Date dateCreation;
-
-    private Date dateModification;
-
-    @SerializedName("assures")
-    private List<Assurer> assurers;
+    @SerializedName("updated_at")
+    private String updatedAt;
 
 
-
+    public Client(String profession, String employeur, Utilisateur utilisateur) {
+        this.profession = profession;
+        this.employeur = employeur;
+        this.utilisateur = utilisateur;
+    }
 
     public Long getId() {
         return id;
@@ -56,43 +60,48 @@ public class Client {
         this.employeur = employeur;
     }
 
+    public List<Contrat> getContrats() {
+        return contrats;
+    }
+
+    public void setContrats(List<Contrat> contrats) {
+        this.contrats = contrats;
+    }
+
     public Utilisateur getUtilisateur() {
         return utilisateur;
-    }
-
-    public List<Assurer> getAssurers() {
-        return assurers;
-    }
-
-    public void setAssurers(List<Assurer> assurers) {
-        this.assurers = assurers;
     }
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
     }
 
-    public List<Marchand> getMarchand() {
-        return marchand;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setMarchand(List<Marchand> marchand) {
-        this.marchand = marchand;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Date getDateCreation() {
-        return dateCreation;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public Date getDateModification() {
-        return dateModification;
-    }
-
-    public void setDateModification(Date dateModification) {
-        this.dateModification = dateModification;
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", profession='" + profession + '\'' +
+                ", employeur='" + employeur + '\'' +
+                ", contrats=" + contrats +
+                ", utilisateur=" + utilisateur +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
     }
 }

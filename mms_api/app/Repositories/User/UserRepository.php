@@ -2,6 +2,7 @@
 
 namespace App\Repositories\User;
 
+use App\Models\Commune;
 use App\Models\Image;
 use App\User;
 use Illuminate\Http\Request;
@@ -28,6 +29,16 @@ class UserRepository implements UserRepositoryInterface
         return $this->user->findOrfail($id);
     }
 
+    public function getAuth()
+    {
+        return Auth::user();
+    }
+
+    public function getByPhone($phone)
+    {
+        return $this->user->where('telephone','=',$phone)->first();
+    }
+
     /**
      * Get a user by it's ID
      *
@@ -37,7 +48,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function getByName($name)
     {
-        return $this->user->where('nom','=',$name)->get();
+        return $this->user->where('nom',$name)->orWhere('prenom',$name)->get();
     }
 
     /**
@@ -55,18 +66,17 @@ class UserRepository implements UserRepositoryInterface
      *
      * @return mixed
      */
-    public function login(array $user_data)
+    public function login(array $user_data,$client_id,$client_secret)
     {
         $credentials = Request::create('/oauth/token', 'POST', [
             'grant_type' => 'password',
-            'client_id' => 2 ,//env('VUE_CLIENT_ID'),//config('services.vue_client.id'),
-            'client_secret' => 'La7NqEiQRe9lfI2vWgOO9bTkm4fczQuiwu5KXfZg',// env('VUE_CLIENT_SECRET'),// config('services.vue_client.secret'),
+            'client_id' => $client_id,//env('VUE_CLIENT_ID'),//config('services.vue_client.id'),
+            'client_secret' => $client_secret,// env('VUE_CLIENT_SECRET'),// config('services.vue_client.secret'),
             'username' => $user_data['login'],
             'password' => $user_data['password'],
         ]);
         
         return app()->handle($credentials);
-
     }
 
     /**
@@ -76,9 +86,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function logout()
     {
-        $accessToken = auth()->user()->token();
-        DB::table('oauth_access_tokens')->where('id', $accessToken)->delete();
-        DB::table('oauth_refresh_tokens')->where('access_token_id', $accessToken)->delete();
+        return $this->getAuth()->token()->revoke();
     }
 
     /**
@@ -97,17 +105,26 @@ class UserRepository implements UserRepositoryInterface
      *
      * @param array
      */
-    public function register(array $user_data)
+    public function register(array $user_data,$model_id,$model_type,$actif,$prospect)
     {
             $user = new User();
-            $user->name = $user_data['name'];
+            $user->nom = $user_data['nom'];
+            $user->prenom = $user_data['prenom'];
+            $user->adresse = $user_data['adresse'];
             $user->telephone = $user_data['telephone'];
-            $user->role_id = 1;
-            $p=$user_data['password'];
+            $user->date_naissance = $user_data['date_naissance'];
+            $user->sexe = $user_data['sexe'];
+            $user->situation_matrimoniale = $user_data['situation_matrimoniale'];
+            $user->email = $user_data['email'];
+            $user->login = $user_data['telephone'];
+            $user->prospect = $prospect;
+            $user->actif = $actif;
             $user->password = bcrypt( $user_data['password'] );
-            $user->save();
+            $user->usereable_id = $model_id;
+            $user->usereable_type = $model_type;
+            $user->commune_id = $user_data['commune_id'];
 
-            return $this->login($user_data);
+            return $user->save();
     }
 
     /**
@@ -116,14 +133,31 @@ class UserRepository implements UserRepositoryInterface
      * @param int
      * @param array
      */
-    public function update($id, array $user_data)
+    public function update($id, array $user_data,$actif,$prospect,$model_id,$model_type)
     {
             $user =  $this->user->findOrfail($id);
-            $user->name = $user_data['name'];
+            
+            $user->nom = $user_data['nom'];
+            $user->prenom = $user_data['prenom'];
+            $user->adresse = $user_data['adresse'];
             $user->telephone = $user_data['telephone'];
+            $user->date_naissance = $user_data['date_naissance'];
+            $user->sexe = $user_data['sexe'];
+            $user->situation_matrimoniale = $user_data['situation_matrimoniale'];
+            $user->email = $user_data['email'];
+            $user->login = $user_data['telephone'];
+            $user->prospect = $prospect;
+            $user->actif = $actif;
             $user->password = bcrypt( $user_data['password'] );
-            $user->update();
+            $user->usereable_id = $model_id;
+            $user->usereable_type = $model_type;
+            $user->commune_id = $user_data['commune_id'];
+            return $user->update();
     }
 
+
+    public function getEvolution(){
+        return $this->getAuth()->usereable->comptes;
+    }
 }
 

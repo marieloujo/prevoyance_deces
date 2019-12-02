@@ -15,7 +15,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             android:layout_height="40dp"
-            app:cardBackgroundColor="@color/yellow_active"
+            app:cardBackgroundColor="@color/black_background"
             app:cardCornerRadius="8dp"
             android:layout_margin="5dp">
 
@@ -25,6 +25,7 @@
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:text="@string/cette_semaine"
+                android:textColor="@color/white"
                 style="@style/TextAppearance.AppCompat"
                 android:layout_gravity="center"/>
 

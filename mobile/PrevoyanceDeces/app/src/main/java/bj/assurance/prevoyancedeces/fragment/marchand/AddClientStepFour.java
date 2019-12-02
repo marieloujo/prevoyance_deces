@@ -41,7 +41,7 @@ public class AddClientStepFour extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFraglent(new Marchands());
+                replaceFraglent(new ListeClients());
             }
         });
 

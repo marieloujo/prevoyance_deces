@@ -74,6 +74,13 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'passwords' => [
+            'users' => [
+                'provider' => 'users',
+                'table' => 'password_resets',
+                'expire' => 60,
+            ],
+        ],
     ],
 
     /*

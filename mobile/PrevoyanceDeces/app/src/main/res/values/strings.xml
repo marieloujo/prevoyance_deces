@@ -7,7 +7,7 @@
     <string name="acceuil">Accueil</string>
     <string name="marchands">Les marchands</string>
     <string name="mon_carnet">Mon carnet</string>
-    <string name="boutique_virtuelle">Boutique virtuelle</string>
+    <string name="boutique_virtuelle">Boutique</string>
     <string name="discussion">Mes discussions</string>
     <string name="notifications">Notifications</string>
 
@@ -33,7 +33,7 @@
     </string>
 
     <string name="lorem2">
-        Lorem ipsum dolor sit amet, consectetur
+        Lorem ipsum dolor sit
     </string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -45,7 +45,7 @@
     <string name="bonjour_joan">Salut, Joan</string>
     <string name="immobilier">Gestion immobilière</string>
     <string name="nos_services">Nos services</string>
-    <string name="mes_assurances">Mes assurances</string>
+    <string name="mes_assurances">Mes contrats</string>
     <string name="nom_prenom">AKLOUGAN Cossi</string>
     <string name="policy_number">013386478</string>
     <string name="active">actif</string>
@@ -53,7 +53,7 @@
     <string name="adresse">Adresse</string>
     <string name="mobile">Mobile</string>
     <string name="mail_adresse">contact@gmail.com</string>
-    <string name="il_a_8h">Il a 8h</string>
+    <string name="il_a_8h">Lorem ipsum . Il a 8h</string>
     <string name="profession">Developpeur web</string>
     <string name="funeral">Organisation des funérailles</string>
     <string name="heure">14:45</string>
@@ -80,11 +80,11 @@
     <string name="annuler">Annuler</string>
     <string name="suivant">Suivant</string>
     <string name="qualification">Qualification</string>
-    <string name="dur_e_du_contrat">Durée du contrat</string>
+    <string name="dur_e_du_contrat">Durée</string>
     <string name="date_de_paiement_de_prime">Date de paiement de prime</string>
     <string name="date_de_prise_d_effet_du_contrat">Date de prise d\'effet du contrat</string>
     <string name="date_d_ch_ance">Date d\'échéance</string>
-    <string name="info_client">Informations personnels du client</string>
+    <string name="info_client">Informations relative au client</string>
     <string name="mes_marchands">Mes marchands</string>
     <string name="mon_profil">Mon profil</string>
     <string name="assurance_d_c_s">Assurance décès</string>
@@ -102,6 +102,31 @@
     <string name="skills">Skills</string>
     <string name="ratings">Star Ratings</string>
     <string name="samplereview">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium bibendum sapien, ut euismod massa. Duis convallis sem sed turpis elementum auctor.</string>
+    <string name="portefeuille">Portefeuille</string>
+    <string name="commander">Commander</string>
+    <string name="entrer_votre_texte">Entrer votre texte</string>
+    <string name="date_de_naissance">Date de naissance</string>
+    <string name="error_input_sexe">Veuillez renseigner le sexe du client</string>
+    <string name="error_input_date">Veuillez renseinger la date de naissance du client</string>
+    <string name="error_input_sm">Veuillez renseigner la situation matrimonial du client</string>
+    <string name="profession_cli">Profession</string>
+
+
+    <string-array name="situation_matrimoniale">
+        <item>Situation matrimoniale</item>
+        <item>Célibataire</item>
+        <item>Marié(e)</item>
+        <item>Divorcé(e)</item>
+        <item>Veuf(ve)</item>
+        <item>Concubin(e)</item>
+    </string-array>
+
+
+    <string-array name="sexe">
+        <item>Sexe</item>
+        <item>Masculin</item>
+        <item>Féminim</item>
+    </string-array>
 
 
 </resources>

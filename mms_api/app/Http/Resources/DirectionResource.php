@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\RoleResource;
+use App\Http\Resources\UsersResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DirectionResource extends JsonResource
@@ -16,8 +18,8 @@ class DirectionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'role' => $this->role,
-            'user' => UserResource::collection($this->user),
+            'user' => new UsersResource($this->user),
+            'role' => new RoleResource($this->role),
         ];
     }
 }

@@ -18,13 +18,8 @@ class CreateMarchandsTable extends Migration
             $table->string('matricule');
             $table->string('credit_virtuel');
             $table->string('commission');
-            $table->unsignedBigInteger('user_id');
+                        
             $table->unsignedBigInteger('super_marchand_id');
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->ondelete('cascade');
 
             $table->foreign('super_marchand_id')
                 ->references('id')

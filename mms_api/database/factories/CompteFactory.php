@@ -9,9 +9,9 @@ use Faker\Generator as Faker;
 
 $factory->define(Compte::class, function (Faker $faker) {
     return [
-        'montant' => $faker->randomNumber(4),
-        //'compte' => 'credit_virtuel',
-        'compte' => 'commission',
+        'montant' => $faker->randomNumber(3),
+        'compte' => 'credit_virtuel',
+        //'compte' => 'commission',
         'compteable_id' => function(){
             return  Marchand::all()->random();
         },

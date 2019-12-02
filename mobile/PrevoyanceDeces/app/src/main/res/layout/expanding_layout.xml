@@ -13,4 +13,4 @@
     app:show_animation="true"
     app:show_indicator="true"
     app:start_collapsed="true"
-    app:sub_item_layout="@layout/item_marchand"/>
+    app:sub_item_layout="@layout/item_marchands"/>

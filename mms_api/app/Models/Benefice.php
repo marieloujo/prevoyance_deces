@@ -11,6 +11,16 @@ class Benefice extends Pivot
     public $table='benefices';
 
     protected $fillable = [
-        'statut','taux','beneficiaire_id','assure_id',
+        'statut','taux','beneficiaire_id','contrat_id',
     ];
+
+    
+    public function contrat(){
+        return $this->belongsTo('App\Models\Contrat','contrat_id');
+    }
+    
+    public function beneficiaire(){
+        return $this->belongsTo('App\Models\Beneficiaire','beneficiaire_id');
+    }
+
 }

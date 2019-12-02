@@ -3,6 +3,7 @@ package bj.assurance.prevoyancedeces.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.List;
 
 public class Marchand {
 
@@ -12,18 +13,34 @@ public class Marchand {
     @SerializedName("matricule")
     private String matricule;
 
+    @SerializedName("credit_virtuel")
     private String creditVirtuel;
 
+    @SerializedName("commission")
     private String commission;
 
-    @SerializedName("information_personnelle")
-    private Utilisateur utilisateur;
+    @SerializedName("comptes")
+    private List<Compte> commissions;
 
+    //@SerializedName("comptes")
+    private List<Compte> creditVirtuels;
+
+    @SerializedName("super_marchand")
     private SuperMarchand superMarchand;
 
-    private Date dateCreation;
+    @SerializedName("contrats")
+    private List<Contrat> contrats;
 
-    private Date dateModification;
+    @SerializedName("user")
+    private Utilisateur utilisateur;
+
+    public Marchand(String matricule, String creditVirtuel, String commission, SuperMarchand superMarchand, Utilisateur utilisateur) {
+        this.matricule = matricule;
+        this.creditVirtuel = creditVirtuel;
+        this.commission = commission;
+        this.superMarchand = superMarchand;
+        this.utilisateur = utilisateur;
+    }
 
     public Long getId() {
         return id;
@@ -57,14 +74,6 @@ public class Marchand {
         this.commission = commission;
     }
 
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
-    }
-
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
-    }
-
     public SuperMarchand getSuperMarchand() {
         return superMarchand;
     }
@@ -73,19 +82,50 @@ public class Marchand {
         this.superMarchand = superMarchand;
     }
 
-    public Date getDateCreation() {
-        return dateCreation;
+    public List<Compte> getCommissions() {
+        return commissions;
     }
 
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setCommissions(List<Compte> commissions) {
+        this.commissions = commissions;
     }
 
-    public Date getDateModification() {
-        return dateModification;
+    public List<Compte> getCreditVirtuels() {
+        return creditVirtuels;
     }
 
-    public void setDateModification(Date dateModification) {
-        this.dateModification = dateModification;
+    public void setCreditVirtuels(List<Compte> creditVirtuels) {
+        this.creditVirtuels = creditVirtuels;
+    }
+
+    public List<Contrat> getContrats() {
+        return contrats;
+    }
+
+    public void setContrats(List<Contrat> contrats) {
+        this.contrats = contrats;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    @Override
+    public String toString() {
+        return "Marchand{" +
+                "id=" + id +
+                ", matricule='" + matricule + '\'' +
+                ", creditVirtuel='" + creditVirtuel + '\'' +
+                ", commission='" + commission + '\'' +
+                ", commissions=" + commissions +
+                ", creditVirtuels=" + creditVirtuels +
+                ", superMarchand=" + superMarchand +
+                ", contrats=" + contrats +
+                ", utilisateur=" + utilisateur +
+                '}';
     }
 }

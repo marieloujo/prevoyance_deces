@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#000</color>
 
+    <color name="black">#000</color>
+
     <color name="white">#fbfbfb</color>
     <color name="gray">#eeeeee</color>
     <color name="grayTransparent">#9fdedede</color>
@@ -62,5 +64,19 @@
     <color name="orange_bg_light">#fff3e0</color>
     <color name="grey_bg_light">#fafafa</color>
     <color name="black_light">#3d000000</color>
+    <color name="black_transparent">#9a000000</color>
+
+    <color name="colorGrey">#efefef</color>
+    <color name="colorDarkGery">#d5d5d5</color>
+    <color name="colorNormalText">#585858</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTransparentBlack">#bc500d3b</color>
+    <color name="colorLightBlack">#252525</color>
+    <color name="colorDarkBlue">#514688</color>
+    <color name="colorMoreGreen">#47D476</color>
+    <color name="colorGreen">#77d981</color>
+    <color name="colorLightBlue">#5f5881</color>
+    <color name="colorYellow">#FFC107</color>
+    <color name="colorUserImgOverlay">#FFFFFFFF</color>
 
 </resources>

@@ -25,7 +25,7 @@ public class Welcome extends AppCompatActivity {
 
     public void visiter(View view) {
         visiteur = true;
-        Intent intent = new Intent(Welcome.this, Main2Activity.class);
+        Intent intent = new Intent(Welcome.this, MainVisiteurActivity.class);
         startActivity(intent);
     }
 

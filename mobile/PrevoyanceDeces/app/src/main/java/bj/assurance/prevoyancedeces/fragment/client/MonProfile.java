@@ -4,15 +4,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.ramotion.foldingcell.FoldingCell;
+
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import bj.assurance.prevoyancedeces.R;
 import bj.assurance.prevoyancedeces.activity.Main2Activity;
+import bj.assurance.prevoyancedeces.adapter.FoldingCellListAdapter;
+import bj.assurance.prevoyancedeces.model.Contrat;
 
 
-public class MonProfile extends AppCompatActivity {
+public class MonProfile extends Fragment {
 
 
     public MonProfile() {
@@ -23,20 +30,22 @@ public class MonProfile extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_mon_profile);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_mon_profile, container, false);
+
+        return view;
+
     }
 
 
     public void init() {
         Main2Activity.getTextTitle().setVisibility(View.VISIBLE);
-        Main2Activity.getBackTitle().setVisibility(View.INVISIBLE);
-
-        Main2Activity.getBackTitle().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                return;
-            }
-        });
     }
 
 }

@@ -14,6 +14,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/nom_prenom_clent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -23,6 +24,7 @@
             android:text="@string/nom_prenom"/>
 
         <TextView
+            android:id="@+id/montant_paye"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13sp"
@@ -33,6 +35,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/date_paiement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="13sp"

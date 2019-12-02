@@ -13,22 +13,29 @@ class Marchand extends Model
      * @var array
      */
     protected $fillable = [
-        'matricule','user_id','commission','crédit_virtuel','super_marchand_id',
+        'matricule','commission','credit_virtuel','super_marchand_id',
     ];
-
+    
     public function user(){
-        return $this->belongsTo('App\User','user_id');
+        return $this->morphOne('App\User','usereable');
     }
-
+    
     public function super_marchand(){
         return $this->belongsTo('App\Models\SuperMarchand','super_marchand_id');
-    }
-
-    public function clients(){
-        return $this->hasMany('App\Models\Client');
     }
     
     public function comptes(){
         return $this->morphMany('App\Models\Compte','compteable');
     }
+
+    public function contrats(){
+        return $this->hasMany('App\Models\Contrat');
+    }
+
+    public function clients(){
+        return $this->belongsToMany('App\Models\Client','contrats','marchand_id','client_id')->using('App\Models\Contrat')->withPivot([
+            'numero_contrat','garantie','prime','duree','numero_police_assurance','portefeuille','date_debut','date_echeance','date_effet','fin','valider','assure_id',
+        ])->withTimestamps();
+    }
+
 }

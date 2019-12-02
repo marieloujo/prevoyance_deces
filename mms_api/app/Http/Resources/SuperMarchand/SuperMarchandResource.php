@@ -1,8 +1,13 @@
 <?php
 
 namespace App\Http\Resources\SuperMarchand;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\ContratResources;
 use App\Http\Resources\Marchand\MarchandResource;
+use App\Http\Resources\MarchandResources;
+use App\Http\Resources\SuperMarchandResources;
+
+use App\Http\Resources\UsersResource;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SuperMarchandResource extends JsonResource
@@ -16,11 +21,9 @@ class SuperMarchandResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'matricule' => $this->matricule,
-            'commission' => $this->commission,
-            'user' => new UserResource($this->user),
-            'marchands' => MarchandResource::collection($this->marchands),
+            'super_marchand'    =>  new UsersResource($this->user),
+            'marchands'         =>  MarchandResources::collection($this->marchands),
         ];
     }
 }
+

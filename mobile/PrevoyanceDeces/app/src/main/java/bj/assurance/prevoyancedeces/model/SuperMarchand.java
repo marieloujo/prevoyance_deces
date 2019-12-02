@@ -1,22 +1,29 @@
 package bj.assurance.prevoyancedeces.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
+import java.util.List;
 
 public class SuperMarchand {
 
+    @SerializedName("id")
     private Long id;
 
+    @SerializedName("matricule")
     private String matricule;
 
-    private String creditVirtuel;
-
+    @SerializedName("commission")
     private String commission;
 
+    @SerializedName("marchands")
+    private List<Marchand> marchands;
+
+    @SerializedName("user")
     private Utilisateur utilisateur;
 
-    private Date dateCreation;
-
-    private Date dateModification;
+    @SerializedName("comptes")
+    private List<Compte> commissions;
 
     public Long getId() {
         return id;
@@ -34,20 +41,20 @@ public class SuperMarchand {
         this.matricule = matricule;
     }
 
-    public String getCreditVirtuel() {
-        return creditVirtuel;
-    }
-
-    public void setCreditVirtuel(String creditVirtuel) {
-        this.creditVirtuel = creditVirtuel;
-    }
-
     public String getCommission() {
         return commission;
     }
 
     public void setCommission(String commission) {
         this.commission = commission;
+    }
+
+    public List<Marchand> getMarchands() {
+        return marchands;
+    }
+
+    public void setMarchands(List<Marchand> marchands) {
+        this.marchands = marchands;
     }
 
     public Utilisateur getUtilisateur() {
@@ -58,19 +65,23 @@ public class SuperMarchand {
         this.utilisateur = utilisateur;
     }
 
-    public Date getDateCreation() {
-        return dateCreation;
+    public List<Compte> getCommissions() {
+        return commissions;
     }
 
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setCommissions(List<Compte> commissions) {
+        this.commissions = commissions;
     }
 
-    public Date getDateModification() {
-        return dateModification;
-    }
-
-    public void setDateModification(Date dateModification) {
-        this.dateModification = dateModification;
+    @Override
+    public String toString() {
+        return "SuperMarchand{" +
+                "id=" + id +
+                ", matricule='" + matricule + '\'' +
+                ", commission='" + commission + '\'' +
+                ", marchands=" + marchands +
+                ", utilisateur=" + utilisateur +
+                ", commissions=" + commissions +
+                '}';
     }
 }

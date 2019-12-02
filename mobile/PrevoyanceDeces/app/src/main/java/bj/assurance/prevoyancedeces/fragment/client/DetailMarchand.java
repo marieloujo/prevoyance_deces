@@ -29,16 +29,6 @@ public class DetailMarchand extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail_marchand, container, false);
 
         Main2Activity.getTextTitle().setVisibility(View.INVISIBLE);
-        Main2Activity.getBackTitle().setVisibility(View.VISIBLE);
-        Main2Activity.getBackTitle().setText(getActivity().getResources().getString(R.string.nom_prenom));
-
-        Main2Activity.getBackTitle().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_main, new Marchands()).commit();
-            }
-        });
 
         return view;
     }

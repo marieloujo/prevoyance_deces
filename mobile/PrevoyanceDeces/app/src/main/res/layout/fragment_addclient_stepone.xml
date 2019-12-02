@@ -1,213 +1,388 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragment.marchand.AddClientStepOne"
-    android:layout_gravity="center"
-    android:layout_marginTop="15dp">
+    android:layout_marginBottom="30dp"
+    android:layout_marginTop="20sp"
+    android:layout_gravity="center">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_marginStart="-13dp"
-        android:layout_marginLeft="-13dp">
-
-        <com.github.vipulasri.timelineview.TimelineView
-            android:id="@+id/timeline"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            app:marker="@drawable/timeline_active"
-            app:markerSize="15dp"
-            app:lineWidth="2dp"
-            app:markerInCenter="true"
-            app:startLineColor="@color/white"
-            app:endLineColor="@color/green"
-            app:lineOrientation="horizontal"/>
-
-        <com.github.vipulasri.timelineview.TimelineView
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            app:marker="@drawable/timeline_inactive"
-            app:markerSize="15dp"
-            app:lineWidth="2dp"
-            app:markerInCenter="true"
-            app:startLineColor="@color/green"
-            app:endLineColor="@color/green"
-            app:lineOrientation="horizontal"/>
-
-        <com.github.vipulasri.timelineview.TimelineView
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            app:marker="@drawable/timeline_inactive"
-            app:markerSize="15dp"
-            app:lineWidth="2dp"
-            app:markerInCenter="true"
-            app:startLineColor="@color/green"
-            app:endLineColor="@color/green"
-            app:lineOrientation="horizontal"/>
-
-        <com.github.vipulasri.timelineview.TimelineView
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            app:marker="@drawable/timeline_inactive"
-            app:markerSize="15dp"
-            app:lineWidth="2dp"
-            app:markerInCenter="true"
-            app:startLineColor="@color/green"
-            app:endLineColor="@color/white"
-            app:lineOrientation="horizontal"/>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="15dp">
+        android:layout_height="wrap_content">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            style="@style/TextAppearance.AppCompat"
-            android:layout_marginBottom="15dp"
-            android:textAlignment="center"
-            android:text="@string/info_client"/>
+            android:orientation="vertical">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:background="@drawable/input_style"
-            android:hint="@string/nom"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:inputType="text"
-            android:textSize="16sp"
-            style="@style/TextAppearance.AppCompat"
-            android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:background="@drawable/input_style"
-            android:hint="@string/pr_noms"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:inputType="text"
-            android:textSize="16sp"
-            style="@style/TextAppearance.AppCompat"
-            android:layout_marginBottom="10dp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:background="@drawable/input_style"
-            android:hint="@string/email"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:inputType="text"
-            android:textSize="16sp"
-            style="@style/TextAppearance.AppCompat"
-            android:layout_marginBottom="10dp"/>
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        app:srcCompat="@drawable/timeline_active" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:background="@drawable/input_style"
-            android:hint="@string/adresse_du_domicile"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:inputType="text"
-            android:textSize="16sp"
-            style="@style/TextAppearance.AppCompat"
-            android:layout_marginBottom="10dp"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:background="@drawable/input_style"
-            android:hint="@string/situation_matrimoniale"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:inputType="text"
-            android:textSize="16sp"
-            style="@style/TextAppearance.AppCompat"
-            android:layout_marginBottom="10dp"/>
+                    <View
+                        android:layout_width="90dp"
+                        android:layout_height="1.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/grayPale" />
 
-    </LinearLayout>
+                </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="150dp"
-            android:layout_height="47dp"
-            android:background="@drawable/input_style"
-            android:hint="@string/sexe"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:inputType="text"
-            android:textSize="16sp"
-            style="@style/TextAppearance.AppCompat"
-            android:layout_marginBottom="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="10dp" />
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:tint="@color/grayPale"
+                        app:srcCompat="@drawable/circular_background" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:background="@drawable/input_style"
-            android:hint="Date de naissance"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:inputType="text"
-            android:textSize="16sp"
-            style="@style/TextAppearance.AppCompat"
-            android:layout_marginBottom="10dp"/>
 
-    </LinearLayout>
+                    <View
+                        android:layout_width="90dp"
+                        android:layout_height="1.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/grayPale" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="15dp">
+                </LinearLayout>
 
-        <Button
-            android:id="@+id/annuler"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="@string/annuler"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:background="@drawable/button_cancel"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/suivant"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="@string/suivant"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/button_next"
-            android:layout_alignParentRight="true" />
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:tint="@color/goodgrey"
+                        app:srcCompat="@drawable/circular_background" />
 
-    </RelativeLayout>
 
-</LinearLayout>
+                    <View
+                        android:layout_width="90dp"
+                        android:layout_height="1.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/grayPale" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:tint="@color/goodgrey"
+                        app:srcCompat="@drawable/circular_background" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_marginBottom="15dp"
+                    android:textAlignment="center"
+                    android:text="@string/info_client"/>
+
+                <EditText
+                    android:id="@+id/etNomClient"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:background="@drawable/input_style"
+                    android:hint="@string/nom"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    style="@style/TextAppearance.AppCompat"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tvNomClient"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="Veuillez donner le nom du client"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+                <EditText
+                    android:id="@+id/etPrenomClient"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:background="@drawable/input_style"
+                    android:hint="@string/pr_noms"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    style="@style/TextAppearance.AppCompat"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tvPrenomClient"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="Veuillez donner le(s) prenom(s) du client"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+                <com.andreabaccega.widget.FormEditText
+                    xmlns:whatever="http://schemas.android.com/apk/res-auto"
+                    whatever:testType="regexp"
+                    whatever:customRegexp="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+                    whatever:testErrorString="Adresse email invalid"
+                    android:id="@+id/et_email"
+                    android:background="@drawable/input_style"
+                    android:layout_width="match_parent"
+                    android:paddingStart="10dp"
+                    android:layout_height="47dp"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="10dp"
+                    tools:ignore="RtlSymmetry" />
+
+                <br.com.sapereaude.maskedEditText.MaskedEditText
+                    xmlns:mask="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/etTelephoneClient"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:background="@drawable/input_style"
+                    android:inputType="phone"
+                    android:typeface="monospace"
+                    mask:allowed_chars="1234567890"
+                    mask:mask="+229 ### - ### - ##"
+                    android:hint="1234567890"
+                    app:keep_hint="false"
+                    app:layout_constraintTop_toBottomOf="@id/tvUsername"
+                    android:drawableLeft="@drawable/phone_icon" />
+
+                <EditText
+                    android:id="@+id/etProfession"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:background="@drawable/input_style"
+                    android:hint="@string/profession_cli"
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    style="@style/TextAppearance.AppCompat"
+                    tools:ignore="RtlSymmetry" />
+
+                <EditText
+                    android:id="@+id/etEmployeur"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:background="@drawable/input_style"
+                    android:hint="Employeur"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    style="@style/TextAppearance.AppCompat"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tvEmailClient"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="Veuillez renseigner l' email du client"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+                <EditText
+                    android:id="@+id/etAdresseClient"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:background="@drawable/input_style"
+                    android:hint="@string/adresse_du_domicile"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    style="@style/TextAppearance.AppCompat"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tvAdresseClient"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Veuillez renseigner l'adresse du client"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone"
+                    android:layout_marginBottom="10dp"/>
+
+                <Spinner
+                    android:id="@+id/etSituationMatrimonialeClient"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/input_style"
+                    android:hint="@string/situation_matrimoniale"
+                    android:entries="@array/situation_matrimoniale"/>
+
+                <TextView
+                    android:id="@+id/tvSituationMatrimonialeClient"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="@string/error_input_sm"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/etSexeClient"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:inputType="text"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/input_style"
+                        tools:ignore="RtlSymmetry" />
+
+                    <TextView
+                        android:id="@+id/tvetSexeClient"
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:text="@string/error_input_sexe"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/etDateNaissanceClient"
+                        android:layout_width="match_parent"
+                        android:hint="@string/date_de_naissance"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:layout_height="47dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/input_style"
+                        tools:ignore="RtlSymmetry" />
+
+                    <TextView
+                        android:id="@+id/tvDateNaissanceClient"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:text="@string/error_input_date"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
+
+                <Button
+                    android:id="@+id/annuler"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/annuler"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_cancel"/>
+
+                <Button
+                    android:id="@+id/suivant"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/suivant"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/button_next"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

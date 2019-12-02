@@ -1,16 +1,23 @@
 package bj.assurance.prevoyancedeces.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Document {
 
+    @SerializedName("id")
     private Long id;
 
+    @SerializedName("url")
     private String url;
 
-    private Assurer assurer;
+    @SerializedName("documentable")
+    private Object documenteable;
 
-    private Client client;
-
+    @SerializedName("documentable_type")
     private String documentType;
+
+    @SerializedName("documentable_id")
+    private String documentId;
 
     public Long getId() {
         return id;
@@ -28,19 +35,38 @@ public class Document {
         this.url = url;
     }
 
-    public Assurer getAssurer() {
-        return assurer;
+    public Object getDocumenteable() {
+        return documenteable;
     }
 
-    public void setAssurer(Assurer assurer) {
-        this.assurer = assurer;
+    public void setDocumenteable(Object contrat) {
+        this.documenteable = contrat;
     }
 
-    public Client getClient() {
-        return client;
+    public String getDocumentType() {
+        return documentType;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
+    @Override
+    public String toString() {
+        return "Document{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", documenteable=" + documenteable +
+                ", documentType='" + documentType + '\'' +
+                ", documentId='" + documentId + '\'' +
+                '}';
     }
 }

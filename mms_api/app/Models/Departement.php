@@ -16,6 +16,6 @@ class Departement extends Model
     ];
 
     public function communes(){
-        return $this->hasMany('App\Models\Departement');
+        return $this->hasMany('App\Models\Commune');
     }
 }

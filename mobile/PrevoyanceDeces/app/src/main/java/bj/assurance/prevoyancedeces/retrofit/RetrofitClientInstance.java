@@ -2,54 +2,85 @@ package bj.assurance.prevoyancedeces.retrofit;
 
 import android.text.TextUtils;
 
+import java.io.IOException;
+
+import bj.assurance.prevoyancedeces.BuildConfig;
 import okhttp3.Credentials;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientInstance {
 
-    private static Retrofit retrofit;
     private static final String BASE_URL = "http://192.168.42.149:8000/api/";
 
-    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
-    private static Retrofit.Builder builder =
-            new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create());
+    private final static OkHttpClient client = buildClient();
+    private final static Retrofit retrofit = buildRetrofit(client);
 
-    /*public static <S> S createService(Class<S> serviceClass) {
-        return createService(serviceClass, null);
+    private static OkHttpClient buildClient(){
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+
+                        Request.Builder builder = request.newBuilder()
+                                .addHeader("Accept", "application/json")
+                                .addHeader("Content-Type", "application/json");
+
+                        request = builder.build();
+
+                        return chain.proceed(request);
+
+                    }
+                });
+
+        return builder.build();
+
     }
 
-    public static <S> S createService(
-            Class<S> serviceClass, String clientId, String clientSecret) {
-        if (!TextUtils.isEmpty(clientId)
-                && !TextUtils.isEmpty(clientSecret)) {
-            String authToken = Credentials.basic(clientId, clientSecret);
-            return createService(serviceClass, authToken);
-        }
-
-        return createService(serviceClass, null, null);
+    private static Retrofit buildRetrofit(OkHttpClient client){
+        return new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 
-    /*
-    public static <S> S createService(Class<S> serviceClass, final String authToken) {
-        if (!TextUtils.isEmpty(authToken)) {
-            AuthenticationInterceptor interceptor =
-                    new AuthenticationInterceptor(authToken);
+    public static <T> T createService(Class<T> service){
+        return retrofit.create(service);
+    }
 
-            if (!httpClient.interceptors().contains(interceptor)) {
-                httpClient.addInterceptor(interceptor);
+    public static <T> T createServiceWithAuth(Class<T> service, final TokenManager tokenManager){
 
-                builder.client(httpClient.build());
-                retrofit = builder.build();
+        OkHttpClient newClient = client.newBuilder().addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+
+                Request request = chain.request();
+
+                Request.Builder builder = request.newBuilder();
+
+                if(tokenManager.getToken().getAccessToken() != null){
+                    builder.addHeader("Authorization", "Bearer " + tokenManager.getToken().getAccessToken());
+                }
+                request = builder.build();
+                return chain.proceed(request);
             }
-        }
+        }).authenticator(CustomAuthenticator.getInstance(tokenManager)).build();
 
-        return retrofit.create(serviceClass);
-    }*/
+        Retrofit newRetrofit = retrofit.newBuilder().client(newClient).build();
+        return newRetrofit.create(service);
+
+    }
+
+    public static Retrofit getRetrofit() {
+        return retrofit;
+    }
 
 
 }

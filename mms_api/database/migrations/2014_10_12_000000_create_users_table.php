@@ -26,6 +26,9 @@ class CreateUsersTable extends Migration
             $table->boolean('prospect');
             $table->boolean('actif');
             $table->string('login');
+
+            $table->string('usereable_type');
+            $table->unsignedBigInteger('usereable_id');
             $table->unsignedBigInteger('commune_id');
 
             $table->foreign('commune_id')

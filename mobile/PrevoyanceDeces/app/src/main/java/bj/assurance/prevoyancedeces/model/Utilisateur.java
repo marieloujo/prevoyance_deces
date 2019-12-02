@@ -1,40 +1,95 @@
 package bj.assurance.prevoyancedeces.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
+import java.util.List;
 
 public class Utilisateur {
 
+    @SerializedName("id")
     private Long id;
 
+    @SerializedName("nom")
     private String nom;
 
+    @SerializedName("prenom")
     private String prenom;
 
+    @SerializedName("telephone")
     private String telephone;
 
+    @SerializedName("email")
     private String email;
 
+    @SerializedName("sexe")
     private String sexe;
 
+    @SerializedName("date_naissance")
     private String dateNaissance;
 
+    @SerializedName("situation_matrimoniale")
     private String situationMatrimoniale;
 
+    @SerializedName("adresse")
     private String adresse;
 
-    private boolean prospect;
+    @SerializedName("prospect")
+    private boolean prospect = false;
 
-    private boolean actif;
+    @SerializedName("actif")
+    private boolean actif = false;
 
+    @SerializedName("login")
     private String login;
 
+    @SerializedName("password")
+    private String password;
+
+    @SerializedName("commune")
     private Commune commune;
 
+    @SerializedName("remember_token")
     private String rememberToken;
 
+    @SerializedName("created_at")
     private Date dateCreation;
 
+    @SerializedName("updated_at")
     private Date dateModification;
+
+    @SerializedName("usereable_type")
+    private String usereableType;
+
+    @SerializedName("usereable_id")
+    private Long usereableId;
+
+    @SerializedName("usereable")
+    private Object object;
+
+    @SerializedName("messages")
+    private List<Message> messages;
+
+    public Utilisateur(String nom, String prenom) {
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
+    public Utilisateur(String nom, String prenom, String telephone, String email, String sexe, String dateNaissance, String situationMatrimoniale, String adresse, boolean prospect, boolean actif, String login, String password, Commune commune) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.telephone = telephone;
+        this.email = email;
+        this.sexe = sexe;
+        this.dateNaissance = dateNaissance;
+        this.situationMatrimoniale = situationMatrimoniale;
+        this.adresse = adresse;
+        this.prospect = prospect;
+        this.actif = actif;
+        this.login = login;
+        this.password = password;
+        this.commune = commune;
+    }
 
     public Long getId() {
         return id;
@@ -162,5 +217,73 @@ public class Utilisateur {
 
     public void setDateModification(Date dateModification) {
         this.dateModification = dateModification;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsereableType() {
+        return usereableType;
+    }
+
+    public void setUsereableType(String usereableType) {
+        this.usereableType = usereableType;
+    }
+
+    public Long getUsereableId() {
+        return usereableId;
+    }
+
+    public void setUsereableId(Long usereableId) {
+        this.usereableId = usereableId;
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", sexe='" + sexe + '\'' +
+                ", dateNaissance='" + dateNaissance + '\'' +
+                ", situationMatrimoniale='" + situationMatrimoniale + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", prospect=" + prospect +
+                ", actif=" + actif +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", commune=" + commune +
+                ", rememberToken='" + rememberToken + '\'' +
+                ", dateCreation=" + dateCreation +
+                ", dateModification=" + dateModification +
+                ", usereableType='" + usereableType + '\'' +
+                ", usereableId=" + usereableId +
+                ", object=" + object +
+                ", messages=" + messages +
+                '}';
     }
 }

@@ -168,7 +168,7 @@ return [
 
 
         App\Providers\RepositoryServiceProvider::class,
-
+        Laravel\Passport\PassportServiceProvider::class,
         /*
          * Application Service Providers...
          */

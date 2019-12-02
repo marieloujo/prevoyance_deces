@@ -11,11 +11,6 @@ $factory->define(Client::class, function (Faker $faker) {
     return [
         'profession' => $faker->randomElement(['Commerçant','Conducteur','Agriculteur','Artisan','Ingenieur','Policier']),
         'employeur' => $faker->name,
-        'user_id' => function(){
-            return  User::all()->random();
-        },
-        'marchand_id' => function(){
-            return  Marchand::all()->random();
-        },
+        
     ];
 });

@@ -36,7 +36,6 @@ public class Accueil extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_accueil_supermarchand, container, false);
 
-        MarchandMainActivity.getFloatingActionButton().setVisibility(View.VISIBLE);
 
         return view;
     }
