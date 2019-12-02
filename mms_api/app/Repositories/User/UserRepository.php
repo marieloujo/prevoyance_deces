@@ -105,8 +105,8 @@ class UserRepository implements UserRepositoryInterface
      *
      * @param array
      */
-    public function register(array $user_data,$model_id,$model_type,$actif,$prospect)
-    {
+    public function register(array $user_data){
+            
             $user = new User();
             $user->nom = $user_data['nom'];
             $user->prenom = $user_data['prenom'];
@@ -117,14 +117,16 @@ class UserRepository implements UserRepositoryInterface
             $user->situation_matrimoniale = $user_data['situation_matrimoniale'];
             $user->email = $user_data['email'];
             $user->login = $user_data['telephone'];
-            $user->prospect = $prospect;
-            $user->actif = $actif;
+            $user->prospect = $user_data['prospect'];
+            $user->actif = $user_data['actif'];
             $user->password = bcrypt( $user_data['password'] );
-            $user->usereable_id = $model_id;
-            $user->usereable_type = $model_type;
-            $user->commune_id = $user_data['commune_id'];
+            $user->usereable_id = $user_data['usereable_id'];
+            $user->usereable_type = $user_data['usereable_type'];
+            $user->commune_id =1; // $user_data['commune_id'];
 
-            return $user->save();
+            $user->save();
+            return $user;
+            
     }
 
     /**
@@ -133,7 +135,7 @@ class UserRepository implements UserRepositoryInterface
      * @param int
      * @param array
      */
-    public function update($id, array $user_data,$actif,$prospect,$model_id,$model_type)
+    public function update($id, array $user_data)
     {
             $user =  $this->user->findOrfail($id);
             
@@ -146,11 +148,11 @@ class UserRepository implements UserRepositoryInterface
             $user->situation_matrimoniale = $user_data['situation_matrimoniale'];
             $user->email = $user_data['email'];
             $user->login = $user_data['telephone'];
-            $user->prospect = $prospect;
-            $user->actif = $actif;
+            $user->prospect = $user_data['prospect'];
+            $user->actif = $user_data['actif'];
             $user->password = bcrypt( $user_data['password'] );
-            $user->usereable_id = $model_id;
-            $user->usereable_type = $model_type;
+            $user->usereable_id = $user_data['usereable_id'];
+            $user->usereable_type = $user_data['usereable_type'];
             $user->commune_id = $user_data['commune_id'];
             return $user->update();
     }

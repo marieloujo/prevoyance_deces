@@ -18,8 +18,6 @@ class CompteResource extends JsonResource
             'id' => $this->id,
             'montant' => $this->montant,
             'compte' => $this->compte,
-            'crédit_virtuel' => $this->crédit_virtuel,
-            'commission' => $this->commission,
             'compteable_id' => $this->compteable_id,
             'compteable_type' => $this->compteable_type,
         ];

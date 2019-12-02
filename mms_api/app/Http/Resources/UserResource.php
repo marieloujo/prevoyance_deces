@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\CommuneResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -18,14 +19,17 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'nom' => $this->nom,
             'prenom' => $this->prenom,
-            'date_naissance' => $this->date_naissance,
             'sexe' => $this->sexe,
             'telephone' => $this->telephone,
             'adresse' => $this->adresse,
+            'actif' => $this->actif == 1 ? true : false ,
+            'prospect' => $this->prospect == 1 ? true : false ,
             'situation_matrimoniale' => $this->situation_matrimoniale,
+            'date_naissance' => $this->date_naissance,
             'email' => $this->email,
-            //'messages' => MessageResource::collection($this->messages),
+            'usereable_id' => $this->usereable_id,
+            'usereable_type' => $this->usereable_type,
+            'commune' => new CommuneResource($this->commune),
         ];
     }
 }
-

@@ -16,7 +16,7 @@ class CreateBeneficesTable extends Migration
         Schema::create('benefices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('statut');
-            $table->string('taux');
+            $table->string('taux')->default(0);
             $table->unsignedBigInteger('contrat_id');
             $table->unsignedBigInteger('beneficiaire_id');
 

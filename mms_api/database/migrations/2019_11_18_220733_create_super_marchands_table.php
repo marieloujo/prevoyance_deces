@@ -15,7 +15,7 @@ class CreateSuperMarchandsTable extends Migration
     {
         Schema::create('super_marchands', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('matricule');
+            $table->string('matricule')->unique();
             $table->string('commission')->default(0);
             $table->timestamps();
         });

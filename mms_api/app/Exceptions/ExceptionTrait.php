@@ -39,6 +39,11 @@ trait ExceptionTrait{
         return parent::render($request, $e);
     }
 
+
+    protected function isForbidden($e){
+        return $e instanceof ForbiddenException;
+    }
+
     protected function isModel($e){
         return $e instanceof ModelNotFoundException;
     }

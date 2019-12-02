@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
-use App\Http\Resources\ClientResources;
-use App\Http\Resources\Souscripteur\ClientResource;
-use App\Http\Resources\UserResources;
+use App\Http\Requests\User\RegisterRequest;
+use App\Http\Resources\Client\ClientResource as AppClientResource;
+use App\Http\Resources\ClientResource;
 
+use App\Http\Resources\UsersResource;
+use Symfony\Component\HttpFoundation\Response;
 use App\Repositories\Client\Interfaces\ClientRepositoryInterface;
 use App\Repositories\User\Interfaces\UserRepositoryInterface;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
@@ -38,10 +41,17 @@ class ClientController extends Controller
      * @param  App\Http\Requests\ClientRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ClientRequest $request)
+    public function store(Request $request)
     {
-        $client=$this->client_repository->create($request->all());
-       return $this->user_repository->register($request->request->all(),true,false,$client->id,'App\\Models\\Client');
+       $client=$this->client_repository->create($request->all());
+         
+        $request['usereable_id']=$client->id;
+        $request['usereable_type']='App\\Models\\Client'; 
+
+        return $this->user_repository->register($request->all());
+        // $this->user_repository->register($request->all());
+        //return $client;
+
     }
 
     /**
@@ -55,21 +65,9 @@ class ClientController extends Controller
         return new ClientResource($this->client_repository->getById($client));
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function contrats()
-    {   
-        ClientResource::collection($this->user_repository->getAuth()->usereable);
-    }
-    
-    public function showContrat()
-    {   
-        new ClientResource($this->user_repository->getAuth()->usereable);
+    public function getContrats($client)
+    {
+        return new AppClientResource($this->client_repository->getById($client));
     }
 
     /**
@@ -79,9 +77,13 @@ class ClientController extends Controller
      * @param  int  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(ClientRequest $request, $client)
+    public function update(RegisterRequest $request, $client)
     {
-        //
+        $client=$this->client_repository->update($client,$request->all());
+        $request['usereable_id']=$client->id;
+        $request['usereable_type']='App\\Models\\Client'; 
+
+        return $this->user_repository->update($client->user->id,$request->all());
     }
 
     /**
@@ -92,10 +94,8 @@ class ClientController extends Controller
      */
     public function destroy($client)
     {
+        $this->user_repository->delete($this->client_repository->getById($client)->user->id);
         $this->client_repository->delete($client);
-        
-        //$this->client_images_repository->deleteT($client);
-
         return response()->json([
             "status" => " success",
             "message" => "Le client a bien été supprimer"
@@ -103,3 +103,4 @@ class ClientController extends Controller
     }
 
 }
+

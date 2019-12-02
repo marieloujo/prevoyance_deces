@@ -17,6 +17,7 @@ class CreateMessagesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('from_user_id');
             $table->unsignedBigInteger('to_user_id');
+            $table->boolean('notification')->default(false);
             $table->string('body',2500);
             $table->timestamps();
             $table->dateTime('read_at')->nullable();

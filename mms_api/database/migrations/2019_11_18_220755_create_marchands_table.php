@@ -15,16 +15,13 @@ class CreateMarchandsTable extends Migration
     {
         Schema::create('marchands', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('matricule');
+            $table->string('matricule')->unique();
             $table->string('credit_virtuel');
-            $table->string('commission');
+            $table->string('commission')->default(0);
                         
             $table->unsignedBigInteger('super_marchand_id');
 
-            $table->foreign('super_marchand_id')
-                ->references('id')
-                ->on('super_marchands')
-                ->ondelete('cascade');
+            $table->foreign('super_marchand_id')->references('id')->on('super_marchands')->ondelete('cascade');
                 
             $table->timestamps();
         });

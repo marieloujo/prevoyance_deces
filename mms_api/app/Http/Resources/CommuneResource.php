@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\DepartementResource;
-
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CommuneResource extends JsonResource
@@ -16,10 +15,11 @@ class CommuneResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        return[
             'id' => $this->id,
             'nom' => $this->nom,
             'departement' => new DepartementResource($this->departement),
+
         ];
     }
 }

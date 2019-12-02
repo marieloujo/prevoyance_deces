@@ -16,7 +16,7 @@ class CreateContratsTable extends Migration
         Schema::create('contrats', function (Blueprint $table) {
             $table->bigIncrements('id');
             
-            $table->string('numero_contrat');
+            $table->string('numero_contrat')->unique();
             $table->unsignedInteger('garantie');
             $table->unsignedInteger('prime');
             $table->string('duree');
@@ -26,7 +26,7 @@ class CreateContratsTable extends Migration
             $table->boolean('fin')->default(false);
             $table->boolean('valider')->default(false);
             $table->string('date_fin')->nullable();
-            $table->string('portefeuille')->nullable();
+            $table->string('portefeuille')->default(0);
             $table->unsignedInteger('numero_police_assurance')->nullable();
 
             $table->unsignedBigInteger('client_id');

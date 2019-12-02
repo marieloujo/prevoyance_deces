@@ -26,7 +26,7 @@ class MarchandRequest extends FormRequest
         return [
             'matricule '  => ['required', 'string'],
             'commission '  => ['required', 'integer'],
-            'crédit_virtuel '  => ['required', 'integer'],
+            'credit_virtuel '  => ['required', 'integer'],
             
         ];
     }

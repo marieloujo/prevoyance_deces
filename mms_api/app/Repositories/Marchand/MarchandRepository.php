@@ -50,8 +50,14 @@ class MarchandRepository implements MarchandRepositoryInterface
      */
     public function create(array $marchand_data)
     {
-       
+        $marchand = new Marchand();
+        $marchand->matricule = $marchand_data['matricule'];
+        $marchand->credit_virtuel = $marchand_data['credit_virtuel'];
+        $marchand->commission = $marchand_data['commission'];
+        $marchand->super_marchand_id = $marchand_data['super_marchand_id'];
+        $marchand->save();
 
+        return $marchand;
     }
 
     /**
@@ -73,7 +79,13 @@ class MarchandRepository implements MarchandRepositoryInterface
      */
     public function update($id, array $marchand_data)
     {
+        $marchand =  $this->marchand->findOrfail($id);
+        $marchand->matricule = $marchand_data['matricule'];
+        $marchand->credit_virtuel = $marchand_data['credit_virtuel'];
+        $marchand->commission = $marchand_data['commission'];
+        $marchand->super_marchand_id = $marchand_data['super_marchand_id'];
+        $marchand->update();
     }
 
 }
-
+//SuperMarchand

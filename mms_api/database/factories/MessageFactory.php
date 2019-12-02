@@ -16,5 +16,6 @@ $factory->define(Message::class, function (Faker $faker) {
         'to_user_id' => function(){
             return  User::all()->random();
         },
+        'notification' => $faker->randomElement([true,false]),   
     ];
 });

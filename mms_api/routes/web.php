@@ -14,7 +14,7 @@
 use App\Models\Commune;
 use App\Models\Departement;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     //return view('welcome');
 
     // $data8 = [

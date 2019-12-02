@@ -21,13 +21,9 @@ class Assure extends Model
         return $this->morphOne('App\User','usereable');
     }
 
-    public function documents(){
-        return $this->morphMany('App\Models\Document','documenteable');
-    }
-
     public function contrats(){
         return $this->hasMany('App\Models\Contrat');
     }
 
-
+ 
 }

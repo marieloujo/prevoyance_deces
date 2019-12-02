@@ -15,9 +15,9 @@ class CreateAssuresTable extends Migration
     {
         Schema::create('assures', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean('etat');
+            $table->boolean('etat')->default(true);
             $table->string('profession');
-            $table->string('employeur');
+            $table->string('employeur')->nullable();
             $table->timestamps();
         });
     }
