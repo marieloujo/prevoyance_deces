@@ -28,4 +28,12 @@ class LoginRequest extends FormRequest
             'password' => ['required', 'string'],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'login.required' => 'Le login est obligation!',
+            'password.required' => 'le mot de passe est obligatoire!',
+        ];
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Repositories\Client;
 
 use App\Models\Client;
 use App\Repositories\Client\Interfaces\ClientRepositoryInterface;
+use App\User;
 
 class ClientRepository implements ClientRepositoryInterface
 {
@@ -63,8 +64,8 @@ class ClientRepository implements ClientRepositoryInterface
             $client = new Client();
             $client->employeur = $client_data['employeur'];
             $client->profession = $client_data['profession'];
+            
             $client->save();
-
             return $client;
     }
 
@@ -77,9 +78,9 @@ class ClientRepository implements ClientRepositoryInterface
     public function update($id, array $client_data)
     {
             $client =  $this->client->findOrfail($id);
-            $client->employeur = $client_data['employeur'];
-            $client->profession = $client_data['profession'];
-            $client->update();
+            $client->update($client_data);
+
+            return $client;
     }
 
 }

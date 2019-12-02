@@ -11,6 +11,15 @@ class Message extends Pivot
     public $table='messages';
 
     protected $fillable = [
-        'body','read_at','from_user_id','to_user_id',
+        'body','notification','read_at','from_user_id','to_user_id',
     ];
+        
+    public function from(){
+        return $this->belongsTo('App\User','from_user_id');
+    }
+
+        
+    public function to(){
+        return $this->belongsTo('App\User','to_user_id');
+    }
 }

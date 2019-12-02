@@ -72,7 +72,7 @@ interface UserRepositoryInterface
      *
      * @param array
      */
-    public function register(array $user_data,$model_id,$model_type,$actif,$prospect);
+    public function register(array $user_data);
 
     /**
      * Update an user.
@@ -80,6 +80,6 @@ interface UserRepositoryInterface
      * @param int
      * @param array
      */
-    public function update($id, array $user_data,$actif,$prospect,$model_id,$model_type);
+    public function update($id, array $user_data);
 
 }

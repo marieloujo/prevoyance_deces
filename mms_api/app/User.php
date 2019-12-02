@@ -35,10 +35,14 @@ class User extends Authenticatable
         return $this->morphTo();
     }
 
+    // public function messages(){
+    //     return $this->belongsToMany('App\User','messages','from_user_id','to_user_id')->using('App\Models\Message')->withPivot([
+    //         'body','read_at',
+    //     ])->withTimestamps();
+    // }
+
     public function messages(){
-        return $this->belongsToMany('App\User','messages','from_user_id','to_user_id')->using('App\Models\Message')->withPivot([
-            'body','read_at',
-        ])->withTimestamps();
+        return $this->hasMany('App\Models\Message','to_user_id');
     }
 
     public function commune(){

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\CommuneResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UsersResource extends JsonResource
@@ -16,16 +15,21 @@ class UsersResource extends JsonResource
     public function toArray($request)
     {
         return [
+            
             'id' => $this->id,
             'nom' => $this->nom,
             'prenom' => $this->prenom,
             'sexe' => $this->sexe,
             'telephone' => $this->telephone,
             'adresse' => $this->adresse,
-            'actif' => $this->actif,
+            'actif' => $this->actif == 1 ? true : false ,
+            'prospect' => $this->prospect == 1 ? true : false ,
+            'situation_matrimoniale' => $this->situation_matrimoniale,
+            'date_naissance' => $this->date_naissance,
             'email' => $this->email,
+            'usereable_id' => $this->usereable_id,
             'usereable_type' => $this->usereable_type,
-            'usereable_data' => $this->usereable,
+            'usereable' => $this->usereable,
             'commune' => new CommuneResource($this->commune),
         ];
     }

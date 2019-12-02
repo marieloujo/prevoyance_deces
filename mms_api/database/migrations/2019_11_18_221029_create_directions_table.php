@@ -19,10 +19,7 @@ class CreateDirectionsTable extends Migration
              
             $table->unsignedBigInteger('role_id');
 
-            $table->foreign('role_id')
-                ->references('id')
-                ->on('roles')
-                ->ondelete('cascade');
+            $table->foreign('role_id')->references('id')->on('roles')->ondelete('cascade');
             $table->timestamps();
         });
     }

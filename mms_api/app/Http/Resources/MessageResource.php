@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UserResource;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class MessageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +19,12 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'body' => $this->body,
-            'read_at' => Carbon::parse( $this->read_at)->format('d/m/Y'),
-            'created_at' => Carbon::parse( $this->created_at)->format('d/m/Y'),
+            'notification' => $this->notification == 1 ? true : false ,
+            'read_at' => $this->read_at,
+            'created_at' => $this->created_at,
+            'updated_at' => Carbon::parse($this->updated_at)->diffForHumans(),
+            'from_user_id' => new UserResource($this->from), // $this->from_user_id,
             
         ];
     }
 }
-

@@ -27,19 +27,6 @@ interface MarchandRepositoryInterface
     public function getById($id);
 
     /**
-     * Get's an marchand by it's name
-     *
-     * @param string
-     */
-    public function getByName($name);
-    /**
-     * Get's an marchand by it's name
-     *
-     * @param string
-     */
-    public function getByDepartement($name);
-
-    /**
      * Create a marchand.
      *
      * @param array

@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Resources\Client;
-use App\Http\Resources\Assurer\AssurerResource;
-use App\Http\Resources\Marchand\MarchandResources;
-use App\Http\Resources\DocumentResource;
+
+use App\Http\Resources\Client\ContratResources;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,10 +19,9 @@ class ClientResource extends JsonResource
         return [
             'id' => $this->id,
             'profession' => $this->profession,
-            'information_personnelle' =>  new UserResource($this->user),
-            'marchand' => new MarchandResources($this->marchand),
-         
-            'assures' => AssurerResource::collection($this->assures),
+            'employeur' => $this->employeur,
+            'user' => new UserResource($this->user),
+            'contrats' => ContratResources::collection($this->contrats),
         ];
     }
 }

@@ -9,16 +9,18 @@ use App\Models\Marchand;
 use Faker\Generator as Faker;
 
 $factory->define(Contrat::class, function (Faker $faker) {
-    $debut= $faker->dateTimeInInterval('now','+ 2 days');
+    $debut= $faker->dateTimeInInterval('now','+ 2 weeks');
     return [
-        'numero_contrat' => '0024'.$faker->swiftBicNumber, 
+        'numero_contrat' => '0029NUM'.$faker->randomNumber(5), 
         'duree' => 1,
         'garantie' => 1000000,
-        'prime' => $faker->randomElement([5000,10000]),
-        'portefeuille' => $faker->numberBetween(5000,1000000),
+        'prime' => 1000,
+        'portefeuille' => $faker->numberBetween(1000,12000),
         'date_debut' => $debut,
         'date_echeance' => $faker->dateTimeInInterval($debut,'+ 1 years'),
         'date_effet' => $faker->dateTimeInInterval($debut,'+ 6 months'),
+        'date_fin' => $faker->randomElement([$faker->dateTimeInInterval($debut,'+ 6 months'),$faker->dateTimeInInterval($debut,'+ 3 months'),$faker->dateTimeInInterval($debut,'+ 8 months'),$faker->dateTimeInInterval($debut,'+ 5 months')]),
+        'valider' => $faker->randomElement([true,false]),   
         
         'assure_id' => function(){
             return  Assure::all()->random();
