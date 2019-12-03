@@ -24,24 +24,18 @@ import com.kinda.alert.KAlertDialog;
 import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
 import bj.assurance.prevoyancedeces.SimpleCustomBottomSheet;
 import bj.assurance.prevoyancedeces.Utils.AccessToken;
 import bj.assurance.prevoyancedeces.Utils.ApiError;
 import bj.assurance.prevoyancedeces.Utils.Utils;
-import bj.assurance.prevoyancedeces.activity.Main2Activity;
 import bj.assurance.prevoyancedeces.activity.MarchandMainActivity;
-import bj.assurance.prevoyancedeces.adapter.ListeSouscriptionAdpter;
 import bj.assurance.prevoyancedeces.adapter.TransactionAdater;
-import bj.assurance.prevoyancedeces.model.Client;
 import bj.assurance.prevoyancedeces.model.Contrat;
 import bj.assurance.prevoyancedeces.model.Marchand;
 import bj.assurance.prevoyancedeces.model.Portefeuille;
-import bj.assurance.prevoyancedeces.model.Utilisateur;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
-import bj.assurance.prevoyancedeces.retrofit.Service.ClientService;
 import bj.assurance.prevoyancedeces.retrofit.Service.MarchandService;
 import bj.assurance.prevoyancedeces.retrofit.TokenManager;
 import okhttp3.ResponseBody;
@@ -84,7 +78,6 @@ public class Accueil extends Fragment {
 
         init(view);
         setClickListener();
-
 
         getContratsForUser(TokenManager.getInstance(getActivity().
                 getSharedPreferences("prefs", MODE_PRIVATE)).
@@ -140,57 +133,29 @@ public class Accueil extends Fragment {
             item.setIndicatorIconRes(R.drawable.ic_location_black);
             //It is possible to get any view inside the inflated layout. Let's set the text in the item
 
-            ((TextView) item.findViewById(R.id.nom_prenom_clent)).setText(subItems.getClient().getUtilisateur().getNom() + " " +
-                    subItems.getClient().getUtilisateur().getPrenom());
 
-            ((TextView) item.findViewById(R.id.numero_police)).setText(subItems.getNumeroPolice());
+            try {
+                ((TextView) item.findViewById(R.id.nom_prenom_clent)).setText(subItems.getClient().getUtilisateur().getNom() + " " +
+                        subItems.getClient().getUtilisateur().getPrenom());
+
+                ((TextView) item.findViewById(R.id.numero_police)).setText(subItems.getNumeroPolice());
+            } catch (Exception e) {
+                System.out.println(e.getCause());
+            }
 
             //We can create items in batch.
             item.createSubItems(subItems.getTransactions().size());
 
             for (int i = 0; i < subItems.getTransactions().size(); i++) {
                 View subItemZero = item.getSubItemView(i);
-                ((TextView) subItemZero.findViewById(R.id.nom_prenom_clent)).setText(subItems.getClient().getUtilisateur().getNom()+ " " +
-                        subItems.getClient().getUtilisateur().getPrenom());
 
+                try {
+                    ((TextView) subItemZero.findViewById(R.id.date_paiement)).setText(subItems.getTransactions().get(i).getCreatedAt());
 
-                Call<List<Portefeuille>> call;
-                MarchandService service = new RetrofitBuildForGetRessource(
-                        TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken()
-                ).getRetrofit().create(MarchandService.class);
-                call = service.getTransaction(subItems.getId());
-                call.enqueue(new Callback<List<Portefeuille>>() {
-                    @Override
-                    public void onResponse(Call<List<Portefeuille>> call, Response<List<Portefeuille>> response) {
-
-                        Log.w(TAG, "onResponse: " + response);
-
-                        if (response.isSuccessful()) {
-                            System.out.println(response.body());
-                            ((TextView) subItemZero.findViewById(R.id.date_paiement)).setText(subItems.getTransactions().get(i).getCreatedAt());
-
-                            ((TextView) subItemZero.findViewById(R.id.montant_paye)).setText(subItems.getTransactions().get(i).getMontant());
-
-                        } else {
-                            if (response.code() == 422) {
-                                System.out.println(response.errorBody().source());
-                                handleErrors(response.errorBody());
-                            }
-                            if (response.code() == 401) {
-                                ApiError apiError = Utils.converErrors(response.errorBody());
-                                //Toast.makeText(Main2Activity.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Portefeuille>> call, Throwable t) {
-                        Log.w(TAG, "onFailure: " + t.getMessage());
-                        //Toast.makeText(Main2Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
+                    ((TextView) subItemZero.findViewById(R.id.montant_paye)).setText(subItems.getTransactions().get(i).getMontant()+ " fcfa");
+                } catch (Exception e) {
+                    System.out.println(e.getCause());
+                }
 
             }
 
@@ -210,7 +175,7 @@ public class Accueil extends Fragment {
                 Log.w(TAG, "onResponse: " + response);
 
                 if (response.isSuccessful()) {
-                    System.out.println(response.body());
+                    //System.out.println(response.body());
 
                     for (int i = 0; i < response.body().getContrats().size(); i++) {
                         addItem(response.body().getContrats().get(i));

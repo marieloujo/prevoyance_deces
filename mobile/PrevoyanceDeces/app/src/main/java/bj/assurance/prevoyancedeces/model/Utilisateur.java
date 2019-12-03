@@ -75,6 +75,20 @@ public class Utilisateur {
         this.prenom = prenom;
     }
 
+    public Utilisateur(String nom, String prenom, String telephone, String email, String sexe, String dateNaissance, String situationMatrimoniale, String adresse, boolean prospect, boolean actif, Commune commune) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.telephone = telephone;
+        this.email = email;
+        this.sexe = sexe;
+        this.dateNaissance = dateNaissance;
+        this.situationMatrimoniale = situationMatrimoniale;
+        this.adresse = adresse;
+        this.prospect = prospect;
+        this.actif = actif;
+        this.commune = commune;
+    }
+
     public Utilisateur(String nom, String prenom, String telephone, String email, String sexe, String dateNaissance, String situationMatrimoniale, String adresse, boolean prospect, boolean actif, String login, String password, Commune commune) {
         this.nom = nom;
         this.prenom = prenom;

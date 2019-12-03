@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -37,6 +38,7 @@ import bj.assurance.prevoyancedeces.R;
 import bj.assurance.prevoyancedeces.Utils.AccessToken;
 import bj.assurance.prevoyancedeces.Utils.ApiError;
 import bj.assurance.prevoyancedeces.Utils.Utils;
+import bj.assurance.prevoyancedeces.activity.Main2Activity;
 import bj.assurance.prevoyancedeces.activity.MarchandMainActivity;
 import bj.assurance.prevoyancedeces.activity.Test;
 import bj.assurance.prevoyancedeces.model.Assurer;
@@ -51,8 +53,10 @@ import bj.assurance.prevoyancedeces.model.SuperMarchand;
 import bj.assurance.prevoyancedeces.model.Utilisateur;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
 import bj.assurance.prevoyancedeces.retrofit.Service.ClientService;
+import bj.assurance.prevoyancedeces.retrofit.Service.MarchandService;
 import bj.assurance.prevoyancedeces.retrofit.TokenManager;
 import br.com.sapereaude.maskedEditText.MaskedEditText;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,9 +73,11 @@ public class AddClientStepOne extends Fragment implements DatePickerDialog.OnDat
     private TextView tvNom, tvPrenoms, tvEmail, tvAdresse, tvSituationMatrimoniale, tvSexe, tvDateNaissance;
     private EditText etNom, etPrenoms, etAdresse, etDateNaissance, etProfession, etEmployeur;
     private FormEditText etEmail;
-    private Spinner etSituationMatrimoniale, etSexe;
+    private Spinner etSituationMatrimoniale, etSexe, etCommune;
     private MaskedEditText etTelephone;
     SimpleDateFormat dtYYYY = new SimpleDateFormat("YYYY");
+
+
 
     public AddClientStepOne() {
         // Required empty public constructor
@@ -87,7 +93,6 @@ public class AddClientStepOne extends Fragment implements DatePickerDialog.OnDat
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_addclient_stepone, container, false);
-
 
         init(view);
         setClickListener();
@@ -110,6 +115,7 @@ public class AddClientStepOne extends Fragment implements DatePickerDialog.OnDat
         etEmployeur = view.findViewById(R.id.etEmployeur);
         etProfession = view.findViewById(R.id.etProfession);
         etTelephone = view.findViewById(R.id.etTelephoneClient);
+        etCommune = view.findViewById(R.id.etCommuneClient);
 
 
         tvNom = view.findViewById(R.id.tvNomClient);
@@ -121,8 +127,22 @@ public class AddClientStepOne extends Fragment implements DatePickerDialog.OnDat
         tvDateNaissance = view.findViewById(R.id.tvDateNaissanceClient);
 
         makeSpinnerList();
+        //autoCompleCommune();
 
     }
+
+    /*public void autoCompleCommune() {
+        String communeName[] = {};
+        for (int i = 0; i < communes.size(); i++) {
+            communeName[i] = communes.get(i).getNom();
+        }
+
+        System.out.println(communeName);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, communeName);
+        etCommune.setAdapter(adapter);
+
+    }*/
 
     private void setClickListener() {
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -146,54 +166,69 @@ public class AddClientStepOne extends Fragment implements DatePickerDialog.OnDat
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-                if (verifeData()) {
+                // if (verifeData()) {
+
+                    /*
+                    Commune commune = new Commune();
+
+
+                    for (int i = 0; i<MarchandMainActivity.getCommunes().size(); i++) {
+                        if (MarchandMainActivity.getCommunes().get(i).getNom().equals(etCommune.getSelectedItem().toString())) {
+                            commune = MarchandMainActivity.getCommunes().get(i);
+                        }
+                    }
 
                     Client client = new Client(etProfession.getText().toString(), etEmployeur.getText().toString(),new Utilisateur(
                             etNom.getText().toString(), etPrenoms.getText().toString(), etTelephone.getRawText(),
                             etEmail.getText().toString(), etSexe.getSelectedItem().toString(), etDateNaissance.getText().toString(),
                             etSituationMatrimoniale.getSelectedItem().toString(), etAdresse.getText().toString(), false,
-                            false, "qdqsfDFUYIOOzzef", "324567DFGHJK", new Commune())
+                            false, commune)
                     );
 
                     MarchandMainActivity.getContrat().setClient(client);
-                    replaceFraglent(new AddClientStepTwo());
+                    replaceFraglent(new AddClientStepTwo());*/
 
-                    /*Commune commune = new Commune("Abomey-calavi", new Departement("Atlantique"));
+                    Commune commune = new Commune("Abomey-calavi", new Departement("Atlantique"));
 
                     Utilisateur utilisateur = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 00", "aziz@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false, "aziz",
-                            "@z1ZFL0UB$", commune);
+                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
 
                     Utilisateur utilisateur1 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 01", "aziz1@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false, "aziz1",
-                            "@z1ZFL0UB$", commune);
+                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
 
                     Utilisateur utilisateur2 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 02", "aziz2@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false, "aziz2",
-                            "@z1ZFL0UB$", commune);
+                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
+
+                    Utilisateur utilisateur3 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 02", "aziz2@gmail.com", "masculin",
+                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
 
 
                     Client client = new Client("electicien", "VISOUSSI carine", utilisateur);
 
                     Marchand marchand = new Marchand("GYY176767878", "435678", "35467", new SuperMarchand(), utilisateur1);
 
-                    Benefice benefice = new Benefice("epouse", "30", new Beneficiaire());
+                    Benefice benefice = new Benefice("epouse", "30", new Beneficiaire(utilisateur3));
 
                     List<Benefice> benefices = new ArrayList<>();
                     benefices.add(benefice);
 
                     Assurer assurer = new Assurer("Vitrie", utilisateur2, false);
 
-
                     Contrat contrat = new Contrat("1 000 000", "1 000", "1", simpleDateFormat.format(new Date()),
                             simpleDateFormat.format(new Date()), simpleDateFormat.format(new Date()), simpleDateFormat.format(new Date()), client,
-                            marchand, benefices, assurer);*/
+                            marchand, benefices, assurer);
+
+
+                System.out.println(contrat.toString());
+
+                    senContrat(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken(),
+                            contrat);
 
                     //System.out.println(contrat.toString());
 
                 }
                 //replaceFraglent(new AddClientStepTwo());
-            }
+            //}
         });
     }
 
@@ -247,6 +282,39 @@ public class AddClientStepOne extends Fragment implements DatePickerDialog.OnDat
 
         return isValid && allValid;
 
+    }
+
+    private void senContrat(AccessToken accessToken, Contrat contrat) {
+
+        Call<JsonObject> call;
+        ClientService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(ClientService.class);
+        call = service.create(contrat);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                Log.w(TAG, "onResponse: " + response);
+
+                if (response.isSuccessful()) {
+                    System.out.println(response.body());
+                } else {
+                    if (response.code() == 422) {
+                        System.out.println(response.code()+" "+response.errorBody().source());
+                    }
+                    if (response.code() == 401) {
+                        ApiError apiError = Utils.converErrors(response.errorBody());
+                        Toast.makeText(getActivity(), response.code() +" " +apiError.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage());
+                Toast.makeText(getActivity(), t.getMessage()+ t.getCause().getCause().getCause(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void makeSpinnerList() {
@@ -310,11 +378,49 @@ public class AddClientStepOne extends Fragment implements DatePickerDialog.OnDat
             }
         };
 
+        String[] communess = new String[MarchandMainActivity.getCommunes().size()+1];
+        communess[0] = "Commune";
+        for (int i = 0; i < MarchandMainActivity.getCommunes().size(); i++) {
+            communess[i+1] = MarchandMainActivity.getCommunes().get(i).getNom();
+            System.out.println(communess);
+        }
+
+        final ArrayAdapter<String> communeArrayAdapter = new ArrayAdapter<String>(
+                getContext(),R.layout.item_spinner,communess){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+
         spinnerArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
+        sexeArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
+        communeArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
 
         etSituationMatrimoniale.setAdapter(spinnerArrayAdapter);
         etSexe.setAdapter(sexeArrayAdapter);
+        etCommune.setAdapter(communeArrayAdapter);
 
         etSituationMatrimoniale.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -349,6 +455,24 @@ public class AddClientStepOne extends Fragment implements DatePickerDialog.OnDat
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        etCommune.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+
+                if(position > 0){
+                    // Notify the selected item text
+                    Toast.makeText
+                            (getContext().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
     }
 
 
@@ -385,4 +509,12 @@ public class AddClientStepOne extends Fragment implements DatePickerDialog.OnDat
     @Override
     public void onCancel(DialogInterface dialog) {
     }
+
+
+    private void handleErrors(ResponseBody response) {
+
+        ApiError apiError = Utils.converErrors(response);
+
+    }
+
 }

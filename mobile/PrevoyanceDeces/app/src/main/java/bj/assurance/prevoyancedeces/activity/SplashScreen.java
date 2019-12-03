@@ -42,7 +42,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
 
-        //TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).deleteToken();
+        // TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).deleteToken();
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -51,10 +51,11 @@ public class SplashScreen extends AppCompatActivity {
 
                 Intent i = new Intent();
 
-                /*i.setClass(SplashScreen.this, Main2Activity.class);
+                i.setClass(SplashScreen.this, Main2Activity.class);
                 startActivity(i);
-                finish();*/
+                finish();
 
+                /*
                 if (!(TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken().getAccessToken() == null)) {
 
                     getAuthenticateUser(TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken());
@@ -63,7 +64,7 @@ public class SplashScreen extends AppCompatActivity {
                     i.setClass(SplashScreen.this,Connexion.class);
                     startActivity(i);
                     finish();
-                }
+                }*/
             }
         } ,1000);
 

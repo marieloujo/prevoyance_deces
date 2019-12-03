@@ -20,10 +20,7 @@ public class Marchand {
     private String commission;
 
     @SerializedName("comptes")
-    private List<Compte> commissions;
-
-    //@SerializedName("comptes")
-    private List<Compte> creditVirtuels;
+    private List<Object> objects;
 
     @SerializedName("super_marchand")
     private SuperMarchand superMarchand;
@@ -82,20 +79,12 @@ public class Marchand {
         this.superMarchand = superMarchand;
     }
 
-    public List<Compte> getCommissions() {
-        return commissions;
+    public List<Object> getObjects() {
+        return objects;
     }
 
-    public void setCommissions(List<Compte> commissions) {
-        this.commissions = commissions;
-    }
-
-    public List<Compte> getCreditVirtuels() {
-        return creditVirtuels;
-    }
-
-    public void setCreditVirtuels(List<Compte> creditVirtuels) {
-        this.creditVirtuels = creditVirtuels;
+    public void setObjects(List<Object> objects) {
+        this.objects = objects;
     }
 
     public List<Contrat> getContrats() {
@@ -121,8 +110,7 @@ public class Marchand {
                 ", matricule='" + matricule + '\'' +
                 ", creditVirtuel='" + creditVirtuel + '\'' +
                 ", commission='" + commission + '\'' +
-                ", commissions=" + commissions +
-                ", creditVirtuels=" + creditVirtuels +
+                ", objects=" + objects +
                 ", superMarchand=" + superMarchand +
                 ", contrats=" + contrats +
                 ", utilisateur=" + utilisateur +

@@ -30,6 +30,6 @@ public interface ClientService {
     Call<JsonObject> create(@Body Contrat contrat);
 
     @GET("")
-    Call<Client> findbyId(@Path("idClient") Long id);
+    Call<Client> findbyId();
 
 }

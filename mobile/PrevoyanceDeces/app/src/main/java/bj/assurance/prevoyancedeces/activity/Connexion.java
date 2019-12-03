@@ -36,7 +36,6 @@ public class Connexion extends AppCompatActivity {
 
     private static final String TAG = "Connexion";
 
-
     EditText telephone;
     EditText password;
     static String users;
@@ -155,6 +154,20 @@ public class Connexion extends AppCompatActivity {
                         Toast.makeText(Connexion.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
                         pDialog.dismiss();
                     }
+
+                    pDialog.dismiss();
+
+                    new KAlertDialog(Connexion.this, KAlertDialog.WARNING_TYPE)
+                            .setTitleText("Connexion impossibe au serveur")
+                            .setContentText("Oups!!! quelque chose s'est mal passé vérifier votre connexion internet et réessayer")
+                            .showCancelButton(true)
+                            .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(KAlertDialog sDialog) {
+                                    sDialog.cancel();
+                                }
+                            })
+                            .show();
                 }
 
             }

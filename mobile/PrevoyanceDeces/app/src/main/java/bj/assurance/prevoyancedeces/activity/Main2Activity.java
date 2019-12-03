@@ -80,7 +80,7 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
-    @SuppressLint("WrongConstant")
+    @SuppressLint({"WrongConstant", "SetTextI18n"})
     public void init() {
 
         title = findViewById(R.id.frame_title);
@@ -99,9 +99,17 @@ public class Main2Activity extends AppCompatActivity {
 
         }
 
+        /*findbyId(
+                TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken()
+        );
+*/
         setView();
 
-        title.setText("Bonjour "+ utilisateur.getPrenom());
+        try {
+            title.setText("Salut " + utilisateur.getPrenom());
+        }catch (Exception e) {
+
+        }
 
     }
 
@@ -131,7 +139,7 @@ public class Main2Activity extends AppCompatActivity {
 
         Call<Client> call;
         ClientService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(ClientService.class);
-        call = service.findbyId(utilisateur.getUsereableId());
+        call = service.findbyId();
         call.enqueue(new Callback<Client>() {
             @Override
             public void onResponse(Call<Client> call, Response<Client> response) {
@@ -187,9 +195,11 @@ public class Main2Activity extends AppCompatActivity {
 
             case R.id.bottom_nav_accueil:
                 replaceFragment(new Accueil(), getResources().getString(R.string.bonjour_joan));
+                break;
 
             case R.id.bottom_nav_boutique:
                 replaceFragment(new Boutique(), getResources().getString(R.string.boutique_virtuelle));
+                break;
 
         }
     }
@@ -212,6 +222,9 @@ public class Main2Activity extends AppCompatActivity {
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
     }
+
+
+
 
     public static TextView getTextTitle() {
         return title;

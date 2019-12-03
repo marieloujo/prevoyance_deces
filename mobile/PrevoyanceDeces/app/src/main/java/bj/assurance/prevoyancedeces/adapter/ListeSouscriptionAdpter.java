@@ -38,6 +38,14 @@ public class ListeSouscriptionAdpter extends RecyclerView.Adapter<ListeSouscript
             holder.getNomPrenom().setText(contrats.get(position).getAssurer().getUtilisateur().getNom() + " " +
                     contrats.get(position).getAssurer().getUtilisateur().getPrenom());
             holder.getNumeroAssurance().setText(contrats.get(position).getNumeroPolice());
+
+            Integer portefeuil = 0;
+
+            for (int i = 0; i < contrats.get(position).getTransactions().size(); i++)
+                portefeuil += Integer.valueOf(contrats.get(position).getTransactions().get(i).getMontant());
+
+            holder.getPortefeuil().setText(portefeuil);
+
         } catch (Exception e) {}
 
     }

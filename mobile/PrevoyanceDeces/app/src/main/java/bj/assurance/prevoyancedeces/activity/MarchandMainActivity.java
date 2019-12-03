@@ -12,11 +12,13 @@ import bj.assurance.prevoyancedeces.fragment.client.Discussion;
 import bj.assurance.prevoyancedeces.fragment.client.Notification;
 import bj.assurance.prevoyancedeces.fragment.marchand.Accueil;
 import bj.assurance.prevoyancedeces.fragment.marchand.ListeClients;
+import bj.assurance.prevoyancedeces.model.Commune;
 import bj.assurance.prevoyancedeces.model.Contrat;
 import bj.assurance.prevoyancedeces.model.Marchand;
 import bj.assurance.prevoyancedeces.model.Utilisateur;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
 import bj.assurance.prevoyancedeces.retrofit.Service.MarchandService;
+import bj.assurance.prevoyancedeces.retrofit.TokenManager;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +36,9 @@ import com.fxn.BubbleTabBar;
 import com.fxn.OnBubbleClickListener;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
@@ -48,7 +53,10 @@ public class MarchandMainActivity extends AppCompatActivity {
     TextView nomPrenom, matricule, soldeActuelCreditVirtuel, soldeInitialeCreditVirtuel;
 
     static Marchand marchand ;
-    Utilisateur utilisateur;
+    static Utilisateur utilisateur;
+
+
+    private static List<Commune> communes = new ArrayList<>();
 
     Gson gson = new Gson();
 
@@ -80,6 +88,14 @@ public class MarchandMainActivity extends AppCompatActivity {
 
         } catch (Exception ignored) { }
 
+        /*findbyId(
+                TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken()
+        );
+        contrat.setMarchand(marchand);*/
+
+        getCommunesbyDepartement(
+                TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken()
+        );
 
         setView();
 
@@ -166,7 +182,7 @@ public class MarchandMainActivity extends AppCompatActivity {
 
         Call<Marchand> call;
         MarchandService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(MarchandService.class);
-        call = service.findById(utilisateur.getUsereableId());
+        call = service.findById();
         call.enqueue(new Callback<Marchand>() {
             @Override
             public void onResponse(Call<Marchand> call, Response<Marchand> response) {
@@ -204,6 +220,42 @@ public class MarchandMainActivity extends AppCompatActivity {
 
     }
 
+    private void getCommunesbyDepartement(AccessToken accessToken) {
+
+        Call<List<Commune>> call;
+        MarchandService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(MarchandService.class);
+        call = service.getCommunebyDepartement(MarchandMainActivity.getUtilisateur().getCommune().getDepartement().getId());
+        call.enqueue(new Callback<List<Commune>>() {
+            @Override
+            public void onResponse(Call<List<Commune>> call, Response<List<Commune>> response) {
+
+                Log.w(TAG, "onResponse: " + response);
+
+                if (response.isSuccessful()) {
+                    System.out.println(response.body());
+                    communes = response.body();
+
+                } else {
+                    if (response.code() == 422) {
+                        System.out.println(response.errorBody().source());
+                        handleErrors(response.errorBody());
+                    }
+                    if (response.code() == 401) {
+                        ApiError apiError = Utils.converErrors(response.errorBody());
+                        //Toast.makeText(Main2Activity.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Commune>> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage());
+                //Toast.makeText(Main2Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     public static Marchand getMarchand() {
         return marchand;
     }
@@ -229,4 +281,19 @@ public class MarchandMainActivity extends AppCompatActivity {
         MarchandMainActivity.contrat = contrat;
     }
 
+    public static Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public static void setUtilisateur(Utilisateur utilisateur) {
+        MarchandMainActivity.utilisateur = utilisateur;
+    }
+
+    public static List<Commune> getCommunes() {
+        return communes;
+    }
+
+    public static void setCommunes(List<Commune> communes) {
+        MarchandMainActivity.communes = communes;
+    }
 }
