@@ -61,7 +61,7 @@
             android:textSize="18sp"
             android:textColor="@color/text_black"
             android:elevation="40dp"
-            android:background="@drawable/rounded_rect_white"
+            android:background="@drawable/message_button"
             android:textAllCaps="false"
             android:onClick="visiter"/>
 

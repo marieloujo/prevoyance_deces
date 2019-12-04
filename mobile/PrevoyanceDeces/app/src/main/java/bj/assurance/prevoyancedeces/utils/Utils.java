@@ -1,4 +1,4 @@
-package bj.assurance.prevoyancedeces.Utils;
+package bj.assurance.prevoyancedeces.utils;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

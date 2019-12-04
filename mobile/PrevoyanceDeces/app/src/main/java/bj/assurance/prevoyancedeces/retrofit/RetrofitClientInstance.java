@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientInstance {
 
-    private static final String BASE_URL = "http://192.168.43.239:8000/api/";
+    private static final String BASE_URL = "http://192.168.42.149:8000/api/";
 
 
     private final static OkHttpClient client = buildClient();
@@ -40,7 +40,6 @@ public class RetrofitClientInstance {
                 });
 
         return builder.build();
-
     }
 
     private static Retrofit buildRetrofit(OkHttpClient client){
@@ -51,7 +50,7 @@ public class RetrofitClientInstance {
                 .build();
     }
 
-    public static <T> T createService(Class<T> service){
+    static <T> T createService(Class<T> service){
         return retrofit.create(service);
     }
 

@@ -2,12 +2,9 @@ package bj.assurance.prevoyancedeces.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
-import bj.assurance.prevoyancedeces.Utils.ApiError;
-import bj.assurance.prevoyancedeces.Utils.Utils;
-import bj.assurance.prevoyancedeces.model.Client;
-import bj.assurance.prevoyancedeces.model.Marchand;
-import bj.assurance.prevoyancedeces.model.SuperMarchand;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.ApiError;
+import bj.assurance.prevoyancedeces.utils.Utils;
 import bj.assurance.prevoyancedeces.model.Utilisateur;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
 import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
@@ -21,7 +18,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -42,7 +38,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
 
-        // TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).deleteToken();
+        //TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).deleteToken();
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -51,20 +47,20 @@ public class SplashScreen extends AppCompatActivity {
 
                 Intent i = new Intent();
 
-                i.setClass(SplashScreen.this, Main2Activity.class);
+                /*i.setClass(SplashScreen.this, MarchandMainActivity.class);
                 startActivity(i);
-                finish();
+                finish();*/
 
-                /*
+
                 if (!(TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken().getAccessToken() == null)) {
 
                     getAuthenticateUser(TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken());
-
+                    return;
                 } else {
-                    i.setClass(SplashScreen.this,Connexion.class);
+                    i.setClass(SplashScreen.this,Welcome.class);
                     startActivity(i);
                     finish();
-                }*/
+                }
             }
         } ,1000);
 

@@ -1,9 +1,7 @@
 package bj.assurance.prevoyancedeces.fragment.marchand;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,13 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
-import bj.assurance.prevoyancedeces.Utils.ApiError;
-import bj.assurance.prevoyancedeces.Utils.Utils;
-import bj.assurance.prevoyancedeces.activity.MarchandMainActivity;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.ApiError;
+import bj.assurance.prevoyancedeces.utils.Utils;
 import bj.assurance.prevoyancedeces.model.Compte;
-import bj.assurance.prevoyancedeces.model.Contrat;
-import bj.assurance.prevoyancedeces.model.Marchand;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
 import bj.assurance.prevoyancedeces.retrofit.Service.MarchandService;
 import ir.farshid_roohi.linegraph.ChartEntity;
@@ -44,9 +39,9 @@ public class Historique extends Fragment {
     LinearLayout appBar, nextBar;
     LineChart lineChart;
 
-    float[] graph1 = {113000f, 183000f, 188000f, 695000f, 324000f, 230000f, 188000f, 15000f, 126000f, 5000f, 33000f};
-    float[] graph2 = {0f, 245000f, 1011000f, 1000f, 0f, 0f, 47000f, 20000f, 12000f, 124400f, 160000f};
-    String[] legendArr = {"05/21", "05/22", "05/23", "05/24", "05/25", "05/26", "05/27", "05/28", "05/29", "05/30", "05/31"};
+    float[] graph1 = {113000f, 183000f, 188000f, 695000f, 324000f, 230000f, 188000f, 15000f, 126000f, 5000f, 33000f, 324000f, 230000f, 188000f, 15000f, 126000f, 5000f, 33000, 47000f, 20000f, 12000f, 124400f, 160000f};
+    float[] graph2 = {0f, 245000f, 1011000f, 1000f, 0f, 0f, 47000f, 20000f, 12000f, 124400f, 160000f, 47000f, 20000f, 12000f, 124400f, 160000f, 324000f, 230000f, 188000f, 15000f, 126000f, 5000f, 33000};
+    String[] legendArr = {"05/21", "05/22", "05/23", "05/24", "05/25", "05/26", "05/27", "05/28", "05/29", "05/30", "05/31", "05/24", "05/25", "05/26", "05/27", "05/28", "05/29", "05/30", "05/31", "05/24", "05/25", "05/26", "05/27", "05/28", "05/29", "05/30", "05/31"};
 
     private List<Compte> creditVirtules;
     private List<Compte> commisions;

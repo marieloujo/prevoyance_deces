@@ -39,7 +39,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationViewHo
         holder.getContenuNotification().setText(notifications.get(position).getBody());
         holder.getNomPrenomDateNotification().setText(notifications.get(position).getFromUser().getNom() + " " +
                 notifications.get(position).getFromUser().getPrenom() + " " +
-                (notifications.get(position).getDateCreation()));
+                (notifications.get(position).getDateModification()));
 
     }
 

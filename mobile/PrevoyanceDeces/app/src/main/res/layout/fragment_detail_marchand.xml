@@ -29,6 +29,7 @@
                 android:scaleType="centerCrop"/>
 
             <TextView
+                android:id="@+id/nom_prenom_marchand"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/green_inactive"
@@ -48,6 +49,7 @@
         android:layout_margin="15dp">
 
         <ImageView
+            android:id="@+id/icon_contact_marchand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_chat_green"
@@ -58,6 +60,7 @@
             android:clickable="true"/>
 
         <ImageView
+            android:id="@+id/icon_phone_marchand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_local_phone_green"
@@ -68,6 +71,7 @@
             android:clickable="true"/>
 
         <ImageView
+            android:id="@+id/icon_mail_marchand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_mail_green"
@@ -122,19 +126,20 @@
                 android:layout_marginLeft="20dp">
 
                 <TextView
+                    android:id="@+id/adresse_marchand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.AppCompat"
                     android:textColor="@color/text_black"
                     android:textStyle="bold"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:text="calavi, Benin"
                     android:layout_marginBottom="5dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:text="@string/adresse"/>
 
             </LinearLayout>
@@ -169,19 +174,20 @@
                 android:layout_marginLeft="20dp">
 
                 <TextView
+                    android:id="@+id/mobile_marchand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.AppCompat"
                     android:textStyle="bold"
                     android:textColor="@color/text_black"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:text="@string/tel"
                     android:layout_marginBottom="5dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:text="@string/mobile"/>
 
             </LinearLayout>
@@ -216,19 +222,20 @@
                 android:layout_marginLeft="20dp">
 
                 <TextView
+                    android:id="@+id/adresse_mail_marchand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.AppCompat"
                     android:textStyle="bold"
                     android:textColor="@color/text_black"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:text="@string/mail_adresse"
                     android:layout_marginBottom="4dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:text="@string/email"/>
 
             </LinearLayout>

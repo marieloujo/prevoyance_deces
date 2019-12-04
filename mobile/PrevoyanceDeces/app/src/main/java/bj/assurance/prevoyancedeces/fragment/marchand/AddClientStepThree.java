@@ -1,8 +1,7 @@
 package bj.assurance.prevoyancedeces.fragment.marchand;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,18 +19,20 @@ import android.widget.Toast;
 
 import com.andreabaccega.widget.FormEditText;
 import com.google.gson.JsonObject;
+import com.kinda.alert.KAlertDialog;
+import com.msa.dateedittext.DateEditText;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
-import bj.assurance.prevoyancedeces.Utils.ApiError;
-import bj.assurance.prevoyancedeces.Utils.Utils;
-import bj.assurance.prevoyancedeces.activity.Main2Activity;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.ApiError;
+import bj.assurance.prevoyancedeces.utils.Utils;
 import bj.assurance.prevoyancedeces.activity.MarchandMainActivity;
-import bj.assurance.prevoyancedeces.fragment.client.Marchands;
 import bj.assurance.prevoyancedeces.model.Benefice;
 import bj.assurance.prevoyancedeces.model.Beneficiaire;
 import bj.assurance.prevoyancedeces.model.Commune;
@@ -52,10 +52,13 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class AddClientStepThree extends Fragment {
 
     private Button cancel, next;
-    private EditText etNom, etPrenom, etQualification, etTaux, etAdresse, etDateNaissance;
+    private TextView tvNom, tvPrenoms, tvEmail, tvAdresse, tvSituationMatrimoniale, tvSexe, tvDateNaissance, tvQualification, tvTaux, tvCommune, tvTelephone;
+    private EditText etNom, etPrenoms, etAdresse, etTaux;
+    private DateEditText etDateNaissance;
     private FormEditText etEmail;
-    private Spinner etSituationMatrimoniale, etSexe, etCommune;
+    private Spinner etSituationMatrimoniale, etSexe, etCommune, etQualification;
     private MaskedEditText etTelephone;
+    SimpleDateFormat dtYYYY = new SimpleDateFormat("YYYY");
 
     public AddClientStepThree() {
         // Required empty public constructor
@@ -73,6 +76,8 @@ public class AddClientStepThree extends Fragment {
         View view = inflater.inflate(R.layout.fragment_addclient_stepthree, container, false);
 
 
+        init(view);
+        setClickListener();
 
 
         return view;
@@ -82,23 +87,59 @@ public class AddClientStepThree extends Fragment {
         cancel = view.findViewById(R.id.annuler);
         next = view.findViewById(R.id.suivant);
 
-        etNom = view.findViewById(R.id.etNomBeneficier);
-        etPrenom = view.findViewById(R.id.etPrenomBeneficier);
-        etQualification = view.findViewById(R.id.QualificationBeneficier);
-        etTaux = view.findViewById(R.id.etTauxBeneficier);
+        etNom = view.findViewById(R.id.etNomClient);
+        etPrenoms = view.findViewById(R.id.etPrenomClient);
+        etEmail = view.findViewById(R.id.et_email);
+        etAdresse = view.findViewById(R.id.etAdresseClient);
+        etSituationMatrimoniale = view.findViewById(R.id.etSituationMatrimonialeClient);
+        etSexe = view.findViewById(R.id.etSexeClient);
+        etDateNaissance = view.findViewById(R.id.dateEditText);
+        etTelephone = view.findViewById(R.id.etTelephoneClient);
+        etCommune = view.findViewById(R.id.etCommuneClient);
+        etQualification = view.findViewById(R.id.etQualification);
+        etTaux = view.findViewById(R.id.etTaux);
 
-        etEmail = view.findViewById(R.id.etEmailBeneficier);
-        etAdresse = view.findViewById(R.id.etAdresseBeneficier);
-        etSituationMatrimoniale = view.findViewById(R.id.etSituationMatrimonialeBeneficier);
-        etSexe = view.findViewById(R.id.etSexeB);
-        etDateNaissance = view.findViewById(R.id.etDateNaissanceB);
-        etTelephone = view.findViewById(R.id.etTelephoneBeneficier);
-        etCommune = view.findViewById(R.id.etCommuneBeneficier);
+        etDateNaissance.listen();
+
+        int minYear = new Date().getYear() - 74;
+        int maxYear = new Date().getYear() - 18;
+
+        etDateNaissance.setMinDate(new Date(minYear,12,31));
+        etDateNaissance.setMaxDate(new Date(maxYear, 12,31));
+
+
+
+        tvNom = view.findViewById(R.id.tvNomClient);
+        tvPrenoms = view.findViewById(R.id.tvPrenomClient);
+        tvEmail = view.findViewById(R.id.tvEmailClient);
+        tvAdresse = view.findViewById(R.id.tvAdresseDomicileClient);
+        tvSituationMatrimoniale = view.findViewById(R.id.tvSituationMatrimonialeClient);
+        tvSexe = view.findViewById(R.id.tvetSexeClient);
+        tvDateNaissance = view.findViewById(R.id.tvDateNaissanceClient);
+        tvCommune = view.findViewById(R.id.tvCommuneClient);
+        tvTelephone = view.findViewById(R.id.tvTelephoneClient);
+        tvQualification = view.findViewById(R.id.tvQualification);
+        tvTaux = view.findViewById(R.id.tvTaux);
 
         makeSpinnerList();
+        //autoCompleCommune();
+
     }
 
-    public void setCliclLister() {
+    /*public void autoCompleCommune() {
+        String communeName[] = {};
+        for (int i = 0; i < communes.size(); i++) {
+            communeName[i] = communes.get(i).getNom();
+        }
+
+        System.out.println(communeName);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, communeName);
+        etCommune.setAdapter(adapter);
+
+    }*/
+
+    private void setClickListener() {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,41 +151,185 @@ public class AddClientStepThree extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Commune commune = new Commune();
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+                if (verifeData()) {
+                    Commune commune = new Commune();
 
-                for (int i = 0; i<MarchandMainActivity.getCommunes().size(); i++) {
-                    if (MarchandMainActivity.getCommunes().get(i).getNom().equals(etCommune.getSelectedItem().toString())) {
-                        commune = MarchandMainActivity.getCommunes().get(i);
+                    try {
+                        for (int i = 0; i<MarchandMainActivity.getCommunes().size(); i++) {
+                            if (MarchandMainActivity.getCommunes().get(i).getNom().equals(etCommune.getSelectedItem().toString())) {
+                                commune = MarchandMainActivity.getCommunes().get(i);
+                            }
+                        }
+                    } catch (Exception e) {
+
                     }
+
+                    Beneficiaire beneficiaire = new Beneficiaire(new Utilisateur(
+                            etNom.getText().toString(), etPrenoms.getText().toString(), etTelephone.getRawText(),
+                            etEmail.getText().toString(), etSexe.getSelectedItem().toString(), etDateNaissance.getText().toString(),
+                            etSituationMatrimoniale.getSelectedItem().toString(), etAdresse.getText().toString(), false,
+                            false, commune)
+                    );
+
+                    List<Benefice> benefices = new ArrayList<>();
+                    benefices.add(new Benefice(etQualification.getSelectedItem().toString(), etTaux.getText().toString(), beneficiaire));
+
+
+                    MarchandMainActivity.getContrat().setBenefices(benefices);
+
+                    System.out.println(MarchandMainActivity.getContrat().toString());
+
+                    senContrat(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken(),
+                            MarchandMainActivity.getContrat());
+
+                    //replaceFraglent(new AddClientStepFour());
                 }
 
-                Benefice benefice = new Benefice(etQualification.getText().toString(), etTaux.getText().toString(),
-                        new Beneficiaire(new Utilisateur(
-                                etNom.getText().toString(), etPrenom.getText().toString(), etTelephone.getRawText(),
-                                etEmail.getText().toString(), etSexe.getSelectedItem().toString(), etDateNaissance.getText().toString(),
-                                etSituationMatrimoniale.getSelectedItem().toString(), etAdresse.getText().toString(), false,
-                                false, commune)));
+                // if (verifeData()) {
 
-                List<Benefice> benefices = new ArrayList<>();
-                benefices.add(benefice);
-
-                MarchandMainActivity.getContrat().setBenefices(benefices);
-
-                System.out.println(MarchandMainActivity.getContrat());
-
-                senContrat(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken(),MarchandMainActivity.getContrat());
+                    /*
+                    Commune commune = new Commune();
 
 
-                //replaceFraglent(new AddClientStepFour());
+                    for (int i = 0; i<MarchandMainActivity.getCommunes().size(); i++) {
+                        if (MarchandMainActivity.getCommunes().get(i).getNom().equals(etCommune.getSelectedItem().toString())) {
+                            commune = MarchandMainActivity.getCommunes().get(i);
+                        }
+                    }
+
+                    Client client = new Client(etProfession.getText().toString(), etEmployeur.getText().toString(),new Utilisateur(
+                            etNom.getText().toString(), etPrenoms.getText().toString(), etTelephone.getRawText(),
+                            etEmail.getText().toString(), etSexe.getSelectedItem().toString(), etDateNaissance.getText().toString(),
+                            etSituationMatrimoniale.getSelectedItem().toString(), etAdresse.getText().toString(), false,
+                            false, commune)
+                    );
+
+                    MarchandMainActivity.getContrat().setClient(client);
+                    replaceFraglent(new AddClientStepTwo());
+
+                    Commune commune = new Commune("Abomey-calavi", new Departement("Atlantique"));
+
+                    Utilisateur utilisateur = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 00", "aziz@gmail.com", "masculin",
+                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
+
+                    Utilisateur utilisateur1 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 01", "aziz1@gmail.com", "masculin",
+                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
+
+                    Utilisateur utilisateur2 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 02", "aziz2@gmail.com", "masculin",
+                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
+
+                    Utilisateur utilisateur3 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 02", "aziz2@gmail.com", "masculin",
+                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
+
+
+                    Client client = new Client("electicien", "VISOUSSI carine", utilisateur);
+
+                    Marchand marchand = new Marchand("GYY176767878", "435678", "35467", new SuperMarchand(), utilisateur1);
+
+                    Benefice benefice = new Benefice("epouse", "30", new Beneficiaire(utilisateur3));
+
+                    List<Benefice> benefices = new ArrayList<>();
+                    benefices.add(benefice);
+
+                    Assurer assurer = new Assurer("Vitrie", utilisateur2, false);
+
+                    Contrat contrat = new Contrat("1 000 000", "1 000", "1", simpleDateFormat.format(new Date()),
+                            simpleDateFormat.format(new Date()), simpleDateFormat.format(new Date()), simpleDateFormat.format(new Date()), client,
+                            marchand, benefices, assurer);
+
+
+                System.out.println(contrat.toString());
+
+                    senContrat(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken(),
+                            contrat);
+
+                    //System.out.println(contrat.toString());*/
+
             }
+            //replaceFraglent(new AddClientStepTwo());
+            //}
         });
-
     }
 
     private void replaceFraglent(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_main_marchand, fragment).commit();
+
+    }
+
+    private boolean verifeData() {
+
+        boolean isValid = true;
+
+        if (etNom.getText().toString().isEmpty()) {
+            tvNom.setVisibility(View.VISIBLE);
+
+            isValid = false;
+
+        } else {
+            tvNom.setVisibility(View.INVISIBLE);
+        }
+
+        if (etPrenoms.getText().toString().isEmpty()) {
+
+            tvPrenoms.setVisibility(View.VISIBLE);
+            isValid = false;
+
+        } else tvPrenoms.setVisibility(View.INVISIBLE);
+
+        if (etEmail.getText().toString().isEmpty()) {
+            isValid = false;
+            tvEmail.setVisibility(View.VISIBLE);
+        } else tvEmail.setVisibility(View.INVISIBLE);
+
+        if (etAdresse.getText().toString().isEmpty()) {
+            isValid = false;
+            tvAdresse.setVisibility(View.VISIBLE);
+        } else tvAdresse.setVisibility(View.INVISIBLE);
+
+        if (etSituationMatrimoniale.getSelectedItem().toString().equals("Situation matrimoniale")) {
+            isValid = false;
+            tvSituationMatrimoniale.setVisibility(View.VISIBLE);
+        } else tvSituationMatrimoniale.setVisibility(View.INVISIBLE);
+
+        if (etSexe.getSelectedItem().toString().equals("Sexe")) {
+            isValid = false;
+            tvSexe.setVisibility(View.VISIBLE);
+        } else tvSexe.setVisibility(View.INVISIBLE);
+
+        if (etDateNaissance.getText().toString().equals("")) {
+            isValid = false;
+            tvDateNaissance.setVisibility(View.VISIBLE);
+        } else tvDateNaissance.setVisibility(View.INVISIBLE);
+
+       /* if (etCommune.getSelectedItem().toString().equals("Commune")) {
+            isValid = false;
+            tvCommune.setVisibility(View.VISIBLE);
+        } else tvCommune.setVisibility(View.INVISIBLE);*/
+
+        if (etQualification.getSelectedItem().toString().isEmpty()) {
+            isValid = false;
+            tvQualification.setVisibility(View.VISIBLE);
+        } else tvQualification.setVisibility(View.INVISIBLE);
+
+        if (etTaux.getText().toString().isEmpty()) {
+            isValid = false;
+            tvTaux.setVisibility(View.VISIBLE);
+        } else tvTaux.setVisibility(View.INVISIBLE);
+
+        if (etTelephone.getRawText().isEmpty()) {
+            isValid = false;
+            etTelephone.setVisibility(View.VISIBLE);
+        } else etTelephone.setVisibility(View.INVISIBLE);
+
+
+        boolean allValid = etEmail.testValidity() ;
+
+        return isValid && allValid;
+
     }
 
     private void senContrat(AccessToken accessToken, Contrat contrat) {
@@ -160,6 +345,15 @@ public class AddClientStepThree extends Fragment {
 
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
+
+                    new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
+                            .setTitleText("Contrat créer")
+                            .setContentText("Won't be able to recover this file!")
+                            .setCancelText("Ok")
+                            .setConfirmText("Yes,delete it!")
+                            .showCancelButton(true)
+                            .show();
+
                 } else {
                     if (response.code() == 422) {
                         System.out.println(response.code()+" "+response.errorBody().source());
@@ -170,12 +364,28 @@ public class AddClientStepThree extends Fragment {
                     }
                 }
 
+                new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
+                        .setTitleText(String.valueOf(response.body()))
+                        .setContentText(String.valueOf(response.code()))
+                        .setCancelText("Ok")
+                        .setConfirmText("Yes,delete it!")
+                        .showCancelButton(true)
+                        .show();
+
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage());
                 Toast.makeText(getActivity(), t.getMessage()+ t.getCause().getCause().getCause(), Toast.LENGTH_LONG).show();
+
+                new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
+                        .setTitleText("Contrat créer")
+                        .setContentText("Won't be able to recover this file!")
+                        .setCancelText("Ok")
+                        .setConfirmText("Yes,delete it!")
+                        .showCancelButton(true)
+                        .show();
             }
         });
     }
@@ -214,6 +424,35 @@ public class AddClientStepThree extends Fragment {
 
         final ArrayAdapter<String> sexeArrayAdapter = new ArrayAdapter<String>(
                 getContext(),R.layout.item_spinner,getResources().getStringArray(R.array.sexe)){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+
+        final ArrayAdapter<String> qualificationArrayAdapter = new ArrayAdapter<String>(
+                getContext(),R.layout.item_spinner,getResources().getStringArray(R.array.qualification)){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -280,61 +519,12 @@ public class AddClientStepThree extends Fragment {
         spinnerArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
         sexeArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
         communeArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
+        qualificationArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
 
         etSituationMatrimoniale.setAdapter(spinnerArrayAdapter);
         etSexe.setAdapter(sexeArrayAdapter);
         etCommune.setAdapter(communeArrayAdapter);
-
-        etSituationMatrimoniale.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-
-                if(position > 0){
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getContext().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        etSexe.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-
-                if(position > 0){
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getContext().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        etCommune.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-
-                if(position > 0){
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getContext().getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        etQualification.setAdapter(qualificationArrayAdapter);
 
     }
 

@@ -2,7 +2,7 @@ package bj.assurance.prevoyancedeces.retrofit.Service;
 
 import java.util.List;
 
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
 import bj.assurance.prevoyancedeces.model.Message;
 import bj.assurance.prevoyancedeces.model.Utilisateur;
 import retrofit2.Call;

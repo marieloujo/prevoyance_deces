@@ -14,4 +14,4 @@
     app:show_animation="true"
     app:show_indicator="true"
     app:start_collapsed="true"
-    app:sub_item_layout="@layout/item_souscription"/>
+    app:sub_item_layout="@layout/item_contrat_for_users"/>

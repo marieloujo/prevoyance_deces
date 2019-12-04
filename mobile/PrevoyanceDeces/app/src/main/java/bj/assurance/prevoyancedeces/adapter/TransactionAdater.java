@@ -12,14 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
 import bj.assurance.prevoyancedeces.model.Contrat;
+import bj.assurance.prevoyancedeces.model.Portefeuille;
 import bj.assurance.prevoyancedeces.viewHolder.TransactionViewHolder;
 
 public class TransactionAdater extends RecyclerView.Adapter<TransactionViewHolder> {
 
     Context context;
-    List<Contrat> contrats;
+    List<Portefeuille> contrats;
 
-    public TransactionAdater(Context context, List<Contrat> contrats) {
+    public TransactionAdater(Context context, List<Portefeuille> contrats) {
         this.context = context;
         this.contrats = contrats;
     }
@@ -36,8 +37,19 @@ public class TransactionAdater extends RecyclerView.Adapter<TransactionViewHolde
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
-        holder.getNomPrenom().setText(contrats.get(position).getClient().getUtilisateur().getNom() + " " +
-                contrats.get(position).getClient().getUtilisateur().getPrenom());
+
+        try {
+
+            /*holder.getNomPrenom().setText(contrats.get(position).g().getUtilisateur().getNom() + " " +
+                    contrats.get(position).getClient().getUtilisateur().getPrenom());
+
+            holder.getSolde().setText(contrats.get(position).getTransactions().get(position).getMontant()+ " fcfa");
+
+            holder.getDate().setText(contrats.get(position).getTransactions().get(position).getUpdateAt());*/
+
+        } catch (Exception e) {
+
+        }
 
         //holder.getSolde().setText(contrats.get(position).get);
 
@@ -46,6 +58,6 @@ public class TransactionAdater extends RecyclerView.Adapter<TransactionViewHolde
 
     @Override
     public int getItemCount() {
-        return 0;
+        return contrats.size();
     }
 }

@@ -1,15 +1,11 @@
 package bj.assurance.prevoyancedeces.fragment.client;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,18 +18,14 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
-import bj.assurance.prevoyancedeces.Utils.ApiError;
-import bj.assurance.prevoyancedeces.Utils.Utils;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.ApiError;
+import bj.assurance.prevoyancedeces.utils.Utils;
 import bj.assurance.prevoyancedeces.activity.Main2Activity;
-import bj.assurance.prevoyancedeces.adapter.DiscussionAdapter;
-import bj.assurance.prevoyancedeces.model.Commune;
 import bj.assurance.prevoyancedeces.model.Departement;
-import bj.assurance.prevoyancedeces.model.Message;
 import bj.assurance.prevoyancedeces.model.Utilisateur;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
 import bj.assurance.prevoyancedeces.retrofit.Service.ClientService;
-import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
 import bj.assurance.prevoyancedeces.retrofit.TokenManager;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -64,7 +56,11 @@ public class Marchands extends Fragment {
         View view = inflater.inflate(R.layout.fragment_marchands, container, false);
 
         init(view);
-        getMessageofUser(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken());
+
+        try {
+
+            getDepartementofUser(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken());
+        } catch (Exception e) {}
 
         return view;
     }
@@ -97,13 +93,21 @@ public class Marchands extends Fragment {
                                 subItems.get(i).getPrenom());
                 ((TextView) subItemZero.findViewById(R.id.numero_marchand)).setText(subItems.get(i).getTelephone());
 
+                int finalI = i;
+                subItemZero.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        replaceFragment(new DetailMarchand(subItems.get(finalI)), "Marchand "+subItems.get(finalI).getPrenom());
+                    }
+                });
+
             }
 
         }
 
     }
 
-    public void getMessageofUser(AccessToken accessToken) {
+    public void getDepartementofUser(AccessToken accessToken) {
 
         Call<Departement> call;
         ClientService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(ClientService.class);
@@ -158,6 +162,14 @@ public class Marchands extends Fragment {
     private void handleErrors(ResponseBody response) {
 
         ApiError apiError = Utils.converErrors(response);
+
+    }
+
+    private void replaceFragment(Fragment fragment, String titre){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
+
+        Main2Activity.getTextTitle().setText(titre);
 
     }
 

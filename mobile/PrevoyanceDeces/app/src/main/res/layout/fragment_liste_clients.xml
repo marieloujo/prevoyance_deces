@@ -9,26 +9,42 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/scrollview"
+        android:layout_marginBottom="30dp">
 
-        <com.diegodobelo.expandingview.ExpandingList
-            android:id="@+id/expanding_list_main"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.diegodobelo.expandingview.ExpandingList
+                android:id="@+id/expanding_list_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:visibility="invisible"
+                android:id="@+id/main_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
 
     </ScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingAdd"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@color/yellow_active"
-            android:src="@drawable/ic_add_"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="40dp"
-            android:layout_marginEnd="15dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="15dp" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingAdd"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow_active"
+        android:src="@drawable/ic_add_"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dp" />
 
 </RelativeLayout>

@@ -2,7 +2,7 @@ package bj.assurance.prevoyancedeces.retrofit;
 
 import android.content.SharedPreferences;
 
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
 
 public class TokenManager {
 

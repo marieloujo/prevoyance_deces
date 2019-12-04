@@ -1,4 +1,4 @@
-package bj.assurance.prevoyancedeces.Utils;
+package bj.assurance.prevoyancedeces.utils;
 
 import com.google.gson.annotations.SerializedName;
 

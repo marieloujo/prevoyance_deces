@@ -12,6 +12,9 @@ public class Assurer {
     @SerializedName("profession")
     private String profession;
 
+    @SerializedName("employeur")
+    private String employeur;
+
     @SerializedName("contrats")
     private List<Contrat> contrats;
 
@@ -23,6 +26,13 @@ public class Assurer {
 
     public Assurer(String profession, Utilisateur utilisateur, boolean etat) {
         this.profession = profession;
+        this.utilisateur = utilisateur;
+        this.etat = etat;
+    }
+
+    public Assurer(String profession, String employeur, Utilisateur utilisateur, boolean etat) {
+        this.profession = profession;
+        this.employeur = employeur;
         this.utilisateur = utilisateur;
         this.etat = etat;
     }

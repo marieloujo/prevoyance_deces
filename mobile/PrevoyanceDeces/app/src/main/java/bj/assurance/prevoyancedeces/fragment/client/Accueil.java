@@ -24,10 +24,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
-import bj.assurance.prevoyancedeces.Utils.ApiError;
-import bj.assurance.prevoyancedeces.Utils.Utils;
-import bj.assurance.prevoyancedeces.activity.Connexion;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.ApiError;
+import bj.assurance.prevoyancedeces.utils.Utils;
 import bj.assurance.prevoyancedeces.activity.Main2Activity;
 import bj.assurance.prevoyancedeces.adapter.ListeSouscriptionAdpter;
 import bj.assurance.prevoyancedeces.fragment.Boutique;
@@ -92,7 +91,6 @@ public class Accueil extends Fragment {
         cardView = view.findViewById(R.id.gestion_immobilier);
         cardView1 = view.findViewById(R.id.organistion_funerail);
 
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -110,10 +108,6 @@ public class Accueil extends Fragment {
         getContratsForUser(TokenManager.getInstance(getActivity().
                 getSharedPreferences("prefs", MODE_PRIVATE)).
                 getToken());
-
-        try {
-            displayData();
-        } catch (Exception ignored) {}
 
         readMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,21 +134,23 @@ public class Accueil extends Fragment {
 
     }
 
-    private void displayData() {
+    private void displayData(List<Contrat> contrats) {
 
         Integer portefeuil = 0, paiement = 0;
 
-        for (int i = 0; i < Main2Activity.getClient().getContrats().size(); i++) {
-            for (int j = 0; i < Main2Activity.getClient().getContrats().get(i).getTransactions().size(); j++)
-                portefeuil += Integer.valueOf(Main2Activity.getClient().getContrats().get(i).getTransactions().get(j).getMontant());
+        System.out.println("\n\n\n " + "jojo" + contrats);
+
+        for (int i = 0; i < contrats.size(); i++) {
+            for (int j = 0; j < contrats.get(i).getTransactions().size(); j++)
+                portefeuil += Integer.valueOf(contrats.get(i).getTransactions().get(j).getMontant());
         }
 
-        paiement = 12 * Main2Activity.getClient().getContrats().size();
+        paiement = 12000 * contrats.size();
 
         int status = (portefeuil / paiement) * 100;
 
-        portefeuilActuel.setText(portefeuil);
-        portefeulTotal.setText(paiement);
+        portefeuilActuel.setText(String.valueOf(portefeuil));
+        portefeulTotal.setText(String.valueOf(paiement));
 
         progressBar.setProgress(status);
 
@@ -174,12 +170,12 @@ public class Accueil extends Fragment {
 
                     if (response.isSuccessful()) {
                         if (response.body().getContrats().isEmpty()) {
-                            System.out.println(response.body());
                             layoutConnexionLose.setVisibility(View.INVISIBLE);
                             layoutNodata.setVisibility(View.VISIBLE);
                             pDialog.dismiss();
                         } else {
-                            System.out.println(response.body());
+                            // System.out.println(response.body());
+                            displayData(response.body().getContrats());
                             articleAdapter = new ListeSouscriptionAdpter(getContext(), response.body().getContrats());
                             recyclerView.setAdapter(articleAdapter);
 

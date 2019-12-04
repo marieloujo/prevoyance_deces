@@ -19,10 +19,9 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
-import bj.assurance.prevoyancedeces.Utils.ApiError;
-import bj.assurance.prevoyancedeces.Utils.Utils;
-import bj.assurance.prevoyancedeces.adapter.DiscussionAdapter;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.ApiError;
+import bj.assurance.prevoyancedeces.utils.Utils;
 import bj.assurance.prevoyancedeces.adapter.NotificationAdapter;
 import bj.assurance.prevoyancedeces.model.Message;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
@@ -77,6 +76,7 @@ public class Notification extends Fragment {
         Call<List<Message>> call;
         UserService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(UserService.class);
         call = service.getNotification();
+        System.out.println(call.toString());
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
@@ -87,7 +87,7 @@ public class Notification extends Fragment {
                     recyclerView.setAdapter(notificationAdapter);
                 } else {
                     if (response.code() == 422) {
-                        System.out.println(response.errorBody().source());
+                        System.out.println(response.errorBody());
                         handleErrors(response.errorBody());
                     }
                     if (response.code() == 401) {
@@ -100,11 +100,12 @@ public class Notification extends Fragment {
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage());
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                System.out.println(t.getMessage());
+                //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 
                 new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
                         .setTitleText("Connexion impossibe au serveur")
-                        .setContentText("Oups!!! quelque chose s'est mal passé vérifier votre connexion internet et réessayer")
+                        .setContentText("ok")
                         .showCancelButton(true)
                         .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
                             @Override

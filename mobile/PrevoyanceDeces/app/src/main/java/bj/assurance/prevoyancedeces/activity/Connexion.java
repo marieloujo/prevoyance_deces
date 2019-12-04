@@ -2,16 +2,14 @@ package bj.assurance.prevoyancedeces.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
-import bj.assurance.prevoyancedeces.Utils.ApiError;
-import bj.assurance.prevoyancedeces.Utils.Utils;
-import bj.assurance.prevoyancedeces.model.Client;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.ApiError;
+import bj.assurance.prevoyancedeces.utils.Utils;
 import bj.assurance.prevoyancedeces.model.Utilisateur;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitClientInstance;
 import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
 import bj.assurance.prevoyancedeces.retrofit.TokenManager;
-import br.com.sapereaude.maskedEditText.MaskedEditText;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,7 +96,7 @@ public class Connexion extends AppCompatActivity {
                         }
                         if (response.code() == 401) {
                             ApiError apiError = Utils.converErrors(response.errorBody());
-                            Toast.makeText(Connexion.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(Connexion.this, apiError.getMessage() + 401, Toast.LENGTH_LONG).show();
                             pDialog.dismiss();
                         }
                     }
@@ -108,7 +106,7 @@ public class Connexion extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<AccessToken> call, Throwable t) {
                     Log.w(TAG, "onFailure: " + t.getMessage());
-                    Toast.makeText(Connexion.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Connexion.this, t.getMessage() + "onfailure" , Toast.LENGTH_LONG).show();
 
                     pDialog.dismiss();
 

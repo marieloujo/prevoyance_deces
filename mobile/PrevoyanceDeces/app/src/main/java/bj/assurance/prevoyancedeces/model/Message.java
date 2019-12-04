@@ -28,7 +28,7 @@ public class Message {
     private boolean notification = false;
 
     @SerializedName("read_at")
-    private Date readAt;
+    private String readAt;
 
     public Long getId() {
         return id;
@@ -86,11 +86,11 @@ public class Message {
         this.notification = notification;
     }
 
-    public Date getReadAt() {
+    public String getReadAt() {
         return readAt;
     }
 
-    public void setReadAt(Date readAt) {
+    public void setReadAt(String readAt) {
         this.readAt = readAt;
     }
 

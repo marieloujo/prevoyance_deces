@@ -2,26 +2,20 @@ package bj.assurance.prevoyancedeces.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import com.fxn.BubbleTabBar;
 import com.fxn.OnBubbleClickListener;
 import com.google.gson.Gson;
-import com.kinda.alert.KAlertDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
-import bj.assurance.prevoyancedeces.Utils.ApiError;
-import bj.assurance.prevoyancedeces.Utils.Utils;
-import bj.assurance.prevoyancedeces.adapter.ListeSouscriptionAdpter;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.ApiError;
+import bj.assurance.prevoyancedeces.utils.Utils;
 import bj.assurance.prevoyancedeces.fragment.Boutique;
 import bj.assurance.prevoyancedeces.fragment.client.Accueil;
 import bj.assurance.prevoyancedeces.fragment.client.Discussion;
@@ -29,30 +23,19 @@ import bj.assurance.prevoyancedeces.fragment.client.Marchands;
 import bj.assurance.prevoyancedeces.fragment.client.MonProfile;
 import bj.assurance.prevoyancedeces.fragment.client.Notification;
 import bj.assurance.prevoyancedeces.model.Client;
-import bj.assurance.prevoyancedeces.model.Marchand;
 import bj.assurance.prevoyancedeces.model.Utilisateur;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
 import bj.assurance.prevoyancedeces.retrofit.Service.ClientService;
-import bj.assurance.prevoyancedeces.retrofit.Service.MarchandService;
-import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
-import bj.assurance.prevoyancedeces.retrofit.TokenManager;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.List;
-import java.util.Map;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class Main2Activity extends AppCompatActivity {
@@ -194,7 +177,7 @@ public class Main2Activity extends AppCompatActivity {
                 break;
 
             case R.id.bottom_nav_accueil:
-                replaceFragment(new Accueil(), getResources().getString(R.string.bonjour_joan));
+                replaceFragment(new Accueil(), "Salut" + utilisateur.getPrenom());
                 break;
 
             case R.id.bottom_nav_boutique:

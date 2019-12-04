@@ -5,13 +5,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
-import bj.assurance.prevoyancedeces.Utils.ApiError;
-import bj.assurance.prevoyancedeces.Utils.Utils;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.ApiError;
+import bj.assurance.prevoyancedeces.utils.Utils;
 import bj.assurance.prevoyancedeces.fragment.client.Discussion;
 import bj.assurance.prevoyancedeces.fragment.client.Notification;
 import bj.assurance.prevoyancedeces.fragment.marchand.Accueil;
 import bj.assurance.prevoyancedeces.fragment.marchand.ListeClients;
+import bj.assurance.prevoyancedeces.fragment.marchand.Transactions;
 import bj.assurance.prevoyancedeces.model.Commune;
 import bj.assurance.prevoyancedeces.model.Contrat;
 import bj.assurance.prevoyancedeces.model.Marchand;
@@ -66,9 +67,12 @@ public class MarchandMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marchand_main);
 
-        init();
-        setView();
-        setClickListener();
+        try {
+            init();
+            setView();
+            setClickListener();
+        } catch (Exception e) {
+        }
 
     }
 
@@ -93,13 +97,17 @@ public class MarchandMainActivity extends AppCompatActivity {
         );
         contrat.setMarchand(marchand);*/
 
-        getCommunesbyDepartement(
-                TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken()
-        );
+        try {
+            getCommunesbyDepartement(
+                    TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken()
+            );
 
-        setView();
+            setView();
 
-        title.setText("Bonjour "+ utilisateur.getPrenom());
+            title.setText("Salut "+ utilisateur.getPrenom());
+
+        } catch (Exception e) {}
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -122,7 +130,10 @@ public class MarchandMainActivity extends AppCompatActivity {
         alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new Notification(), getResources().getString(R.string.notifications));
+                if (!(getFragmentManager().findFragmentByTag("NOTIFICATIONS") != null &&
+                        getFragmentManager().findFragmentByTag("NOTIFICATIONS").isVisible())) {
+                    replaceFragment(new Notification(), getResources().getString(R.string.notifications), "NOTIFICATIONS");
+                }
             }
         });
     }
@@ -140,28 +151,40 @@ public class MarchandMainActivity extends AppCompatActivity {
         switch (id) {
 
             case R.id.bottom_nav_discussion:
-                replaceFragment(new Discussion(), getResources().getString(R.string.discussion));
+                if (!(getFragmentManager().findFragmentByTag("DISCUSSIONS") != null
+                        && getFragmentManager().findFragmentByTag("DISCUSSIONS").isVisible())) {
+                    replaceFragment(new Discussion(), getResources().getString(R.string.discussion), "DISCUSSIONS");
+                }
                 break;
 
             case R.id.bottom_nav_clients:
-                replaceFragment(new ListeClients(), getResources().getString(R.string.mes_clients));
+                if (!(getFragmentManager().findFragmentByTag("CLIENTS") != null
+                        && getFragmentManager().findFragmentByTag("CLIENTS").isVisible())) {
+                    replaceFragment(new ListeClients(), getResources().getString(R.string.mes_clients), "CLIENTS");
+                }
                 break;
 
             case R.id.bottom_nav_prospects:
-                replaceFragment(new ListeClients(), getResources().getString(R.string.mes_prospects));
+                if (!(getFragmentManager().findFragmentByTag("TRANSACTIONS") != null
+                        && getFragmentManager().findFragmentByTag("TRANSACTIONS").isVisible())) {
+                    replaceFragment(new Transactions(), getResources().getString(R.string.transactions), "TRANSACTIONS");
+                }
                 break;
 
             case R.id.bottom_nav_accueil:
-                replaceFragment(new Accueil(), getResources().getString(R.string.bonjour_joan));
+                if (!(getFragmentManager().findFragmentByTag("ACCUEIL") != null
+                        && getFragmentManager().findFragmentByTag("ACCUEIL").isVisible())) {
+                    replaceFragment(new Accueil(), "Salut " /* + utilisateur.getPrenom()*/, "ACCUEIL");
+                }
 
         }
     }
 
 
 
-    public void replaceFragment(Fragment fragment, String titre){
+    public void replaceFragment(Fragment fragment, String titre, String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_main_marchand, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_main_marchand, fragment, tag).commit();
 
         title.setText(titre);
 
@@ -178,6 +201,50 @@ public class MarchandMainActivity extends AppCompatActivity {
         });
     }*/
 
+    public static Marchand getMarchand() {
+        return marchand;
+    }
+
+    public static void setMarchand(Marchand marchand) {
+        MarchandMainActivity.marchand = marchand;
+    }
+
+
+    public static TextView getTitleFrame() {
+        return title;
+    }
+
+    public static void setTitle(TextView title) {
+        MarchandMainActivity.title = title;
+    }
+
+    public static Contrat getContrat() {
+        return contrat;
+    }
+
+    public static void setContrat(Contrat contrat) {
+        MarchandMainActivity.contrat = contrat;
+    }
+
+    public static Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public static void setUtilisateur(Utilisateur utilisateur) {
+        MarchandMainActivity.utilisateur = utilisateur;
+    }
+
+    public static List<Commune> getCommunes() {
+        return communes;
+    }
+
+    public static void setCommunes(List<Commune> communes) {
+        MarchandMainActivity.communes = communes;
+    }
+
+    /***** chargement des ressources necessaires ******/
+
+    // recuperer les informations du marchand connecté
     public void findbyId(AccessToken accessToken) {
 
         Call<Marchand> call;
@@ -256,44 +323,6 @@ public class MarchandMainActivity extends AppCompatActivity {
         });
     }
 
-    public static Marchand getMarchand() {
-        return marchand;
-    }
-
-    public static void setMarchand(Marchand marchand) {
-        MarchandMainActivity.marchand = marchand;
-    }
 
 
-    public static TextView getTitleFrame() {
-        return title;
-    }
-
-    public static void setTitle(TextView title) {
-        MarchandMainActivity.title = title;
-    }
-
-    public static Contrat getContrat() {
-        return contrat;
-    }
-
-    public static void setContrat(Contrat contrat) {
-        MarchandMainActivity.contrat = contrat;
-    }
-
-    public static Utilisateur getUtilisateur() {
-        return utilisateur;
-    }
-
-    public static void setUtilisateur(Utilisateur utilisateur) {
-        MarchandMainActivity.utilisateur = utilisateur;
-    }
-
-    public static List<Commune> getCommunes() {
-        return communes;
-    }
-
-    public static void setCommunes(List<Commune> communes) {
-        MarchandMainActivity.communes = communes;
-    }
 }

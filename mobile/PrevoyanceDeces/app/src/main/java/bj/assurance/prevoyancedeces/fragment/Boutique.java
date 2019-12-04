@@ -64,7 +64,7 @@ public class Boutique extends Fragment {
     public void makeSilder() {
        List<SlideModel> imageList = new ArrayList();
 
-        imageList.add(new  SlideModel(R.mipmap.gestion_imobilier, "Gestion immobilier"));
+        imageList.add(new  SlideModel("https://cdn.pixabay.com/photo/2017/08/30/07/56/money-2696229_960_720.jpg", "Gestion immobilier"));
         imageList.add(new  SlideModel(R.mipmap.organisation_funeraille, "Organisation des funérailles"));
 
         imageSlider.setImageList(imageList, false);

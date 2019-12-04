@@ -3,7 +3,7 @@ package bj.assurance.prevoyancedeces.retrofit;
 import java.io.IOException;
 
 import androidx.annotation.Nullable;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
 import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
 import okhttp3.Authenticator;
 import okhttp3.Request;

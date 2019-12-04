@@ -1,8 +1,6 @@
 package bj.assurance.prevoyancedeces.fragment.client;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,26 +18,19 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
-import bj.assurance.prevoyancedeces.Utils.AccessToken;
-import bj.assurance.prevoyancedeces.Utils.ApiError;
-import bj.assurance.prevoyancedeces.Utils.Utils;
-import bj.assurance.prevoyancedeces.activity.Main2Activity;
-import bj.assurance.prevoyancedeces.activity.MarchandMainActivity;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
+import bj.assurance.prevoyancedeces.utils.ApiError;
+import bj.assurance.prevoyancedeces.utils.Utils;
 import bj.assurance.prevoyancedeces.adapter.DiscussionAdapter;
-import bj.assurance.prevoyancedeces.adapter.ListeSouscriptionAdpter;
-import bj.assurance.prevoyancedeces.model.Client;
 import bj.assurance.prevoyancedeces.model.Message;
 import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
-import bj.assurance.prevoyancedeces.retrofit.Service.ClientService;
 import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
-import bj.assurance.prevoyancedeces.retrofit.TokenManager;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
-import static android.content.Context.MODE_PRIVATE;
 
 public class Discussion extends Fragment {
 

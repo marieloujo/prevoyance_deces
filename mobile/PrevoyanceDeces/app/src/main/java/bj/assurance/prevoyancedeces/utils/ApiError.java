@@ -1,4 +1,4 @@
-package bj.assurance.prevoyancedeces.Utils;
+package bj.assurance.prevoyancedeces.utils;
 
 import java.util.List;
 import java.util.Map;
