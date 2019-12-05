@@ -71,15 +71,15 @@ class CompteController extends Controller
         return $this->compte_repository->delete($id);
     }
 
-    public function getCompte()
-    {return response()->json(['credit_virtuel' => $this->compte_repository->getCompte()->montant]);
+    public function getCompte($marchand)
+    {return response()->json(['credit_virtuel' => $this->compte_repository->getCompte($marchand)->montant]);
         //return $this->compte_repository->getCompte()->montant;
     }
 
-    public function getComptes($end)
+    public function getComptes($marchand,$end)
     {
         $end=Carbon::now();
-        return $this->compte_repository->getCompteTime($end);
+        return $this->compte_repository->getComptes($marchand,$end);
     }
 
 }

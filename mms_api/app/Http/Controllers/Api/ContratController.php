@@ -86,10 +86,10 @@ class ContratController extends Controller
             
             $marchand= $request['marchand']['id'] ;
             
-            /* $contrat_data = $this->getContratData($request->all(),$client->id,$assure->id,$marchand);
+            $contrat_data = $this->getContratData($request->all(),$client->id,$assure->id,$marchand);
             
             $contrat=$this->contrat_repository->create($contrat_data);
-
+            return response()->json(['data' => $contrat]);
             $benefice_data=$this->getData($request->all(),'beneficiaire');
             // $benefice_data['statut']=$this->getData($this->getData($request->all(),'beneficiaire'),'statut');
             // $benefice_data['taux']=$this->getData($this->getData($request->all(),'beneficiaire'),'taux');
@@ -194,8 +194,8 @@ class ContratController extends Controller
     public function getContratData(array $request,$client_id,$assure_id,$marchand){
             $contrat['numero_contrat']   = str_random('10')/*  $this->getData($request,'numero_contrat') */;
             $contrat['duree']   = $this->getData($request,'duree');
-            $contrat['garantie']   = $this->getData($request,'garantie');
-            $contrat['prime']   = $this->getData($request,'prime');
+            $contrat['garantie']   = 1000000;
+            $contrat['prime']   = 1000;
             $contrat['marchand_id']   = $request['marchand']['id'];
             $contrat['date_debut']   = Carbon::now();
             $contrat['date_echeance']   = Carbon::now()->addYear();
