@@ -31,6 +31,10 @@ public class Marchand {
     @SerializedName("user")
     private Utilisateur utilisateur;
 
+    public Marchand(Long id) {
+        this.id = id;
+    }
+
     public Marchand(String matricule, String creditVirtuel, String commission, SuperMarchand superMarchand, Utilisateur utilisateur) {
         this.matricule = matricule;
         this.creditVirtuel = creditVirtuel;

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class MonProfile extends Fragment {
 
     private RecyclerView recyclerView;
     private ContratClientAdapter contratClientAdapter;
+
+    private ProgressBar progressBar;
 
     public MonProfile() {
         // Required empty public constructor
@@ -79,6 +82,7 @@ public class MonProfile extends Fragment {
         email = view.findViewById(R.id.adresse_mail_client);
         cardView = view.findViewById(R.id.contrat_item);
         recyclerView = view.findViewById(R.id.recycler);
+        progressBar = view.findViewById(R.id.scroll_progress);
 
         mesDiscussions = view.findViewById(R.id.mes_messages);
         mesDiscussions.setOnClickListener(new View.OnClickListener() {
@@ -143,9 +147,11 @@ public class MonProfile extends Fragment {
                             contratClientAdapter = new ContratClientAdapter(getContext(), response.body().getContrats());
                             recyclerView.setAdapter(contratClientAdapter);
 
+                            progressBar.setVisibility(View.INVISIBLE);
+
                         }
                     } else {
-
+                        progressBar.setVisibility(View.INVISIBLE);
                         if (response.code() == 422) {
                             System.out.println(response.errorBody().source());
                             handleErrors(response.errorBody());
@@ -161,6 +167,7 @@ public class MonProfile extends Fragment {
                 @Override
                 public void onFailure(Call<Client> call, Throwable t) {
                     Log.w(TAG, "onFailure: " + t.getMessage());
+                    progressBar.setVisibility(View.INVISIBLE);
                     //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 
                 }

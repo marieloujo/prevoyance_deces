@@ -29,16 +29,16 @@ public interface MarchandService {
     Call<List<Commune>> getCommunebyDepartement(@Path("idDepartement") Long id);
 
 
-    @GET("users/comptes")
+    @GET("marchands/{idMarchand}/getComptes")
     Call<List<Compte>> getEvolution();
 
 
-    @GET("users/getCompte")
-    Call<JsonObject> getCompte();
+    @GET("marchands/{idMarchand}/getCompte")
+    Call<JsonObject> getCompte(@Path("idMarchand") Long id);
 
 
     @GET("marchands/{idMarchand}/transactions")
-    Call<List<Portefeuille>> getTransactionsForWeek(@Query("page") int page, @Path("idMarchand") Long id);
+    Call<OutputPaginate> getTransactionsForWeek(@Path("idMarchand") Long id, @Query("page") int page);
 
 
     @GET("marchands/{idMarchand}/clients")
@@ -46,10 +46,10 @@ public interface MarchandService {
 
 
     @GET("marchands/{idMarchand}/clients/{idClient}/contrats")
-    Call<List<Contrat>> getConrattoClient(@Path("idMarchand") Long idMarchand, @Path("idClient") Long idClient);
+    Call<OutputPaginate> getConrattoClient(@Path("idMarchand") Long idMarchand, @Path("idClient") Long idClient, @Query("page") int page);
 
 
-    @GET("marchands/{idMarchand}/transactions/{}")
-    Call<List<Portefeuille>> getTransactions(@Query("page") int page, @Path("idMarchand") Long id);
+    @GET("marchands/{idMarchand}/getAllTransactions")
+    Call<OutputPaginate> getTransactions(@Path("idMarchand") Long id, @Query("page") int page);
 
 }

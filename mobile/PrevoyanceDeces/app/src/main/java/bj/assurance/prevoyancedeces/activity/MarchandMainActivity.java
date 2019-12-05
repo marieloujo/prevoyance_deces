@@ -89,6 +89,8 @@ public class MarchandMainActivity extends AppCompatActivity {
 
             utilisateur =  gson.fromJson(getIntent().getExtras().getString("marchand", null), Utilisateur.class);
             marchand = gson.fromJson(gson.toJson(utilisateur.getObject()), Marchand.class);
+            marchand.setUtilisateur(utilisateur);
+            contrat.setMarchand(marchand);
 
         } catch (Exception ignored) { }
 
@@ -176,7 +178,6 @@ public class MarchandMainActivity extends AppCompatActivity {
                         && getFragmentManager().findFragmentByTag("ACCUEIL").isVisible())) {
                     replaceFragment(new Accueil(), "Salut " /* + utilisateur.getPrenom()*/, "ACCUEIL");
                 }
-
         }
     }
 

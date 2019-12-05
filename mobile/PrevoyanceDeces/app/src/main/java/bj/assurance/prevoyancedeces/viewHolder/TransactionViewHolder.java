@@ -9,7 +9,7 @@ import bj.assurance.prevoyancedeces.R;
 
 public class TransactionViewHolder extends RecyclerView.ViewHolder {
 
-    TextView nomPrenom, solde, date;
+    TextView nomPrenom, solde, date, numero;
 
     public TransactionViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -17,6 +17,7 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder {
         nomPrenom = itemView.findViewById(R.id.nom_prenom_clent);
         solde = itemView.findViewById(R.id.montant_paye);
         date = itemView.findViewById(R.id.date_paiement);
+        numero = itemView.findViewById(R.id.numero_contrat);
 
     }
 
@@ -42,5 +43,13 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder {
 
     public void setDate(TextView date) {
         this.date = date;
+    }
+
+    public TextView getNumero() {
+        return numero;
+    }
+
+    public void setNumero(TextView numero) {
+        this.numero = numero;
     }
 }

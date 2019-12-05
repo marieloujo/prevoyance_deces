@@ -19,10 +19,14 @@ import com.arthurivanets.bottomsheets.BottomSheet;
 import com.diegodobelo.expandingview.ExpandingItem;
 import com.diegodobelo.expandingview.ExpandingList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.kinda.alert.KAlertDialog;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
@@ -30,6 +34,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
 import bj.assurance.prevoyancedeces.SimpleCustomBottomSheet;
+import bj.assurance.prevoyancedeces.model.pagination.OutputPaginate;
 import bj.assurance.prevoyancedeces.utils.AccessToken;
 import bj.assurance.prevoyancedeces.utils.ApiError;
 import bj.assurance.prevoyancedeces.utils.Utils;
@@ -62,6 +67,9 @@ public class Accueil extends Fragment {
 
     private ExpandingList mExpandingList;
 
+    private int FIRST_PAGE = 1;
+    private int CURRENT_PAGE, LAST_PAGE;
+
 
     public Accueil() {
         // Required empty public constructor
@@ -85,10 +93,10 @@ public class Accueil extends Fragment {
 
         bindData(MarchandMainActivity.getMarchand());
 
-        /*
-        getContratsForUser(TokenManager.getInstance(getActivity().
+
+        getTansactions(TokenManager.getInstance(getActivity().
                 getSharedPreferences("prefs", MODE_PRIVATE)).
-                getToken());*/
+                getToken());
 
         return view;
     }
@@ -266,7 +274,7 @@ public class Accueil extends Fragment {
     private void getCreditVirtuelle(AccessToken accessToken) {
         Call<JsonObject> call;
         MarchandService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(MarchandService.class);
-        call = service.getCompte();
+        call = service.getCompte(MarchandMainActivity.getMarchand().getId());
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -306,19 +314,26 @@ public class Accueil extends Fragment {
     }
 
     private void getTansactions(AccessToken accessToken) {
-       /* Call<List<Portefeuille>> call;
+       Call<OutputPaginate> call;
 
         MarchandService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(MarchandService.class);
 
-        call = service.g(MarchandMainActivity.getUtilisateur().getId());
-        call.enqueue(new Callback<List<Portefeuille>>() {
+        call = service.getTransactionsForWeek(MarchandMainActivity.getMarchand().getId(), FIRST_PAGE);
+        call.enqueue(new Callback<OutputPaginate>() {
             @Override
-            public void onResponse(Call<List<Portefeuille>> call, Response<List<Portefeuille>> response) {
+            public void onResponse(Call<OutputPaginate> call, Response<OutputPaginate> response) {
                 Log.w(TAG, "onResponse: " + response);
 
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
-                    transactionAdater = new TransactionAdater(getContext(), response.body());
+
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<ArrayList<Portefeuille>>(){}.getType();
+                    String object = gson.toJson(response.body().getObjects());
+
+                    List<Portefeuille> portefeuilles = gson.fromJson(object, listType);
+
+                    transactionAdater = new TransactionAdater(getContext(), portefeuilles);
                     recyclerView.setAdapter(transactionAdater);
 
                 } else {
@@ -334,10 +349,10 @@ public class Accueil extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Portefeuille>> call, Throwable t) {
+            public void onFailure(Call<OutputPaginate> call, Throwable t) {
 
             }
-        });*/
+        });
     }
 
 }

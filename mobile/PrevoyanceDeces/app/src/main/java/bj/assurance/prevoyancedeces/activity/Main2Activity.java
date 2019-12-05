@@ -177,7 +177,7 @@ public class Main2Activity extends AppCompatActivity {
                 break;
 
             case R.id.bottom_nav_accueil:
-                replaceFragment(new Accueil(), "Salut" + utilisateur.getPrenom());
+                replaceFragment(new Accueil(), "Salut " + utilisateur.getPrenom());
                 break;
 
             case R.id.bottom_nav_boutique:

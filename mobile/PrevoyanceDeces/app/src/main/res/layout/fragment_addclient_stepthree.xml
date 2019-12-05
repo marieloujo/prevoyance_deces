@@ -187,71 +187,63 @@
                 </LinearLayout>
 
                 <!-- date naissance & sexe -->
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                    <Spinner
+                        android:id="@+id/etSexeClient"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:inputType="text"
+                        android:textSize="16sp"
+                        android:background="@drawable/input_style"
+                        tools:ignore="RtlSymmetry" />
 
-                        <Spinner
-                            android:id="@+id/etSexeClient"
-                            android:layout_width="match_parent"
-                            android:layout_height="47dp"
-                            android:paddingStart="10dp"
-                            android:paddingLeft="10dp"
-                            android:inputType="text"
-                            android:textSize="16sp"
-                            android:layout_marginEnd="15dp"
-                            android:layout_marginRight="10dp"
-                            android:background="@drawable/input_style"
-                            tools:ignore="RtlSymmetry" />
-
-                        <TextView
-                            android:id="@+id/tvetSexeClient"
-                            android:visibility="invisible"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp"
-                            android:layout_marginBottom="6dp"
-                            android:text="@string/error_input_sexe"
-                            android:textColor="@color/rougeFade"
-                            app:layout_constraintTop_toBottomOf="@id/etTelephone" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvetSexeClient"
+                        android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/error_input_sexe"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
 
-                        <com.msa.dateedittext.DateEditText
-                            android:id="@+id/dateEditText"
-                            android:layout_width="match_parent"
-                            android:hint="@string/date_de_naissance"
-                            android:paddingStart="10dp"
-                            android:paddingLeft="10dp"
-                            android:layout_height="47dp"
-                            app:dateFormat="ddMMyyyy"
-                            app:autoCorrect="true"
-                            android:background="@drawable/input_style"
-                            tools:ignore="RtlSymmetry" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tvDateNaissanceClient"
-                            android:visibility="invisible"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp"
-                            android:layout_marginBottom="6dp"
-                            android:text="@string/error_input_date"
-                            android:textColor="@color/rougeFade"
-                            app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    </LinearLayout>
+                    <com.msa.dateedittext.DateEditText
+                        android:id="@+id/dateEditText"
+                        android:layout_width="match_parent"
+                        android:hint="@string/date_de_naissance"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:layout_height="47dp"
+                        app:dateFormat="ddMMyyyy"
+                        app:autoCorrect="true"
+                        android:background="@drawable/input_style"
+                        tools:ignore="RtlSymmetry" />
+
+                    <TextView
+                        android:id="@+id/tvDateNaissanceClient"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/error_input_date"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
 
                 </LinearLayout>
 
@@ -289,74 +281,66 @@
 
                 </LinearLayout>
 
-                <!-- telephone && adresse -->
+                <!-- telephone -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <!-- telephone -->
-                    <LinearLayout
+                    <br.com.sapereaude.maskedEditText.MaskedEditText
+                        xmlns:mask="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/etTelephoneClient"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:background="@drawable/input_style"
+                        android:inputType="phone"
+                        android:typeface="monospace"
+                        mask:allowed_chars="1234567890"
+                        mask:mask="+229 ### - ### - ##"
+                        app:keep_hint="false"/>
+
+                    <TextView
+                        android:id="@+id/tvTelephoneClient"
+                        android:visibility="invisible"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:textSize="13sp"
+                        android:layout_marginBottom="6dp"
+                        android:text="Veuillez reinseigner le numero du client"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
 
-                        <br.com.sapereaude.maskedEditText.MaskedEditText
-                            xmlns:mask="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/etTelephoneClient"
-                            android:layout_width="150dp"
-                            android:layout_height="47dp"
-                            android:background="@drawable/input_style"
-                            android:inputType="phone"
-                            android:typeface="monospace"
-                            mask:allowed_chars="1234567890"
-                            mask:mask="+229 ### - ### - ##"
-                            app:keep_hint="false"/>
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tvTelephoneClient"
-                            android:visibility="invisible"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp"
-                            android:layout_marginBottom="6dp"
-                            android:text="Veuillez reinseigner le numero du client"
-                            android:textColor="@color/rougeFade"
-                            app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+                <!-- adresse -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    </LinearLayout>
-
-                    <!-- adresse -->
-                    <LinearLayout
+                    <EditText
+                        android:id="@+id/etAdresseClient"
                         android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:background="@drawable/input_style"
+                        android:hint="@string/adresse_du_domicile"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:inputType="text"
+                        android:textSize="16sp"
+                        style="@style/TextAppearance.AppCompat"
+                        tools:ignore="RtlSymmetry" />
+
+                    <TextView
+                        android:id="@+id/tvAdresseDomicileClient"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/etAdresseClient"
-                            android:layout_width="match_parent"
-                            android:layout_height="47dp"
-                            android:background="@drawable/input_style"
-                            android:hint="@string/adresse_du_domicile"
-                            android:paddingStart="10dp"
-                            android:paddingLeft="10dp"
-                            android:inputType="text"
-                            android:textSize="16sp"
-                            style="@style/TextAppearance.AppCompat"
-                            tools:ignore="RtlSymmetry" />
-
-                        <TextView
-                            android:id="@+id/tvAdresseDomicileClient"
-                            android:visibility="invisible"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:layout_marginBottom="6dp"
-                            android:text="Veuillez renseigner l'adresse du client"
-                            android:textColor="@color/rougeFade"
-                            app:layout_constraintTop_toBottomOf="@id/etTelephone"/>
-
-                    </LinearLayout>
+                        android:textSize="14sp"
+                        android:layout_marginBottom="6dp"
+                        android:text="Veuillez renseigner l'adresse du client"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone"/>
 
                 </LinearLayout>
 
@@ -418,67 +402,32 @@
                 </LinearLayout>
 
                 <!-- date naissance & sexe -->
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                    <Spinner
+                        android:id="@+id/etQualification"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:inputType="text"
+                        android:textSize="16sp"
+                        android:background="@drawable/input_style"
+                        tools:ignore="RtlSymmetry" />
 
-                        <Spinner
-                            android:id="@+id/etQualification"
-                            android:layout_width="match_parent"
-                            android:layout_height="47dp"
-                            android:paddingStart="10dp"
-                            android:paddingLeft="10dp"
-                            android:inputType="text"
-                            android:textSize="16sp"
-                            android:layout_marginEnd="15dp"
-                            android:layout_marginRight="10dp"
-                            android:background="@drawable/input_style"
-                            tools:ignore="RtlSymmetry" />
-
-                        <TextView
-                            android:id="@+id/tvQualification"
-                            android:visibility="invisible"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp"
-                            android:text="@string/error_input_sexe"
-                            android:textColor="@color/rougeFade"
-                            app:layout_constraintTop_toBottomOf="@id/etTelephone" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvQualification"
+                        android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/etTaux"
-                            android:layout_width="match_parent"
-                            android:hint="Taux"
-                            android:paddingStart="10dp"
-                            android:paddingLeft="10dp"
-                            android:layout_height="47dp"
-                            android:background="@drawable/input_style"
-                            tools:ignore="RtlSymmetry" />
-
-                        <TextView
-                            android:id="@+id/tvTaux"
-                            android:visibility="invisible"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="13sp"
-                            android:text="@string/error_input_date"
-                            android:textColor="@color/rougeFade"
-                            app:layout_constraintTop_toBottomOf="@id/etTelephone" />
-
-                    </LinearLayout>
+                        android:textSize="13sp"
+                        android:text="@string/error_input_sexe"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
 
                 </LinearLayout>
 
@@ -520,5 +469,12 @@
             android:layout_alignParentRight="true" />
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:visibility="invisible"
+        android:id="@+id/main_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

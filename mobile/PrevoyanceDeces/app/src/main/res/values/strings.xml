@@ -106,6 +106,8 @@
     <string name="reference_du_contrat">Reférence du contrat</string>
     <string name="username">Nom d\'utilisateur</string>
 
+    <string name="date_paiement">24 Août 2019</string>
+
     <string name="name">Kokouvi</string>
     <string name="prenom">Torcouvisor</string>
 
@@ -119,6 +121,7 @@
     </string-array>
 
     <string-array name="qualification">
+        <item>Qualification</item>
         <item>Conjoint non divorcé</item>
         <item>Enfants</item>
     </string-array>

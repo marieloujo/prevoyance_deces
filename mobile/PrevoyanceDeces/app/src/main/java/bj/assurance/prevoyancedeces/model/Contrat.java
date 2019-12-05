@@ -63,6 +63,8 @@ public class Contrat {
     public Contrat() {
     }
 
+
+
     public Contrat(String garantie, String prime, String duree, String dateDebut, String dateFin, String dateEcheance, String dateEffet, Client client, Marchand marchand, List<Benefice> benefices, Assurer assurer) {
         this.garantie = garantie;
         this.prime = prime;

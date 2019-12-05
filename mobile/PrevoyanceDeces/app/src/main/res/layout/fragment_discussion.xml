@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,6 +9,23 @@
     tools:context=".fragment.client.Discussion"
     app:layout_goneMarginTop="15dp">
 
-    <include layout="@layout/content_recycler"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</ScrollView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/content_recycler"/>
+
+            <include layout="@layout/layout_no_data"/>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+
+</LinearLayout>

@@ -67,6 +67,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void getAuthenticateUser(AccessToken accessToken) {
+
         Call<Utilisateur> call;
         UserService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(UserService.class);
         call = service.getauthenticateUser();
@@ -98,12 +99,12 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onFailure(Call<Utilisateur> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage());
-                Toast.makeText(SplashScreen.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 System.out.println(t.getMessage());
 
                 new KAlertDialog(SplashScreen.this, KAlertDialog.WARNING_TYPE)
-                        .setTitleText("Connexion impossibe au serveur")
-                        .setContentText("Oups!!! quelque chose s'est mal passé vérifier votre connexion internet et réessayer")
+                        .setTitleText("La connexion au serveur à échoué")
+                        .setContentText("Vérifier votre connexion internet et réessayer")
+                        .setConfirmText("Réessayer")
                         .showCancelButton(true)
                         .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
                             @Override
@@ -111,7 +112,17 @@ public class SplashScreen extends AppCompatActivity {
                                 sDialog.cancel();
                             }
                         })
+                        .setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.dismiss();
+                                getAuthenticateUser(TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken());
+
+                            }
+                        })
                         .show();
+
+
             }
         });
     }

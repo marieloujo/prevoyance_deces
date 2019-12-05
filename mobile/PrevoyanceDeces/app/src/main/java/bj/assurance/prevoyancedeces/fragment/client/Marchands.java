@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class Marchands extends Fragment {
 
     private ExpandingList mExpandingList;
+    private ProgressBar progressBar;
 
     public Marchands() {
         // Required empty public constructor
@@ -68,6 +70,7 @@ public class Marchands extends Fragment {
     public void init(View view) {
 
         mExpandingList = view.findViewById(R.id.expanding_list_main);
+        progressBar = view.findViewById(R.id.scroll_progress);
 
     }
 
@@ -125,6 +128,7 @@ public class Marchands extends Fragment {
 
                         }
                     }
+                    progressBar.setVisibility(View.INVISIBLE);
 
                 } else {
                     if (response.code() == 422) {
@@ -135,6 +139,7 @@ public class Marchands extends Fragment {
                         ApiError apiError = Utils.converErrors(response.errorBody());
                         Toast.makeText(getContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -143,8 +148,9 @@ public class Marchands extends Fragment {
             public void onFailure(Call<Departement> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage());
                 //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.INVISIBLE);
 
-                new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
+                /*new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
                         .setTitleText("Connexion impossibe au serveur")
                         .setContentText("Oups!!! quelque chose s'est mal passé vérifier votre connexion internet et réessayer")
                         .showCancelButton(true)
@@ -154,7 +160,7 @@ public class Marchands extends Fragment {
                                 sDialog.cancel();
                             }
                         })
-                        .show();
+                        .show();*/
             }
         });
     }

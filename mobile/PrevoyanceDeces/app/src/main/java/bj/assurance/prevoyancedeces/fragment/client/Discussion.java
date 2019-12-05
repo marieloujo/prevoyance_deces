@@ -9,9 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kinda.alert.KAlertDialog;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -36,6 +40,8 @@ public class Discussion extends Fragment {
 
     private RecyclerView recyclerView;
     private DiscussionAdapter discussionAdapter;
+    private LinearLayout linearLayout;
+    private TextView textView;
 
     public Discussion() {
         // Required empty public constructor
@@ -55,6 +61,8 @@ public class Discussion extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_discussion, container, false);
 
+
+
         init(view);
         /*getMessageofUser(TokenManager.getInstance(getActivity().
                 getSharedPreferences("prefs", MODE_PRIVATE)).
@@ -69,6 +77,12 @@ public class Discussion extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        linearLayout = view.findViewById(R.id.no_data_layout);
+        textView = view.findViewById(R.id.no_data);
+
+        linearLayout.setVisibility(View.VISIBLE);
+        textView.setText("Vous n'avez encore aucune discussion en cours");
     }
 
     public void getMessageofUser(AccessToken accessToken) {

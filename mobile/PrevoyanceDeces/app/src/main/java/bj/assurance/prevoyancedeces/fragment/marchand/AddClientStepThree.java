@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andreabaccega.widget.FormEditText;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.kinda.alert.KAlertDialog;
 import com.msa.dateedittext.DateEditText;
@@ -29,6 +31,7 @@ import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.model.Marchand;
 import bj.assurance.prevoyancedeces.utils.AccessToken;
 import bj.assurance.prevoyancedeces.utils.ApiError;
 import bj.assurance.prevoyancedeces.utils.Utils;
@@ -53,12 +56,13 @@ public class AddClientStepThree extends Fragment {
 
     private Button cancel, next;
     private TextView tvNom, tvPrenoms, tvEmail, tvAdresse, tvSituationMatrimoniale, tvSexe, tvDateNaissance, tvQualification, tvTaux, tvCommune, tvTelephone;
-    private EditText etNom, etPrenoms, etAdresse, etTaux;
+    private EditText etNom, etPrenoms, etAdresse;
     private DateEditText etDateNaissance;
     private FormEditText etEmail;
     private Spinner etSituationMatrimoniale, etSexe, etCommune, etQualification;
     private MaskedEditText etTelephone;
     SimpleDateFormat dtYYYY = new SimpleDateFormat("YYYY");
+    private ProgressBar progressBar;
 
     public AddClientStepThree() {
         // Required empty public constructor
@@ -86,6 +90,7 @@ public class AddClientStepThree extends Fragment {
     public void init(View view) {
         cancel = view.findViewById(R.id.annuler);
         next = view.findViewById(R.id.suivant);
+        progressBar = view.findViewById(R.id.main_progress);
 
         etNom = view.findViewById(R.id.etNomClient);
         etPrenoms = view.findViewById(R.id.etPrenomClient);
@@ -97,7 +102,6 @@ public class AddClientStepThree extends Fragment {
         etTelephone = view.findViewById(R.id.etTelephoneClient);
         etCommune = view.findViewById(R.id.etCommuneClient);
         etQualification = view.findViewById(R.id.etQualification);
-        etTaux = view.findViewById(R.id.etTaux);
 
         etDateNaissance.listen();
 
@@ -119,7 +123,6 @@ public class AddClientStepThree extends Fragment {
         tvCommune = view.findViewById(R.id.tvCommuneClient);
         tvTelephone = view.findViewById(R.id.tvTelephoneClient);
         tvQualification = view.findViewById(R.id.tvQualification);
-        tvTaux = view.findViewById(R.id.tvTaux);
 
         makeSpinnerList();
         //autoCompleCommune();
@@ -151,6 +154,8 @@ public class AddClientStepThree extends Fragment {
             @Override
             public void onClick(View v) {
 
+                progressBar.setVisibility(View.VISIBLE);
+
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -175,78 +180,18 @@ public class AddClientStepThree extends Fragment {
                     );
 
                     List<Benefice> benefices = new ArrayList<>();
-                    benefices.add(new Benefice(etQualification.getSelectedItem().toString(), etTaux.getText().toString(), beneficiaire));
-
+                    benefices.add(new Benefice(etQualification.getSelectedItem().toString(), "100", beneficiaire));
 
                     MarchandMainActivity.getContrat().setBenefices(benefices);
+                    //MarchandMainActivity.getContrat().setMarchand(new Marchand(MarchandMainActivity.getMarchand().getId()));
 
-                    System.out.println(MarchandMainActivity.getContrat().toString());
+                    System.out.println(new Gson().toJson(MarchandMainActivity.getContrat()));
 
                     senContrat(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken(),
                             MarchandMainActivity.getContrat());
 
                     //replaceFraglent(new AddClientStepFour());
                 }
-
-                // if (verifeData()) {
-
-                    /*
-                    Commune commune = new Commune();
-
-
-                    for (int i = 0; i<MarchandMainActivity.getCommunes().size(); i++) {
-                        if (MarchandMainActivity.getCommunes().get(i).getNom().equals(etCommune.getSelectedItem().toString())) {
-                            commune = MarchandMainActivity.getCommunes().get(i);
-                        }
-                    }
-
-                    Client client = new Client(etProfession.getText().toString(), etEmployeur.getText().toString(),new Utilisateur(
-                            etNom.getText().toString(), etPrenoms.getText().toString(), etTelephone.getRawText(),
-                            etEmail.getText().toString(), etSexe.getSelectedItem().toString(), etDateNaissance.getText().toString(),
-                            etSituationMatrimoniale.getSelectedItem().toString(), etAdresse.getText().toString(), false,
-                            false, commune)
-                    );
-
-                    MarchandMainActivity.getContrat().setClient(client);
-                    replaceFraglent(new AddClientStepTwo());
-
-                    Commune commune = new Commune("Abomey-calavi", new Departement("Atlantique"));
-
-                    Utilisateur utilisateur = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 00", "aziz@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
-
-                    Utilisateur utilisateur1 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 01", "aziz1@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
-
-                    Utilisateur utilisateur2 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 02", "aziz2@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
-
-                    Utilisateur utilisateur3 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 02", "aziz2@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
-
-
-                    Client client = new Client("electicien", "VISOUSSI carine", utilisateur);
-
-                    Marchand marchand = new Marchand("GYY176767878", "435678", "35467", new SuperMarchand(), utilisateur1);
-
-                    Benefice benefice = new Benefice("epouse", "30", new Beneficiaire(utilisateur3));
-
-                    List<Benefice> benefices = new ArrayList<>();
-                    benefices.add(benefice);
-
-                    Assurer assurer = new Assurer("Vitrie", utilisateur2, false);
-
-                    Contrat contrat = new Contrat("1 000 000", "1 000", "1", simpleDateFormat.format(new Date()),
-                            simpleDateFormat.format(new Date()), simpleDateFormat.format(new Date()), simpleDateFormat.format(new Date()), client,
-                            marchand, benefices, assurer);
-
-
-                System.out.println(contrat.toString());
-
-                    senContrat(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken(),
-                            contrat);
-
-                    //System.out.println(contrat.toString());*/
 
             }
             //replaceFraglent(new AddClientStepTwo());
@@ -257,7 +202,6 @@ public class AddClientStepThree extends Fragment {
     private void replaceFraglent(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_main_marchand, fragment).commit();
-
     }
 
     private boolean verifeData() {
@@ -315,15 +259,10 @@ public class AddClientStepThree extends Fragment {
             tvQualification.setVisibility(View.VISIBLE);
         } else tvQualification.setVisibility(View.INVISIBLE);
 
-        if (etTaux.getText().toString().isEmpty()) {
-            isValid = false;
-            tvTaux.setVisibility(View.VISIBLE);
-        } else tvTaux.setVisibility(View.INVISIBLE);
-
         if (etTelephone.getRawText().isEmpty()) {
             isValid = false;
-            etTelephone.setVisibility(View.VISIBLE);
-        } else etTelephone.setVisibility(View.INVISIBLE);
+            tvTelephone.setVisibility(View.VISIBLE);
+        } else tvTelephone.setVisibility(View.INVISIBLE);
 
 
         boolean allValid = etEmail.testValidity() ;
@@ -344,17 +283,17 @@ public class AddClientStepThree extends Fragment {
                 Log.w(TAG, "onResponse: " + response);
 
                 if (response.isSuccessful()) {
+                    progressBar.setVisibility(View.INVISIBLE);
                     System.out.println(response.body());
 
                     new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
                             .setTitleText("Contrat créer")
-                            .setContentText("Won't be able to recover this file!")
                             .setCancelText("Ok")
-                            .setConfirmText("Yes,delete it!")
                             .showCancelButton(true)
                             .show();
 
                 } else {
+                    progressBar.setVisibility(View.INVISIBLE);
                     if (response.code() == 422) {
                         System.out.println(response.code()+" "+response.errorBody().source());
                     }
@@ -376,12 +315,13 @@ public class AddClientStepThree extends Fragment {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Log.w(TAG, "onFailure: " + t.getMessage());
-                Toast.makeText(getActivity(), t.getMessage()+ t.getCause().getCause().getCause(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), t.getMessage()+ t.getCause().getCause().getCause(), Toast.LENGTH_LONG).show();
 
                 new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
-                        .setTitleText("Contrat créer")
-                        .setContentText("Won't be able to recover this file!")
+                        .setTitleText("onfailure")
+                        .setContentText(t.getMessage())
                         .setCancelText("Ok")
                         .setConfirmText("Yes,delete it!")
                         .showCancelButton(true)
@@ -527,7 +467,5 @@ public class AddClientStepThree extends Fragment {
         etQualification.setAdapter(qualificationArrayAdapter);
 
     }
-
-
 
 }

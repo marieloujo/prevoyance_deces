@@ -35,6 +35,7 @@ import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.model.Portefeuille;
 import bj.assurance.prevoyancedeces.model.pagination.OutputPaginate;
 import bj.assurance.prevoyancedeces.utils.AccessToken;
 import bj.assurance.prevoyancedeces.utils.ApiError;
@@ -65,6 +66,8 @@ public class ListeClients extends Fragment {
     private ProgressBar progressBar;
     private ScrollView scrollView;
 
+    static private List<Client> clients = new ArrayList<>();
+
     int size = 0;
 
     public ListeClients() {
@@ -92,6 +95,15 @@ public class ListeClients extends Fragment {
         );
         floatingButtonaddClient();
 
+        System.out.println("\n\n\n");
+        System.out.println("\n\n\n");
+        System.out.println("\n\n\n");
+        System.out.println(MarchandMainActivity.getMarchand());
+        System.out.println("\n\n\n");
+        System.out.println("\n\n\n");
+        System.out.println("\n\n\n");
+        System.out.println("\n\n\n");
+
         return view;
     }
 
@@ -113,6 +125,9 @@ public class ListeClients extends Fragment {
                             if (CURRENT_PAGE + 1 > LAST_PAGE ) {
                                 return;
                             } else {
+
+                                CURRENT_PAGE += 1;
+
                                 getNextClient(
                                         TokenManager.getInstance(getActivity()
                                                 .getSharedPreferences("prefs", MODE_PRIVATE))
@@ -127,9 +142,9 @@ public class ListeClients extends Fragment {
 
     }
 
-    private void createItems(List<Client> clients) {
+    private void createItems(List<Client> clients, int position) {
 
-        for (int i = 0; i < clients.size(); i++) {
+        for (int i = position; i < clients.size(); i++) {
             addItem(clients.get(i));
         }
 
@@ -168,6 +183,19 @@ public class ListeClients extends Fragment {
     @SuppressLint("SetTextI18n")
     private void addSubItem(List<Contrat> contrats, ExpandingItem view){
         view.createSubItems(contrats.size());
+
+        System.out.println("dsbus\n\n\n\n");
+        System.out.println("dsbus\n\n\n\n");
+        System.out.println("dsbus\n\n\n\n");
+        System.out.println(contrats.size());
+        System.out.println("dsbus\n\n\n\n");
+        System.out.println("dsbus\n\n\n\n");
+        System.out.println("dsbus\n\n\n\n");
+        System.out.println(contrats.toString());
+        System.out.println("dsbus\n\n\n\n");
+        System.out.println("dsbus\n\n\n\n");
+        System.out.println("dsbus\n\n\n\n");
+        System.out.println("dsbus\n\n\n\n");
 
         for (int i = size; i < contrats.size(); i++) {
                 View subItemZero = view.getSubItemView(i);
@@ -264,16 +292,19 @@ public class ListeClients extends Fragment {
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
 
-                    CURRENT_PAGE = response.body().getMetaPaginate().getCurrentPage();
-                    LAST_PAGE = response.body().getMetaPaginate().getLastPage();
+                        try {
+                            CURRENT_PAGE = response.body().getMetaPaginate().getCurrentPage();
+                            LAST_PAGE = response.body().getMetaPaginate().getLastPage();
+                        } catch (Exception e) {}
 
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<ArrayList<Client>>(){}.getType();
+                        Gson gson = new Gson();
+                        Type listType = new TypeToken<ArrayList<Client>>(){}.getType();
 
-                    ArrayList<Client> clients = gson.fromJson(
-                            gson.toJson(response.body().getObjects()), listType);
+                        clients = gson.fromJson(
+                                gson.toJson(response.body().getObjects()), listType);
 
-                    createItems(clients);
+                        createItems(clients, 0);
+                        progressBar.setVisibility(View.INVISIBLE);
 
                 } else {
                     if (response.code() == 422) {
@@ -284,6 +315,7 @@ public class ListeClients extends Fragment {
                         ApiError apiError = Utils.converErrors(response.errorBody());
                         Toast.makeText(getContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -292,24 +324,32 @@ public class ListeClients extends Fragment {
             public void onFailure(Call<OutputPaginate> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage());
                 //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
 
 
     private void getContrats(AccessToken accessToken, Long idClient, ExpandingItem view) {
-        Call<List<Contrat>> call;
+        Call<OutputPaginate> call;
         MarchandService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(MarchandService.class);
-        call = service.getConrattoClient(MarchandMainActivity.getMarchand().getId(), idClient);
+        call = service.getConrattoClient(MarchandMainActivity.getMarchand().getId(), idClient, 1);
 
-        call.enqueue(new Callback<List<Contrat>>() {
+        call.enqueue(new Callback<OutputPaginate>() {
             @Override
-            public void onResponse(Call<List<Contrat>> call, Response<List<Contrat>> response) {
+            public void onResponse(Call<OutputPaginate> call, Response<OutputPaginate> response) {
                 Log.w(TAG, "onResponse: " + response);
 
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
-                    addSubItem(response.body(), view);
+
+                    Gson gson = new Gson();
+                    Type listType = new TypeToken<ArrayList<Contrat>>(){}.getType();
+
+                    List<Contrat> contrats = gson.fromJson(
+                            gson.toJson(response.body().getObjects()), listType);
+
+                    addSubItem(contrats, view);
 
                 } else {
                     if (response.code() == 422) {
@@ -324,21 +364,11 @@ public class ListeClients extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Contrat>> call, Throwable t) {
+            public void onFailure(Call<OutputPaginate> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage());
+
                 //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 
-                new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
-                        .setTitleText("Connexion impossibe au serveur")
-                        .setContentText("Oups!!! quelque chose s'est mal passé vérifier votre connexion internet et réessayer")
-                        .showCancelButton(true)
-                        .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(KAlertDialog sDialog) {
-                                sDialog.cancel();
-                            }
-                        })
-                        .show();
             }
         });
     }
@@ -370,10 +400,12 @@ public class ListeClients extends Fragment {
                     Gson gson = new Gson();
                     Type listType = new TypeToken<ArrayList<Client>>(){}.getType();
 
-                    ArrayList<Client> clients = gson.fromJson(
-                            gson.toJson(response.body().getObjects()), listType);
+                    int size = clients.size();
 
-                    createItems(clients);
+                    clients.addAll(gson.fromJson(
+                            gson.toJson(response.body().getObjects()), listType));
+
+                    createItems(clients, size);
                     progressBar.setVisibility(View.INVISIBLE);
 
                 } else {

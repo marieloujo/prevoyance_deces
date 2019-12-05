@@ -136,14 +136,13 @@ public class AddClientStepTwo extends Fragment {
 
                 if (verifeData()) {
 
-
                     System.out.println(MarchandMainActivity.getContrat().toString());
 
                     Commune commune = new Commune();
 
 
                     try {
-                        for (int i = 0; i<MarchandMainActivity.getCommunes().size(); i++) {
+                        for (int i = 0; i < MarchandMainActivity.getCommunes().size(); i++) {
                             if (MarchandMainActivity.getCommunes().get(i).getNom().equals(etCommune.getSelectedItem().toString())) {
                                 commune = MarchandMainActivity.getCommunes().get(i);
                             }

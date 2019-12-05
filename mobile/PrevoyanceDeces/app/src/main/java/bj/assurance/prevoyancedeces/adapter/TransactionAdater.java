@@ -18,11 +18,11 @@ import bj.assurance.prevoyancedeces.viewHolder.TransactionViewHolder;
 public class TransactionAdater extends RecyclerView.Adapter<TransactionViewHolder> {
 
     Context context;
-    List<Portefeuille> contrats;
+    List<Portefeuille> transactions;
 
     public TransactionAdater(Context context, List<Portefeuille> contrats) {
         this.context = context;
-        this.contrats = contrats;
+        this.transactions = contrats;
     }
 
     @NonNull
@@ -38,26 +38,23 @@ public class TransactionAdater extends RecyclerView.Adapter<TransactionViewHolde
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
 
-        try {
+       try {
+           holder.getNomPrenom().setText(transactions.get(position).getContrat().getClient().getUtilisateur().getNom() + " " +
+                   transactions.get(position).getContrat().getClient().getUtilisateur().getPrenom());
 
-            /*holder.getNomPrenom().setText(contrats.get(position).g().getUtilisateur().getNom() + " " +
-                    contrats.get(position).getClient().getUtilisateur().getPrenom());
+           holder.getSolde().setText(transactions.get(position).getMontant()+ " fcfa");
 
-            holder.getSolde().setText(contrats.get(position).getTransactions().get(position).getMontant()+ " fcfa");
+           holder.getDate().setText(transactions.get(position).getCreatedAt());
 
-            holder.getDate().setText(contrats.get(position).getTransactions().get(position).getUpdateAt());*/
-
-        } catch (Exception e) {
-
-        }
-
-        //holder.getSolde().setText(contrats.get(position).get);
-
+           holder.getNumero().setText(transactions.get(position).getContrat().getNumero());
+       } catch (Exception e) {
+           //e.printStackTrace();
+       }
 
     }
 
     @Override
     public int getItemCount() {
-        return contrats.size();
+        return transactions.size();
     }
 }

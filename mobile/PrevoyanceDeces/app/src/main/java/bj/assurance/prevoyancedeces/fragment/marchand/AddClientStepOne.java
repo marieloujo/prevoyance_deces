@@ -164,7 +164,7 @@ public class AddClientStepOne extends Fragment {
                             }
                         }
                     } catch (Exception e) {
-
+                            e.printStackTrace();
                     }
 
                     Client client = new Client(etProfession.getText().toString(), etEmployeur.getText().toString(),new Utilisateur(
