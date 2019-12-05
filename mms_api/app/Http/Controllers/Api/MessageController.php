@@ -8,6 +8,7 @@ use App\Http\Resources\Conversation\MessageResource as Conversation;
 use App\Http\Resources\MessageResource;
 use App\Repositories\Message\Interfaces\MessageRepositoryInterface;
 use App\Repositories\User\Interfaces\UserRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {

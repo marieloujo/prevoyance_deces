@@ -26,7 +26,7 @@ interface CompteRepositoryInterface
      */
     public function getById($id);
     
-    public function getCompteTime($end);
+    public function getComptes($end);
     
     public function getCompte();
 

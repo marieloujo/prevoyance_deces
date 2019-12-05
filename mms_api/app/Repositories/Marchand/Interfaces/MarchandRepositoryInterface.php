@@ -41,5 +41,13 @@ interface MarchandRepositoryInterface
      */
     public function update($id, array $marchand_data);
 
+    /**
+     * list of marchand clients.
+     *
+     * @param int
+     */
+    public function getClients($id);
+    public function getContrats($marchand,$client);
+
 
 }

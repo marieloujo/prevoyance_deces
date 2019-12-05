@@ -2,13 +2,15 @@
 
 namespace App\Repositories\Marchand;
 
+use App\Models\Client;
 use App\Models\Marchand;
 use App\Repositories\Marchand\Interfaces\MarchandRepositoryInterface;
-
+use Illuminate\Database\Eloquent\Builder;
 
 class MarchandRepository implements MarchandRepositoryInterface
 {
     protected $marchand;
+    protected $marchand_id;
 
     public function __construct(Marchand $marchand)
     {
@@ -87,5 +89,26 @@ class MarchandRepository implements MarchandRepositoryInterface
         $marchand->update();
     }
 
+
+    public function getClients($id){
+        
+        // $clients=Client::whereHas('contrats', function(Builder $query){
+        //     $query->where('marchand_id',$this->marchand_id);
+        // })->orderByDesc('created_at')->paginate();
+
+//        return $clients->find(63)->contrats;//->find(110)->marchand_id;
+         return $this->getById($id)->contrats()->distinct('client_id')->paginate(20);
+    }
+
+    public function getContrats($marchand,$client){
+        
+/*         
+        $clients=Client::whereHas('contrats', function(Builder $query){
+            $query->where('marchand_id',$this->marchand_id);
+        })->orderByDesc('created_at')->paginate();
+        return $clients->find(63)->contrats;//->find(110)->marchand_id;
+ */
+        return $this->getById($marchand)->contrats()->where('client_id',$client)-> paginate(20);
+    }
+
 }
-//SuperMarchand

@@ -16,7 +16,7 @@ class Portefeuille extends Model
     ];
     
     public function contrat(){
-        return $this->belongsTo('App\Models\Contrat','contrat_id','id');
+        return $this->belongsTo('App\Models\Contrat','contrat_id');
     }
     
     

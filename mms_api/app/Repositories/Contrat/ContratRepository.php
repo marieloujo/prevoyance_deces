@@ -66,9 +66,10 @@ class ContratRepository implements ContratRepositoryInterface
             $contrat->numero_contrat = $contrat_data['numero_contrat'];
             $contrat->garantie = $contrat_data['garantie'];
             $contrat->prime = $contrat_data['prime'];
-            $contrat->date_debut = Carbon::now();
-            $contrat->date_echeance = Carbon::now()->addYear();
-            $contrat->date_effet = Carbon::now();
+            $contrat->duree = $contrat_data['duree'];
+            $contrat->date_debut = $contrat_data['date_debut'];
+            $contrat->date_echeance = $contrat_data['date_echeance'];
+            $contrat->date_effet = $contrat_data['date_effet'];
             $contrat->date_fin = $contrat_data['date_fin'];
             $contrat->fin = false;
             $contrat->valider = false;
