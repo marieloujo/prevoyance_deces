@@ -68,65 +68,64 @@ class ContratController extends Controller
      */
     public function store(Request $request)
     {
+        $client_data=$this->getUsereable($request->all(),'client');
+        $beneficiaire_data=$this->getUsereable($request->all(),'beneficiaire');
+        $assure_data=$this->getUsereable($request->all(),'assure');
         
-        return response()->json(['data' => $this->create($this->beneficiaire_repository,'beneficiaire',$request->all())]);
+        //return response()->json(['data' => $client_data ]);
+        //return response()->json(['data' => $beneficiaire_data[0]['statut'] ]);
+        // foreach ($beneficiaire_data as $beneficiaire){
+        //     return response()->json(['data' => $beneficiaire['beneficiaire'] ]);
+        // }
         DB::beginTransaction();
         //return $request;
 		try {
-            
+            //return response()->json(['data' => $client_data['user'] ]);
             //create client
-            $client=$this->create($this->client_repository,'client',$request->all());
+            //$client=$this->create($this->client_repository,'client',$client_data);
             
-             //create assure
-            $assure=$this->create($this->assure_repository,'assure',$request->all());
+            //create assure
+            $assure=$this->create($this->assure_repository,'assure',$assure_data);
+            return response()->json(['data' => $assure]); 
            
+            //create beneficiaire
+            /* $beneficiaire=$this->create($this->beneficiaire_repository,'beneficiaire',$beneficiaire_data);
+            return response()->json(['data' => $beneficiaire ]); */
+            $marchand= $request['marchand'];// $this->getData($this->getData($request->all(),'marchand'),'id');
+            return response()->json(['data' => $marchand ]); 
+            //$contrat_data = $this->getContratData($request->all(),$client->id,$assure->id,$marchand);
+            
+           // $contrat=$this->contrat_repository->create($contrat_data);
+           //return response()->json(['data' => $contrat ]); 
+            foreach ($beneficiaire_data as $beneficiaire){
+                $beneficiaire0=$this->create($this->beneficiaire_repository,'beneficiaire',$beneficiaire['beneficiaire']);
+                $benefice_data=$beneficiaire[0];
+            
+                //$benefice_data['contrat_id']=$contrat->id;
+                return response()->json(['data' => $beneficiaire0 ]); 
+                $benefice_data['beneficiaire_id']=$beneficiaire0->id;
+                return response()->json(['data' => $beneficiaire0->id ]); 
+                $benefice=$this->benefice_repository->create($benefice_data);
+                //return response()->json(['data' => $beneficiaire['beneficiaire'] ]);
+            }
+
+            /* $benefice_data=$this->getData($request->all(),'beneficiaire');
            
-           //create beneficiaire
-            $beneficiaire=$this->create($this->beneficiaire_repository,'beneficiaire',$request->all());
-            
-            $marchand= $request['marchand']['id'] ;
-            
-            $contrat_data = $this->getContratData($request->all(),$client->id,$assure->id,$marchand);
-            
-            $contrat=$this->contrat_repository->create($contrat_data);
-            return response()->json(['data' => $contrat]);
-            $benefice_data=$this->getData($request->all(),'beneficiaire');
-            // $benefice_data['statut']=$this->getData($this->getData($request->all(),'beneficiaire'),'statut');
-            // $benefice_data['taux']=$this->getData($this->getData($request->all(),'beneficiaire'),'taux');
             $benefice_data['contrat_id']=$contrat->id;
 
             $benefice_data['beneficiaire_id']=$beneficiaire->id;
 
-            $benefice=$this->benefice_repository->create($benefice_data); 
-  */
-            // $client_data=$request['client'];
-            // $user_data=$request['client']['user'];
-            // $client=$this->client_repository->create($client_data);
-            // $user_data['usereable_id']=$client->id;
-            // $user_data['usereable_type']='App\\Models\\Client';
-            
-            // $user=$this->user_repository->register($user_data);
-            
-            return response()->json(['data' => $assure]);
-	        
+            $benefice=$this->benefice_repository->create($benefice_data); */
+ 
             DB::commit();   
-            return response()->json(['data' => $client]);
+            return response()->json(['data' => $benefice ]);
 		} catch (\Exception $e) {
 		    DB::rollback();
 		    // something went wrong
 		    $message = $e->getMessage();
-		    return response()->json(['error' => 1, 'message' => $message],500);
+		    return response()->json(['error' => 1, 'message' => $message]);
 		}
 
-        //return $request->all();
-        /* return $client=$this->user_repository->create($request->contrats->client->all());
-        $request->contrats->client->utilisateur['usereable_id']=$client->id;
-        $request->contrats->client->utilisateur['usereable_type']='App\\Models\\Client';  */
-
-        //return $this->user_repository->register($request->contrats->client->utilisateur->all());
-        //return $request->contrats->client->utilisateur[nom];
-        //$client=ClientController($this->user_repository,$this->client_repository);
-        //return $client->store($request->all());
         
     }
 
@@ -177,25 +176,35 @@ class ContratController extends Controller
     }
 
     public function create($model_repository,$type,array $request){
-        $model_data=$this->getData($request,$type);
-        // $user_data=$request[$type]['user'];
-        // $user_data['commune']=$user_data['commune']['id'];
-        // $model=$model_repository->create($model_data);
-        // $user_data['usereable_id']=$model->id;
-        // $user_data['usereable_type']='App\\Models\\'.ucfirst($type);
-        // $this->user_repository->register($user_data);
-        return $model_data;
+        $model=$model_repository->create($request);
+        $id=$model['id'];
+        $user= $this->createUser($request['user'],$id,$type);
+        return $user;
+        return $model;
+    }
+
+    public function createUser($user_data,$model,$type){
+        $user_data['usereable_id']=$model;
+        $user_data['commune']=$user_data['commune']['id'];
+        $user_data['usereable_type']='App\\Models\\'.strtoupper(ucfirst($type));
+        $user= $this->user_repository->register($user_data);
+        return $user;
     }
 
     public function getData(array $request, $url){
         return $request[$url];
     }
 
+    public function getUsereable(array $request, $url){
+        return $request[$url];
+    }
+
+
     public function getContratData(array $request,$client_id,$assure_id,$marchand){
             $contrat['numero_contrat']   = str_random('10')/*  $this->getData($request,'numero_contrat') */;
-            $contrat['duree']   = $this->getData($request,'duree');
-            $contrat['garantie']   = 1000000;
-            $contrat['prime']   = 1000;
+            $contrat['duree']   = 1 /* $this->getData($request,'duree') */;
+            $contrat['garantie']   = 1000000 /* $this->getData($request,'garantie') */;
+            $contrat['prime']   = 1000 /* $this->getData($request,'prime') */;
             $contrat['marchand_id']   = $request['marchand']['id'];
             $contrat['date_debut']   = Carbon::now();
             $contrat['date_echeance']   = Carbon::now()->addYear();
@@ -205,7 +214,7 @@ class ContratController extends Controller
             $contrat['valider']   = false;
             $contrat['client_id']   = $client_id;
             $contrat['assure_id']   = $assure_id;
-            $contrat['numero_police_assurance']   = $this->getData($request,'numero_police_assurance');
+            $contrat['numero_police_assurance']   = " fgfg";//$this->getData($request,'numero_police_assurance');
 
         return $contrat;
     }

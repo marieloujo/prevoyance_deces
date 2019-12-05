@@ -58,7 +58,7 @@ class BeneficiaireRepository implements BeneficiaireRepositoryInterface
      *
      * @param array
      */
-    public function create(array $beneficiaire_data)
+    public function create()
     {
             $beneficiaire = new Beneficiaire();
             $beneficiaire->save();

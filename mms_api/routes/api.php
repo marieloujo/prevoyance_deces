@@ -49,8 +49,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/departements/{departement}/communes/','Api\DepartementController@getCommunes');
 
-     Route::group(['prefix'=>'users'],function(){
-     //   Route::get('/marchands/commune','Api\MarchandController@showByCommune');
+    Route::group(['prefix'=>'users'],function(){
+        Route::get('/marchands/commune','Api\MarchandController@showByCommune');
         Route::get('/messages','Api\MessageController@conversations');
         Route::get('/notifications','Api\MessageController@notifications');
       //  Route::get('/searchByName/{name}','Api\UserController@showByName');
