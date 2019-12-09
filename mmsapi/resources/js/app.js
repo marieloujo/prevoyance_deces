@@ -4,7 +4,7 @@ require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuetify from 'vuetify/lib'
-import Vuetify from 'vuetify'
+import vuetify from '@/plugins/vuetify'
 import VueCookie from 'vue-cookie'
 import axiosVue from 'axios-vue'
 

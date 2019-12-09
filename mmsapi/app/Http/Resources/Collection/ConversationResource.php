@@ -16,7 +16,7 @@ class ConversationResource extends JsonResource
     {
         return [
             'id' => $this->id,            
-            'messages' => MessageResource::collection($this->messages()->merge($this->messages()->where('notification',false)->orderByDesc('created_at')->paginate(5))),
+            'messages' => MessageResource::collection($this->messages->merge($this->messages()->where('notification',false)->orderByDesc('created_at')->paginate(5))),
         ];
     }
 }
