@@ -104,7 +104,7 @@ class MarchandController extends Controller
         $compteData=$this->marchandService->getCompte($marchand);
         
         if($compteData){
-            return response()->json([ 'success' => ['data' => new ComptesResource($compteData) ]], Response::HTTP_OK);
+            return response()->json([ 'success' => ['credit_virtuel' => $compteData->montant ]], Response::HTTP_OK);
         }else{
             return response()->json([ 'success' => ['message' => 'Aucun credit virtuel' ]], Response::HTTP_NOT_FOUND);
         }
