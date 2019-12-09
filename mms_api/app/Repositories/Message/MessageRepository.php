@@ -71,9 +71,7 @@ class MessageRepository implements MessageRepositoryInterface
     {
             $message = new Message();
             $message->body = $message_data['body'];
-            $message->read_at = $message_data['read_at'];
-            $message->to_user_id = $message_data['to_user_id'];
-            $message->from_user_id = $message_data['from_user_id'];
+            $message->conversation_id = $message_data['conversation_id'];
             $message->notification = $message_data['notification'];
             
             $message->save();
@@ -91,9 +89,7 @@ class MessageRepository implements MessageRepositoryInterface
     {
             $message =  $this->message->findOrfail($id);
             $message->body = $message_data['body'];
-            $message->read_at = $message_data['read_at'];
-            $message->to_user_id = $message_data['to_user_id'];
-            $message->from_user_id = $message_data['from_user_id'];
+            $message->conversation_id = $message_data['conversation_id'];
             $message->notification = $message_data['notification'];
             
             $message->update();

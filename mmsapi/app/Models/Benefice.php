@@ -21,4 +21,5 @@ class Benefice extends Pivot
     public function beneficiaire(){
         return $this->belongsTo('App\Models\Beneficiaire','beneficiaire_id');
     }
+
 }

@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nom','prenom','telephone','adresse','sexe','date_naissance','situation_matrimoniale','prospect', 'actif', 'login', 'commune_id','usereable_id', 'usereable_type','email', 'password',
+        'nom','prenom','telephone','adresse','sexe','date_naissance','situation_matrimoniale','prospect', 'actif', 'login', 'commune_id','marchand_id','userable_id', 'userable_type','email', 'password',
     ];
 
     /**
@@ -31,22 +31,31 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function usereable(){
+    public function userable(){
         return $this->morphTo();
     }
 
-    // public function messages(){
-    //     return $this->belongsToMany('App\User','messages','from_user_id','to_user_id')->using('App\Models\Message')->withPivot([
-    //         'body','read_at',
-    //     ])->withTimestamps();
-    // }
+    
+    public function conversations_user(){
+        return $this->hasMany('App\Models\ConversationUser');
+    }
 
-    public function messages(){
-        return $this->hasMany('App\Models\Message','to_user_id');
+    public function conversations(){
+        return $this->belongsToMany('App\Models\Conversation','conversation_user','user_id','conversation_id')->using('App\Models\ConversationUser')->withPivot([
+            'read',
+        ])->withTimestamps();
+    }
+
+    public function oauth_client(){
+        return $this->hasOne('App\OauthClient','user_id');
     }
 
     public function commune(){
         return $this->belongsTo('App\Models\Commune');
+    }
+
+    public function marchand(){
+        return $this->belongsTo('App\Models\Marchand');
     }
 
     /** 

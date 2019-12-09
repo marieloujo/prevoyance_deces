@@ -34,6 +34,7 @@ class UserController extends Controller
 
     public function user()
     {   
+        
         //$user=$this->user_repository->getAuth();
         //return $user->with(['commune','usereable'])->first();
 
@@ -59,6 +60,8 @@ class UserController extends Controller
     { 
         return $this->user_repository->login($request->all(),config('services.vue_client.id'),config('services.vue_client.secret'));
     }
+
+    
 
 
     public function create(RegisterRequest $request)

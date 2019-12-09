@@ -32,7 +32,7 @@ abstract class AbstractService implements ServiceInterface
 
     public function update(Request $request, $id)
     {
-        return $this->repository->update($id, $request->all());
+        return $this->repository->update($request->all(),$id);
     }
 
     public function delete($id)

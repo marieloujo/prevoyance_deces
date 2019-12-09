@@ -12,9 +12,9 @@ $factory->define(Document::class, function (Faker $faker) {
     return [
         'url' => $faker->imageUrl(600,600),
         
-        'documenteable_id' => function(){
+        'documentable_id' => function(){
            return  Contrat::all()->random();
         },
-        'documenteable_type' => 'App\\Models\\Contrat',
+        'documentable_type' => 'App\\Models\\Contrat',
     ];
 });

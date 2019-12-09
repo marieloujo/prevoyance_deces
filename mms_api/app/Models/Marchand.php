@@ -17,7 +17,7 @@ class Marchand extends Model
     ];
     
     public function user(){
-        return $this->morphOne('App\User','usereable');
+        return $this->morphOne('App\User','userable');
     }
     
     public function super_marchand(){
@@ -32,9 +32,17 @@ class Marchand extends Model
         return $this->hasMany('App\Models\Contrat');
     }
 
+    public function portefeuilles(){
+        return $this->hasMany('App\Models\Portefeuille');
+    }
+
+    public function prospects(){
+        return $this->hasMany('App\User','marchand_id');
+    }
+
     public function clients(){
         return $this->belongsToMany('App\Models\Client','contrats','marchand_id','client_id')->using('App\Models\Contrat')->withPivot([
-            'numero_contrat','garantie','prime','duree','numero_police_assurance','portefeuille','date_debut','date_echeance','date_effet','fin','valider','assure_id',
+            'numero_contrat','garantie','prime','duree','numero_police_assurance','date_debut','date_echeance','date_effet','fin','valider','assure_id',
         ])->withTimestamps();
     }
 

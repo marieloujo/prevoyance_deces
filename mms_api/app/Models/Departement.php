@@ -12,7 +12,7 @@ class Departement extends Model
      * @var array
      */
     protected $fillable = [
-        'nom',
+        'nom','code',
     ];
 
     public function communes(){

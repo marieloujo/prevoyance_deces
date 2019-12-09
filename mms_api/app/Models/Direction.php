@@ -20,7 +20,6 @@ class Direction extends Model
         return $this->morphOne('App\User','usereable');
     }
 
-
     public function role(){
         return $this->belongsTo('App\Models\Role');
     }

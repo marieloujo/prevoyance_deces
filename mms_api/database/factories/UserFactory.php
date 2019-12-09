@@ -57,36 +57,40 @@ $factory->define(User::class, function (Faker $faker) {
         'commune_id' => function(){
             return  Commune::all()->random();
         },
+        'marchand_id' => function(){
+            return  Marchand::all()->random();
+        },
 
-        // 'usereable_id' => function(){
+        // 'userable_id' => function(){
         //    return  Marchand::all()->random();
         // },
-        // 'usereable_type' => 'App\\Models\\Marchand',
+        // 'userable_type' => 'App\\Models\\Marchand',
 
-        // 'usereable_id' => function(){
+        // 'userable_id' => function(){
         //    return  SuperMarchand::all()->random();
         // },
-        // 'usereable_type' => 'App\\Models\\SuperMarchand',
+        // 'userable_type' => 'App\\Models\\SuperMarchand',
 
-        // 'usereable_id' => function(){
+        // 'userable_id' => function(){
         //     return  Client::all()->random();
         //  },
-        //  'usereable_type' => 'App\\Models\\Client',
+        //  'userable_type' => 'App\\Models\\Client',
 
-        //  'usereable_id' => function(){
+        //  'userable_id' => function(){
         //     return  Direction::all()->random();
         //  },
-        //  'usereable_type' => 'App\\Models\\Direction',
+        //  'userable_type' => 'App\\Models\\Direction',
+        /* 
 
-        //  'usereable_id' => function(){
-        //     return  Beneficiaire::all()->random();
-        //  },
-        //  'usereable_type' => 'App\\Models\\Beneficiaire',
+         'userable_id' => function(){
+            return  Beneficiaire::all()->random();
+         },
+         'userable_type' => 'App\\Models\\Beneficiaire', */
 
-         'usereable_id' => function(){
+         'userable_id' => function(){
             return  Assure::all()->random();
          },
-         'usereable_type' => 'App\\Models\\Assure',
+         'userable_type' => 'App\\Models\\Assure',
 
 // 
 

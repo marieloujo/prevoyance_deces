@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,4 +18,5 @@ class Role extends Model
     public function directions(){
         return $this->hasMany('App\Models\Direction');
     }
+    
 }

@@ -24,7 +24,7 @@ class PortefeuilleRepository implements PortefeuilleRepositoryInterface
     public function getById($contrat,$date){
 
         //return Carbon::now()->addMonths(3);
-        return Auth::user()->usereable->contrats->find($contrat)->portefeuilles->where('created_at','<=',$date)->where('created_at','>=',$date->subMonths(3));
+        return Auth::user()->userable->contrats->find($contrat)->portefeuilles->where('created_at','<=',$date)->where('created_at','>=',$date->subMonths(3));
     }
     /**
      * Get a portefeuille by it's ID
@@ -40,7 +40,7 @@ class PortefeuilleRepository implements PortefeuilleRepositoryInterface
      */
     public function all($date)
     {
-        return Auth::user()->usereable->contrats->find(163)->portefeuilles->where('created_at','<=',$date)->where('created_at','>=',$date->subMonths(3));
+        return Auth::user()->userable->contrats->find(163)->portefeuilles->where('created_at','<=',$date)->where('created_at','>=',$date->subMonths(3));
     }
 
     /**
@@ -63,9 +63,8 @@ class PortefeuilleRepository implements PortefeuilleRepositoryInterface
     {
             $portefeuille = new portefeuille();
             $portefeuille->montant = $portefeuille_data['montant'];
-            $portefeuille->portefeuille = $portefeuille_data['portefeuille'];
-            $portefeuille->portefeuilleable_id = $portefeuille_data['portefeuilleable_id'];
-            $portefeuille->portefeuilleable_type = $portefeuille_data['portefeuilleable_type'];
+            $portefeuille->contrat_id = $portefeuille_data['contrat_id'];
+            $portefeuille->marchand_id = $portefeuille_data['marchand_id'];
             $portefeuille->save();
 
             return $portefeuille;
@@ -80,10 +79,10 @@ class PortefeuilleRepository implements PortefeuilleRepositoryInterface
     public function update($id, array $portefeuille_data)
     {
             $portefeuille =  $this->portefeuille->findOrfail($id);
+            
             $portefeuille->montant = $portefeuille_data['montant'];
-            $portefeuille->portefeuille = $portefeuille_data['portefeuille'];
-            $portefeuille->portefeuilleable_id = $portefeuille_data['portefeuilleable_id'];
-            $portefeuille->portefeuilleable_type = $portefeuille_data['portefeuilleable_type'];
+            $portefeuille->contrat_id = $portefeuille_data['contrat_id'];
+            $portefeuille->marchand_id = $portefeuille_data['marchand_id'];
             $portefeuille->update();
     }
 

@@ -81,5 +81,5 @@ interface UserRepositoryInterface
      * @param array
      */
     public function update($id, array $user_data);
-
+    public function getProspects();
 }

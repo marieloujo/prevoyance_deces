@@ -16,7 +16,7 @@ class SuperMarchand extends Model
     ];
     
     public function user(){
-        return $this->morphOne('App\User','usereable');
+        return $this->morphOne('App\User','userable');
     }
 
     public function comptes(){

@@ -18,7 +18,7 @@ class Assure extends Model
     ];
 
     public function user(){
-        return $this->morphOne('App\User','usereable');
+        return $this->morphOne('App\User','userable');
     }
 
     public function contrats(){

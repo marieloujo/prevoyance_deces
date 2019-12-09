@@ -62,8 +62,8 @@ class DocumentRepository implements DocumentRepositoryInterface
     {
             $document = new Document();
             $document->url = $document_data['url'];
-            $document->documenteable_id = $document_data['documenteable_id'];
-            $document->documenteable_type = $document_data['documenteable_type'];
+            $document->documentable_id = $document_data['documentable_id'];
+            $document->documentable_type = $document_data['documentable_type'];
             $document->save();
 
             return $document;
@@ -79,8 +79,8 @@ class DocumentRepository implements DocumentRepositoryInterface
     {
             $document =  $this->document->findOrfail($id);
             $document->url = $document_data['url'];
-            $document->documenteable_id = $document_data['documenteable_id'];
-            $document->documenteable_type = $document_data['documenteable_type'];
+            $document->documentable_id = $document_data['documentable_id'];
+            $document->documentable_type = $document_data['documentable_type'];
             $document->update();
     }
 

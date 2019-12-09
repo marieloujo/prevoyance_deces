@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +27,9 @@ class Client extends Model
 
     public function marchands(){
         return $this->belongsToMany('App\Models\Marchand','contrats','client_id','marchand_id')->using('App\Models\Contrat')->withPivot([
-            'numero_contrat','garantie','prime','duree','numero_police_assurance','portefeuille','date_debut','date_echeance','date_effet','date_fin','fin','valider','assure_id',
+            'numero_contrat','garantie','prime','duree','numero_police_assurance','date_debut','date_echeance','date_effet','date_fin','fin','valider','assure_id',
         ])->withTimestamps();
     }
+
 }
+

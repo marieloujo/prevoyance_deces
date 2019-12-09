@@ -13,10 +13,10 @@ class Document extends Model
      */
     protected $morphClass = 'App\Models\Document'; 
     protected $fillable = [
-        'url', 'documenteable_id', 'documenteable_type',
+        'url', 'documentable_id', 'documentable_type',
     ];
 
-    public function documenteable(){
+    public function documentable(){
         return $this->morphTo();
     }
 }

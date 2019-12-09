@@ -2,11 +2,11 @@
 
 namespace App\Services\Contract\ServiceInterface;
 
-use App\Http\Requests\Auth\RegisterRequest;
-
+use App\Http\Requests\User\RegisterRequest;
+use Illuminate\Http\Request;
 
 interface RegistrationServiceInterface
 {
-    public function register(RegisterRequest $request): array;
+    public function register(Request $request);
 
 }

@@ -36,14 +36,13 @@ class RegisterRequest extends FormRequest
             'usereable_id' => 'required',
             'actif' => 'required',
             'prospect' => 'required',
-            'commune_id' => 'required',
+            'commune' => 'required',
             'sexe' => 'required',
             'usereable_type' => 'required',
             'date_naissance' => ['required','date','date_format:Y-m-d'/* ,'before_or_equal:74 years','after_or_equal:18 years' */],
             'situation_matrimoniale' => 'sometimes',
             'email' => ['sometimes', 'string', 'max:255','unique:users'],
             'login' => ['required','string', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
             
         ];
         

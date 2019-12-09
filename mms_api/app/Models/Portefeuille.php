@@ -12,11 +12,15 @@ class Portefeuille extends Model
      * @var array
      */
     protected $fillable = [
-        'id','montant','contrat_id',
+        'id','montant','contrat_id','marchand_id',
     ];
     
     public function contrat(){
         return $this->belongsTo('App\Models\Contrat','contrat_id');
+    }
+    
+    public function marchand(){
+        return $this->belongsTo('App\Models\Marchand','marchand_id');
     }
     
     

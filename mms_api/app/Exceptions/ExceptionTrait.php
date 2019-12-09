@@ -1,6 +1,7 @@
 <?php
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Session\TokenMismatchException;
@@ -40,9 +41,9 @@ trait ExceptionTrait{
     }
 
 
-    protected function isForbidden($e){
-        return $e instanceof ForbiddenException;
-    }
+    // protected function isForbidden($e){
+    //     return $e instanceof ForbiddenException;
+    // }
 
     protected function isModel($e){
         return $e instanceof ModelNotFoundException;
@@ -72,13 +73,13 @@ trait ExceptionTrait{
 
     protected function HttpResponse($e){
         return response()->json([
-            "errors" => 'Chemin incorrecte'
+            "errors" => 'Chemin incorrect'
         ],Response::HTTP_NOT_FOUND);
     }
 
     protected function AuthenticationResponse($e){
         return response()->json([
-            "errors" => 'Pas connecte'
+            "errors" => 'Pas connecté'
         ],Response::HTTP_UNAUTHORIZED);
     }
 

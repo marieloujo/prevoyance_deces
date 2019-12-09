@@ -8,8 +8,8 @@ use App\Repositories\Contracts\AbstractRepository;
 
 class BeneficeRepository extends AbstractRepository
 {
-    public function __construct(Benefice $commune)
+    public function __construct(Benefice $benefice)
     {
-        parent::__construct($commune);
+        parent::__construct($benefice);
     }
 }

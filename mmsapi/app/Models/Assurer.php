@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Assurer extends Model
 {
-    
+
     public $table='assures';
     /**
      * The attributes that are mass assignable.
@@ -26,4 +26,5 @@ class Assurer extends Model
         return $this->hasMany('App\Models\Contrat');
     }
 
+ 
 }

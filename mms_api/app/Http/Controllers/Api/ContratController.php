@@ -68,6 +68,7 @@ class ContratController extends Controller
      */
     public function store(Request $request)
     {
+        
         $client_data=$this->getUsereable($request->all(),'client');
         $beneficiaire_data=$this->getUsereable($request->all(),'beneficiaire');
         $assure_data=$this->getUsereable($request->all(),'assure');
@@ -82,19 +83,19 @@ class ContratController extends Controller
 		try {
             //return response()->json(['data' => $client_data['user'] ]);
             //create client
-            //$client=$this->create($this->client_repository,'client',$client_data);
+            $client=$this->create($this->client_repository,'client',$client_data);
             
             //create assure
             $assure=$this->create($this->assure_repository,'assure',$assure_data);
-            return response()->json(['data' => $assure]); 
+            
            
             //create beneficiaire
             /* $beneficiaire=$this->create($this->beneficiaire_repository,'beneficiaire',$beneficiaire_data);
             return response()->json(['data' => $beneficiaire ]); */
-            $marchand= $request['marchand'];// $this->getData($this->getData($request->all(),'marchand'),'id');
-            return response()->json(['data' => $marchand ]); 
-            //$contrat_data = $this->getContratData($request->all(),$client->id,$assure->id,$marchand);
+            //$marchand= $this->getData($this->getData($request->all(),'marchand'),'id');
             
+            $contrat_data = $this->getContratData($request->all(),$client->id,$assure->id);
+            return response()->json(['data' => $request ]); 
            // $contrat=$this->contrat_repository->create($contrat_data);
            //return response()->json(['data' => $contrat ]); 
             foreach ($beneficiaire_data as $beneficiaire){
@@ -177,13 +178,13 @@ class ContratController extends Controller
 
     public function create($model_repository,$type,array $request){
         $model=$model_repository->create($request);
-        $id=$model['id'];
-        $user= $this->createUser($request['user'],$id,$type);
-        return $user;
+        $user= $this->createUser($request['user'],$model->id,$type);
+        
         return $model;
     }
 
     public function createUser($user_data,$model,$type){
+       
         $user_data['usereable_id']=$model;
         $user_data['commune']=$user_data['commune']['id'];
         $user_data['usereable_type']='App\\Models\\'.strtoupper(ucfirst($type));
@@ -200,12 +201,12 @@ class ContratController extends Controller
     }
 
 
-    public function getContratData(array $request,$client_id,$assure_id,$marchand){
+    public function getContratData(array $request,$client_id,$assure_id){
             $contrat['numero_contrat']   = str_random('10')/*  $this->getData($request,'numero_contrat') */;
             $contrat['duree']   = 1 /* $this->getData($request,'duree') */;
             $contrat['garantie']   = 1000000 /* $this->getData($request,'garantie') */;
             $contrat['prime']   = 1000 /* $this->getData($request,'prime') */;
-            $contrat['marchand_id']   = $request['marchand']['id'];
+            $contrat['marchand_id']   = $this->getData($this->getData($request->all(),'marchand'),'id');
             $contrat['date_debut']   = Carbon::now();
             $contrat['date_echeance']   = Carbon::now()->addYear();
             $contrat['date_effet']   = Carbon::now();
@@ -214,9 +215,9 @@ class ContratController extends Controller
             $contrat['valider']   = false;
             $contrat['client_id']   = $client_id;
             $contrat['assure_id']   = $assure_id;
-            $contrat['numero_police_assurance']   = " fgfg";//$this->getData($request,'numero_police_assurance');
+            $contrat['numero_police_assurance']   = 4245674 ;//$this->getData($request,'numero_police_assurance');
 
-        return $contrat;
+        return $contrat['marchand_id'];
     }
 
     

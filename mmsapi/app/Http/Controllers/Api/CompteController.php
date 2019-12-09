@@ -3,10 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ComptesResource;
+use App\Services\Contract\ServiceInterface\CompteServiceInterface;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CompteController extends Controller
 {
+    protected $compteService;
+
+    public function __construct(CompteServiceInterface $compteService)
+    {
+        $this->compteService = $compteService;
+    } 
+
     /**
      * Display a listing of the resource.
      *
@@ -14,18 +24,12 @@ class CompteController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $compteData=$this->compteService->index();
+        if(count($compteData)>0){
+            return ComptesResource::collection($compteData);
+        }else{
+            return response()->json([ 'success' => ['message' => 'Aucun compte' ]], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -34,9 +38,24 @@ class CompteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($compte)
     {
-        //
+        $comptesData=$this->compteService->read($compte);
+        if($comptesData){
+            return response()->json([ 'success' => ['data' => new ComptesResource($comptesData) ]], Response::HTTP_OK);
+        }else{
+            return response()->json([ 'success' => ['message' => 'Aucun compte' ]], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        try {         
+            return response()->json([ 'success' => ['data' => new ComptesResource( $this->compteService->create($request)) ]], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            return response()->json(['errors' => [ 'message' => $message]],Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -46,19 +65,32 @@ class CompteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+
+
+    public function update(Request $request, $compte){
+        
+        try {         
+            if($this->compteService->update($request,$compte)){
+                return $this->show($compte);
+            }else{
+                return response()->json([ 'errors' => ['message' =>  'Le compte n\'a pas été mis à jour'  ]], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            return response()->json(['errors' => [ 'message' => $message]],Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function destroy($compte){
+        try {       
+            if($this->compteService->delete($compte)){
+                return response()->json([ 'success' => ['message' => 'Le compte à bien été supprimé' ]], Response::HTTP_OK);
+            }else{
+                return response()->json([ 'errors' => ['message' =>  'Le compte n\'a pas pu être supprimé'  ]], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }  
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            return response()->json(['errors' => [ 'message' => $message]],Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

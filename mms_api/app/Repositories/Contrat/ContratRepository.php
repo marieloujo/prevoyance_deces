@@ -2,6 +2,7 @@
 
 namespace App\Repositories\contrat;
 
+use App\Models\Client;
 use App\Models\Contrat;
 use App\Repositories\Contrat\Interfaces\ContratRepositoryInterface;
 use Carbon\Carbon;

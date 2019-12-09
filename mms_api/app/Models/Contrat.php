@@ -11,7 +11,7 @@ class Contrat extends Pivot
     public $table='contrats';
 
     protected $fillable = [
-        'numero_contrat','garantie','prime','duree','numero_police_assurance','portefeuille','date_debut','date_echeance','date_effet','fin','date_fin','valider','client_id','marchand_id','assure_id',
+        'numero_contrat','garantie','prime','duree','numero_police_assurance','date_debut','date_echeance','date_effet','fin','date_fin','valider','client_id','marchand_id','assure_id',
     ];
     
     public function marchand(){
@@ -37,6 +37,6 @@ class Contrat extends Pivot
     }
 
     public function documents(){
-        return $this->morphMany('App\Models\Document','documenteable');
+        return $this->morphMany('App\Models\Document','documentable');
     }
 }

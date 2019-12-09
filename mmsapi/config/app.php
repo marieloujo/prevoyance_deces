@@ -169,6 +169,8 @@ return [
         App\Providers\JWTServiceProvider::class,
         App\Providers\LayerServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        //Spatie\Permission\Permis::class,
+        Spatie\Permission\PermissionServiceProvider::class,
         /*
          * Application Service Providers...
          */
