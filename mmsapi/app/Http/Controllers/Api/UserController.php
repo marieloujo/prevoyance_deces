@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\RegisterRequest;
 use App\Http\Resources\Collection\ConversationsUserResource;
+use App\Http\Resources\Collection\NotificationsUserResource;
 use App\Http\Resources\UserResources;
 use App\Http\Resources\UsersResource;
 use App\Services\Contract\ServiceInterface\UserServiceInterface;
@@ -42,7 +43,7 @@ class UserController extends Controller
     {
         $result = $this->userService->getNotifications($user);
         if(count($result)>0){
-            return ConversationsUserResource::collection($result);
+            return NotificationsUserResource::collection($result);
         }else{
             return response()->json([ 'success' => ['message' => 'Aucune notification' ]], Response::HTTP_NOT_FOUND);
         }
