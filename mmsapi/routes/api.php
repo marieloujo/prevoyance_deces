@@ -35,6 +35,16 @@ Route::group(['middleware' => 'auth:api'], function () {
         
     });
 
+
+    Route::group(['prefix'=>'supermarchands'],function(){
+        
+        Route::get('/{supermarchand}/marchands', 'Api\SuperMarchandController@getMarchands' );
+        Route::get('/{supermarchand}/getCompte','Api\SuperMarchandController@getCompte');
+        Route::get('/{supermarchand}/getComptes','Api\SuperMarchandController@getComptes');
+        Route::get('/{supermarchand}/getComptes/{date?}','Api\SuperMarchandController@getComptes');
+        
+    });
+
     Route::group(['prefix'=>'departements'],function(){
         Route::get('/{departement}/communes/{commune}/marchands','Api\CommuneController@getMarchands');
         Route::get('/{departement}/communes','Api\DepartementController@getCommunes');
@@ -57,9 +67,14 @@ Route::group(['middleware' => 'auth:api'], function () {
          Route::get('/{userPhone}/telephone','Api\UserController@readByPhone');
          Route::get('/{userNom}/nom','Api\UserController@readByNom');
          Route::get('/{user}/conversations','Api\UserController@getDiscussions');
-         Route::get('/{user}/conversations_u','Api\UserController@getDiscussions');
+         Route::get('/{user}/notifications','Api\UserController@getNotifications');
     });
 
+    
+
+    Route::group(['prefix'=>'contrats'],function(){
+        Route::get('/{refContrat}/contrat','Api\ContratController@showContrat');
+   });
 
     Route::apiResource('marchands','Api\MarchandController');
 

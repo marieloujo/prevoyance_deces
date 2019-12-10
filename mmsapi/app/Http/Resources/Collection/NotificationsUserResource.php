@@ -22,7 +22,7 @@ class NotificationsUserResource extends JsonResource
             'user' => new UserResource($this->user),
             'conversation' =>[
                 'id' => $this->conversation->id,            
-                'messages' => MessageResource::collection($this->conversation->messages->merge($this->messages()->where('notification',true)->orderByDesc('created_at')->paginate(5))),
+                'messages' => MessageResource::collection($this->conversation->messages()->where('notification',true)->orderByDesc('created_at')->paginate(5)),
             ]
         ];
     }

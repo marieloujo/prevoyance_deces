@@ -14,6 +14,7 @@ use App\Services\DirectionService;
 use App\Services\DocumentService;
 use App\Services\LoginService;
 use App\Services\MarchandService;
+use App\Services\SuperMarchandService;
 use App\Services\PortefeuilleService;
 use App\Services\RegisterService;
 use App\Services\UserService;
@@ -97,6 +98,16 @@ class LayerServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Services\Contract\ServiceInterface\MarchandServiceInterface',
             'App\Services\MarchandService'
+        );
+
+        $this->app->singleton('App\Services\SuperMarchandService', function (Application $app) {
+            return new SuperMarchandService(
+                $app->make('App\Repositories\SuperMarchandRepository')
+            );
+        });
+        $this->app->bind(
+            'App\Services\Contract\ServiceInterface\SuperMarchandServiceInterface',
+            'App\Services\SuperMarchandService'
         );
 
         $this->app->singleton('App\Services\CompteService', function (Application $app) {

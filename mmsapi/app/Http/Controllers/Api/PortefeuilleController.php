@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PortefeuillesResource;
 use App\Services\Contract\ServiceInterface\PortefeuilleServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class PortefeuilleController extends Controller
@@ -50,12 +51,17 @@ class PortefeuilleController extends Controller
 
     public function store(Request $request)
     {
-        return $this->portefeuilleService->create($request);
+        
+        return response()->json([ 'success' => ['message' => $portefeuille= $this->save($request) ]], Response::HTTP_CREATED);
         try {         
-            return response()->json([ 'success' => ['data' => new PortefeuillesResource( $this->portefeuilleService->create($request)) ]], Response::HTTP_OK);
+            if($portefeuille){
+                return response()->json([ 'success' => ['message' => 'Depôt effectué' ]], Response::HTTP_CREATED);
+            }else{
+                return response()->json([ 'errors' => ['message' => 'Echec' ]], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
         } catch (\Exception $e) {
             $message = $e->getMessage();
-            return response()->json(['errors' => [ 'message' => $message]],Response::HTTP_NOT_FOUND);
+            return response()->json(['errors' => [ 'message' => $message]],Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,10 +75,11 @@ class PortefeuilleController extends Controller
 
 
     public function update(Request $request, $portefeuille){
-        
-        try {         
-            if($this->portefeuilleService->update($request,$portefeuille)){
-                return $this->show($portefeuille);
+        $portefeuille=$this->portefeuilleService->update($request,$portefeuille);
+
+        try {  
+            if($portefeuille){
+                return response()->json([ 'success' => ['message' => 'Depôt effectué' ]], Response::HTTP_CREATED);
             }else{
                 return response()->json([ 'errors' => ['message' =>  'Le portefeuille n\'a pas été mis à jour'  ]], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
@@ -94,4 +101,34 @@ class PortefeuilleController extends Controller
             return response()->json(['errors' => [ 'message' => $message]],Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function save(Request $request){
+        
+        
+        DB::beginTransaction();
+        
+		try {
+            $portefeuille_data['montant']=$request['montant'];
+            $portefeuille_data['contrat_id']=$request['portefeuille']['contrat']['id'];
+            $portefeuille_data['marchand_id']=$request['portefeuille']['marchand']['id'];
+            
+            $portefeuille_data_request = new Request($portefeuille_data);
+            return $portefeuille_data_request;
+            $portefeuille=$this->portefeuilleService->create($portefeuille_data_request);
+                        
+            return $portefeuille;
+            //return response()->json([ 'success' => ['data' => new ContratsResource( $contrat) ]], Response::HTTP_OK);
+            //return $contrat;
+
+            DB::commit();   
+            return $portefeuille;
+		} catch (\Exception $e) {
+		    DB::rollback();
+		    // something went wrong
+		    $message = $e->getMessage();
+		    return response()->json(['error' => 1, 'message' => $message]);
+		}
+
+    }
+ 
 }

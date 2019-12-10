@@ -26,6 +26,10 @@ class ClientResources extends JsonResource
                     'sexe' =>$this->client->user->sexe,
                     'telephone' =>$this->client->user->telephone,
                     'adresse' =>$this->client->user->adresse, 
+                    'commune' =>[
+                        'id' =>$this->client->user->commune->id,
+                        'nom' =>$this->client->user->commune->nom
+                    ],
                 ],
             ];
         }

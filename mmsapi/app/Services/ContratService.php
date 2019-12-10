@@ -2,7 +2,7 @@
 
 
 namespace App\Services;
-
+use App\Models\Contrat;
 use App\Repositories\ContratRepository;
 use App\Services\Contract\AbstractService;
 use App\Services\Contract\ServiceInterface\ContratServiceInterface;
@@ -22,6 +22,11 @@ class ContratService extends AbstractService implements ContratServiceInterface
     public function read($contrat)
     {
        return parent::read($contrat);
+    }
+    public function readContrat($ref)
+    { 
+      return Contrat::where('numero_contrat',$ref)->first();
+       
     }
 
     public function create(Request $request)

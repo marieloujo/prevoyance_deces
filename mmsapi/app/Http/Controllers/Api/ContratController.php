@@ -47,7 +47,6 @@ class ContratController extends Controller
         $this->documentService = $documentServiceInterface;
         $this->userService = $registrationServiceInterface;
         
-        
     } 
 
     /**
@@ -80,11 +79,25 @@ class ContratController extends Controller
             return response()->json([ 'success' => ['message' => 'Aucun contrat' ]], Response::HTTP_NOT_FOUND);
         }
     }
-
+    public function showContrat($ref)
+    {
+        $contratData=$this->contratService->readContrat($ref);
+        
+        if($contratData){
+            return response()->json([ 'contrat_id' => $contratData->id ]);
+            return response()->json([ 'success' => ['data' => new ContratsResource($contratData) ]], Response::HTTP_OK);
+        }else{
+            return response()->json([ 'success' => ['message' => 'Aucun contrat' ]], Response::HTTP_NOT_FOUND);
+        }
+    }
     public function store(Request $request)
     {   
         try {         
-            return response()->json([ 'success' => ['data' => new ContratsResource( $this->save($request)) ]], Response::HTTP_OK);
+            if($this->save($request)){
+                return response()->json([ 'success' => ['message' => 'Contrat d\'assurance décès à bien été créer']], Response::HTTP_CREATED);    
+            }else{
+                return response()->json([ 'success' => ['message' => 'Echec de création du contrat']], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
         } catch (\Exception $e) {
             $message = $e->getMessage();
             return response()->json(['errors' => [ 'message' => $message]],Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -104,7 +117,7 @@ class ContratController extends Controller
         
         try {         
             if($this->contratService->update($request,$contrat)){
-                return $this->show($contrat);
+                return response()->json([ 'success' => ['message' => 'Depôt effectué']], Response::HTTP_CREATED);    
             }else{
                 return response()->json([ 'errors' => ['message' =>  'Le contrat n\'a pas été mis à jour'  ]], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
@@ -164,7 +177,7 @@ class ContratController extends Controller
             $contrat_request = new Request($contrat_data);
             $contrat=$this->contratService->create($contrat_request);
             
-            $benefices_data=$request['benefices'];
+            $benefices_data=$request['beneficiaire'];
 
             $i=0;
             $benefice=array();
@@ -209,8 +222,6 @@ class ContratController extends Controller
 		}
 
     }
-
-
 
     public function getContratData(array $request,$client_id,$assure_id){
             $contrat['numero_contrat']   = Str::random(10);/*  $this->getData($request,'numero_contrat') */
