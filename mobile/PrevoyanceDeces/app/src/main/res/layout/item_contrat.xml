@@ -24,44 +24,38 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.mikhaellopez.circularimageview.CircularImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/female_icon"
-                app:civ_border="false"
-                app:civ_shadow="true"
-                app:civ_shadow_radius="0" />
-
-            <View
-                android:layout_width="15dp"
-                android:layout_height="0dp" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/assurer_nom_prenom"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="Aashutosh"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/colorLightBlue"
-                    android:textStyle="bold"
-                    android:textSize="16sp"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:text=""
-                    android:textColor="@color/colorDarkGery"
-                    android:textSize="13sp"
-                    android:layout_below="@+id/assurer_nom_prenom"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="Contrat n° "
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/reference_contat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="@string/policy_number"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -76,19 +70,21 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/grayPale"
+            android:layout_marginBottom="10dp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grayPale"
-                android:layout_marginBottom="10dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -111,16 +107,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:textColor="@color/colorLightBlue"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
-                            android:text="@string/marchands"/>
+                            android:text="Marchand"/>
 
                         <TextView
                             android:id="@+id/nom_prenom_marchand"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
-                            android:text="@string/nom_prenom"
+                            style="@style/TextAppearance.AppCompat"
                             android:layout_marginTop="6dp"
                             />
 
@@ -137,7 +133,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:textColor="@color/colorLightBlue"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
                             android:text="@string/dur_e_du_contrat"/>
 
@@ -145,16 +141,16 @@
                             android:id="@+id/duree"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/TextAppearance.AppCompat"
                             android:textSize="13sp"
-                            android:text="12/2019 - 12/2020"
-                            android:layout_marginTop="6dp"
-                            />
+                            android:layout_marginTop="6dp" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/right_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -170,7 +166,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:textColor="@color/colorLightBlue"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
                             android:text="@string/portefeuille"/>
 
@@ -179,7 +175,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
-                            android:text="@string/_12000_fcfa"
+                            style="@style/TextAppearance.AppCompat"
                             android:layout_marginTop="6dp" />
 
                     </LinearLayout>
@@ -189,27 +185,57 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginTop="20sp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
                         android:layout_marginBottom="20sp">
 
                         <TextView
+                            android:id="@+id/texte_impayees"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/circular_background"
+                            android:drawableTint="@color/green_active"
+                            android:drawablePadding="6dp"
                             android:textSize="16sp"
-                            android:textColor="@color/colorLightBlue"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
-                            android:text="Impayée"/>
+                            android:text=""
+                            android:drawableLeft="@drawable/circular_background" />
 
                         <TextView
                             android:id="@+id/impayees"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
-                            android:text="2 mois"
+                            android:text=""
                             android:layout_marginTop="6dp" />
 
                     </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/right_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20sp"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="Assuré"/>
+
+                    <TextView
+                        android:id="@+id/assurer_nom_prenom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat"
+                        android:textSize="13sp"
+                        android:layout_marginTop="6dp" />
 
                 </LinearLayout>
 

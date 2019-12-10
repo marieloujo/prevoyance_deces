@@ -1,12 +1,18 @@
 package bj.assurance.prevoyancedeces.fragment.client;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -42,6 +48,7 @@ public class DetailMarchand extends Fragment {
         System.out.println(utilisateur);
         init(view);
         bindData();
+        setClickLister();
 
         return view;
     }
@@ -69,21 +76,37 @@ public class DetailMarchand extends Fragment {
         contacter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new Discussion(), getResources().getString(R.string.discussion));
+                replaceFragment(new Discussion(Main2Activity.getUtilisateur().getId()), getResources().getString(R.string.discussion));
             }
         });
 
         appeler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(utilisateur.getTelephone()));
+                startActivity(intent);
             }
         });
 
         mail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_EMAIL, "");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "");
+                intent.putExtra(Intent.EXTRA_TEXT, "");
+                intent.setType("text/plain");
+                final PackageManager packageManager = getActivity().getPackageManager();
+                final List<ResolveInfo> resolveInfos = packageManager.queryIntentActivities(intent, 0);
+                ResolveInfo best = null;
+                for (final ResolveInfo info : resolveInfos ) {
+                    if (info.activityInfo.packageName.endsWith(".gm") || info.activityInfo.name.toLowerCase().contains("gmail"))
+                        best = info;
+                }
+                if (best != null)
+                    intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+                getContext().startActivity(intent);
             }
         });
     }

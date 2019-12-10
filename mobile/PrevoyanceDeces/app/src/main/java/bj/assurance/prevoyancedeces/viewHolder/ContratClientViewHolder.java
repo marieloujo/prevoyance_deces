@@ -9,18 +9,27 @@ import bj.assurance.prevoyancedeces.R;
 
 public class ContratClientViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView nomPrenomAssure, dateCreation, nomPrenomMarchand, portefeuille,duree, impayes;
+    private TextView referenceContrat, nomPrenomAssure, nomPrenomMarchand, portefeuille,duree, impayes, texteImpayees;
 
     public ContratClientViewHolder(@NonNull View itemView) {
         super(itemView);
 
+        referenceContrat = itemView.findViewById(R.id.reference_contat);
         nomPrenomAssure = itemView.findViewById(R.id.assurer_nom_prenom);
-        dateCreation = itemView.findViewById(R.id.date);
         nomPrenomMarchand = itemView.findViewById(R.id.nom_prenom_marchand);
         portefeuille = itemView.findViewById(R.id.portefeuil_assurance);
         duree = itemView.findViewById(R.id.duree);
         impayes = itemView.findViewById(R.id.impayees);
+        texteImpayees = itemView.findViewById(R.id.texte_impayees);
 
+    }
+
+    public TextView getReferenceContrat() {
+        return referenceContrat;
+    }
+
+    public void setReferenceContrat(TextView referenceContrat) {
+        this.referenceContrat = referenceContrat;
     }
 
     public TextView getNomPrenomAssure() {
@@ -29,14 +38,6 @@ public class ContratClientViewHolder extends RecyclerView.ViewHolder {
 
     public void setNomPrenomAssure(TextView nomPrenomAssure) {
         this.nomPrenomAssure = nomPrenomAssure;
-    }
-
-    public TextView getDateCreation() {
-        return dateCreation;
-    }
-
-    public void setDateCreation(TextView dateCreation) {
-        this.dateCreation = dateCreation;
     }
 
     public TextView getNomPrenomMarchand() {
@@ -69,5 +70,13 @@ public class ContratClientViewHolder extends RecyclerView.ViewHolder {
 
     public void setImpayes(TextView impayes) {
         this.impayes = impayes;
+    }
+
+    public TextView getTexteImpayees() {
+        return texteImpayees;
+    }
+
+    public void setTexteImpayees(TextView texteImpayees) {
+        this.texteImpayees = texteImpayees;
     }
 }

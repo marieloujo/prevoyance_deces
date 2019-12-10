@@ -28,8 +28,14 @@ public class Marchand {
     @SerializedName("contrats")
     private List<Contrat> contrats;
 
+    @SerializedName("portefeuilles")
+    private List<Portefeuille> portefeuilles;
+
     @SerializedName("user")
     private Utilisateur utilisateur;
+
+    @SerializedName("prospects")
+    private List<Utilisateur> prospects;
 
     public Marchand(Long id) {
         this.id = id;
@@ -105,6 +111,22 @@ public class Marchand {
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
+    }
+
+    public List<Portefeuille> getPortefeuilles() {
+        return portefeuilles;
+    }
+
+    public void setPortefeuilles(List<Portefeuille> portefeuilles) {
+        this.portefeuilles = portefeuilles;
+    }
+
+    public List<Utilisateur> getProspects() {
+        return prospects;
+    }
+
+    public void setProspects(List<Utilisateur> prospects) {
+        this.prospects = prospects;
     }
 
     @Override

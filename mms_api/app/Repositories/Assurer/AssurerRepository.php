@@ -2,16 +2,16 @@
 
 namespace App\Repositories\Assurer;
 
-use App\Models\Assurer;
+use App\Models\Assure;
 use App\Repositories\Assurer\Interfaces\AssurerRepositoryInterface;
 
 class AssurerRepository implements AssurerRepositoryInterface
 {
-    protected $assurer;
+    protected $assure;
 
-    public function __construct(Assurer $assurer)
+    public function __construct(Assure $assure)
     {
-        $this->assurer = $assurer;
+        $this->assure = $assure;
     }
     /**
      * Get a assure by it's ID
@@ -22,7 +22,7 @@ class AssurerRepository implements AssurerRepositoryInterface
 
     public function getById($id)
     {
-        return $this->assurer->findOrfail($id);
+        return $this->assure->findOrfail($id);
     }
 
     /**
@@ -39,7 +39,7 @@ class AssurerRepository implements AssurerRepositoryInterface
      */
     public function all()
     {
-        return $this->assurer->paginate();
+        return $this->assure->paginate();
     }
 
     /**
@@ -49,24 +49,24 @@ class AssurerRepository implements AssurerRepositoryInterface
      */
     public function delete($id)
     {
-        $this->Assurer->findOrfail($id)->delete();
+        $this->assure->findOrfail($id)->delete();
         
     }
 
     /**
-     * Register a assurer.
+     * Register a assure.
      *
      * @param array
      */
-    public function create(array $assurer_data)
+    public function create(array $assure_data)
     {
-            $assurer = new Assurer();
-            $assurer->employeur = $assurer_data['employeur'];
-            $assurer->profession = $assurer_data['profession'];
-            $assurer->etat = $assurer_data['etat'];
-            $assurer->save();
+            $assure = new Assure();
+            $assure->employeur = $assure_data['employeur'];
+            $assure->profession = $assure_data['profession'];
+            $assure->etat = $assure_data['etat'];
+            $assure->save();
 
-            return $assurer;
+            return $assure;
     }
 
     /**
@@ -75,13 +75,13 @@ class AssurerRepository implements AssurerRepositoryInterface
      * @param int
      * @param array
      */
-    public function update($id, array $assurer_data)
+    public function update($id, array $assure_data)
     {
-            $assurer =  $this->assurer->findOrfail($id);
-            $assurer->employeur = $assurer_data['employeur'];
-            $assurer->profession = $assurer_data['profession'];
-            $assurer->etat = $assurer_data['etat'];
-            $assurer->update();
+            $assure =  $this->assure->findOrfail($id);
+            $assure->employeur = $assure_data['employeur'];
+            $assure->profession = $assure_data['profession'];
+            $assure->etat = $assure_data['etat'];
+            $assure->update();
     }
 
 }

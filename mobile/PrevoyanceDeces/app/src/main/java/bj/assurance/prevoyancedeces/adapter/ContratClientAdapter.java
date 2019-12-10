@@ -2,10 +2,14 @@ package bj.assurance.prevoyancedeces.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,44 +50,64 @@ public class ContratClientAdapter extends RecyclerView.Adapter<ContratClientView
     @Override
     public void onBindViewHolder(@NonNull ContratClientViewHolder holder, int position) {
 
-
+        try {
             holder.getNomPrenomAssure().setText(contrats.get(position).getAssurer().getUtilisateur().getNom() + " "
                     + contrats.get(position).getAssurer().getUtilisateur().getPrenom());
+        }catch (Exception e) {
+            e.printStackTrace(); }
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            holder.getReferenceContrat().setText(contrats.get(position).getNumero());
+        } catch (Exception e) {
+            e.printStackTrace(); }
+
+        try {
+            holder.getNomPrenomMarchand().setText(contrats.get(position).getMarchand().getUtilisateur().getNom() + " " +
+                    contrats.get(position).getMarchand().getUtilisateur().getPrenom());
+        } catch (Exception e) {
+            e.printStackTrace(); }
 
 
-            try {
-                holder.getDateCreation().setText(simpleDateFormat.format(contrats.get(position).getDateDebut()));
-            } catch (Exception e) {}
+        Integer solde = 0;
+        for (int j = 0; j < contrats.get(position).getTransactions().size(); j++) {
+            solde += Integer.valueOf(contrats.get(position).getTransactions().get(j).getMontant());
+        }
+        holder.getPortefeuille().setText(String.valueOf(solde) + " fcfa");
 
-            try {
-                holder.getDuree().setText(simpleDateFormat.format(contrats.get(position).getDateDebut()) + " " +
-                        simpleDateFormat.format(contrats.get(position).getDateFin()));
-            } catch (Exception e) {}
-
-            try {
-                Integer portefeuil = 0;
-                for (int i = 0; i < contrats.get(position).getTransactions().size(); i++)
-                    portefeuil += Integer.valueOf(contrats.get(position).getTransactions().get(i).getMontant());
-
-                holder.getPortefeuille().setText(portefeuil);
-
-            } catch (Exception e) {
-
-            }
-            try {
-                holder.getNomPrenomMarchand().setText(contrats.get(position).getMarchand().getUtilisateur().getNom() + " " +
-                        contrats.get(position).getMarchand().getUtilisateur().getPrenom());
-            } catch (Exception e) {
-
-            }
-
-       /* try {
-            //long months = getMonthBetween(contrats.get(position).getDateEffet());
+        int monthsBetween = 0;
+        try {
+            monthsBetween = new Date().getMonth() - simpleDateFormat.parse(contrats.get(position).getDateEffet()).getMonth();
         } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
+            e.printStackTrace(); }
+
+        try {
+            //if (monthsBetween == 0)
+            holder.getDuree().setText(monthsBetween + " mois");
+        } catch (Exception e) {
+            e.printStackTrace(); }
+
+        if (monthsBetween == 0) {
+            holder.getTexteImpayees().setText("En règle");
+        } else {
+            int mois = ((monthsBetween * 1000) - solde) / 1000;
+            if (mois == 0) {
+                holder.getTexteImpayees().setText("En règle");
+            } else if (mois < 0) {
+                holder.getTexteImpayees().setText("Impayées");
+                holder.getImpayes().setText(monthsBetween + " mois");
+                for (Drawable drawable : holder.getTexteImpayees().getCompoundDrawables()) {
+                    if (drawable != null) {
+                        drawable.setColorFilter(new PorterDuffColorFilter(context.getResources().getColor(R.color.red_active),PorterDuff.Mode.SRC_IN));
+                    }
+                }
+            } else {
+                holder.getTexteImpayees().setText("Avance");
+                holder.getImpayes().setText(monthsBetween + " mois");
+            }
+        }
 
 
     }

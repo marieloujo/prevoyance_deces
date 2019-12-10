@@ -7,10 +7,14 @@
     tools:context=".fragment.marchand.ListeClients"
     android:layout_marginTop="15dp">
 
+    <include layout="@layout/item_search_view"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollview"
+        android:layout_below="@+id/searchView"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="30dp">
 
         <LinearLayout
@@ -24,7 +28,8 @@
                 android:layout_height="wrap_content"/>
 
             <ProgressBar
-                android:id="@+id/main_progress"
+                android:visibility="invisible"
+                android:id="@+id/scroll_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
@@ -32,6 +37,19 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/main_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+    <include layout="@layout/layout_catch_error"/>
+
+    <include layout="@layout/layout_no_data"/>
+
+    <include layout="@layout/layout_connection_lose"/>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingAdd"

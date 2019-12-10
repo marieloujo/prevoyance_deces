@@ -117,11 +117,14 @@ public class Transactions extends Fragment {
 
                                 CURRENT_PAGE +=1;
 
-                                getNextTansaction(
-                                        TokenManager.getInstance(getActivity()
-                                                .getSharedPreferences("prefs", MODE_PRIVATE))
-                                                .getToken()
-                                );
+                                try {
+                                    getNextTansaction(
+                                            TokenManager.getInstance(getActivity()
+                                                    .getSharedPreferences("prefs", MODE_PRIVATE))
+                                                    .getToken());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             //scroll view is not at bottom

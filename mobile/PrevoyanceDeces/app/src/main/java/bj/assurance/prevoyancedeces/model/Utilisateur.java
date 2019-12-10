@@ -58,17 +58,26 @@ public class Utilisateur {
     @SerializedName("updated_at")
     private Date dateModification;
 
-    @SerializedName("usereable_type")
-    private String usereableType;
+    @SerializedName("userable_type")
+    private String userableType;
 
-    @SerializedName("usereable_id")
-    private Long usereableId;
+    @SerializedName("userable_id")
+    private Long userableId;
 
-    @SerializedName("usereable")
+    @SerializedName("userable")
     private Object object;
 
+    @SerializedName("marchand")
+    private Marchand marchand;
+
+    @SerializedName("conversations")
+    private List<Conversation> conversations;
+
+    @SerializedName("conversations_user")
+    private List <ConversationUser> conversationsUser;
+
     @SerializedName("messages")
-    private List<Message> messages;
+    private Message message;
 
     public Utilisateur(String nom, String prenom) {
         this.nom = nom;
@@ -242,19 +251,19 @@ public class Utilisateur {
     }
 
     public String getUsereableType() {
-        return usereableType;
+        return userableType;
     }
 
     public void setUsereableType(String usereableType) {
-        this.usereableType = usereableType;
+        this.userableType = usereableType;
     }
 
     public Long getUsereableId() {
-        return usereableId;
+        return userableId;
     }
 
     public void setUsereableId(Long usereableId) {
-        this.usereableId = usereableId;
+        this.userableId = usereableId;
     }
 
     public Object getObject() {
@@ -265,14 +274,53 @@ public class Utilisateur {
         this.object = object;
     }
 
-    public List<Message> getMessages() {
-        return messages;
+    public Marchand getMarchand() {
+        return marchand;
     }
 
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
+    public void setMarchand(Marchand marchand) {
+        this.marchand = marchand;
     }
 
+    public List<Conversation> getConversations() {
+        return conversations;
+    }
+
+    public void setConversations(List<Conversation> conversations) {
+        this.conversations = conversations;
+    }
+
+    public List<ConversationUser> getConversationsUser() {
+        return conversationsUser;
+    }
+
+    public void setConversationsUser(List<ConversationUser> conversationsUser) {
+        this.conversationsUser = conversationsUser;
+    }
+
+    public String getUserableType() {
+        return userableType;
+    }
+
+    public void setUserableType(String userableType) {
+        this.userableType = userableType;
+    }
+
+    public Long getUserableId() {
+        return userableId;
+    }
+
+    public void setUserableId(Long userableId) {
+        this.userableId = userableId;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
+    }
 
     @Override
     public String toString() {
@@ -294,10 +342,13 @@ public class Utilisateur {
                 ", rememberToken='" + rememberToken + '\'' +
                 ", dateCreation=" + dateCreation +
                 ", dateModification=" + dateModification +
-                ", usereableType='" + usereableType + '\'' +
-                ", usereableId=" + usereableId +
+                ", userableType='" + userableType + '\'' +
+                ", userableId=" + userableId +
                 ", object=" + object +
-                ", messages=" + messages +
+                ", marchand=" + marchand +
+                ", conversations=" + conversations +
+                ", conversationsUser=" + conversationsUser +
+                ", message=" + message +
                 '}';
     }
 }

@@ -27,6 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
+    <include layout="@layout/layout_no_data"/>
 
+    <include layout="@layout/layout_catch_error"/>
+
+    <include layout="@layout/layout_connection_lose"/>
 
 </RelativeLayout>

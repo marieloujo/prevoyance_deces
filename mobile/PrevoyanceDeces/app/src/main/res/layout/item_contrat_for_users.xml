@@ -19,18 +19,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ref:"
-                android:textSize="13sp" />
-
-            <TextView
                 android:id="@+id/reference_contat"
                 style="@style/TextAppearance.AppCompat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
                 android:text="@string/policy_number"
                 android:textSize="15sp" />
 
@@ -44,18 +36,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total payé:"
-                android:textSize="13sp" />
-
-            <TextView
                 android:id="@+id/portefeuil_contrat"
                 style="@style/TextAppearance.AppCompat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
                 android:text="@string/_12000_fcfa"
                 android:textSize="15sp" />
 
@@ -71,7 +55,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,16 +66,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/nom_assure"
                     style="@style/TextAppearance.AppCompat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginLeft="6dp"
-                    android:text="@string/name"
+                    android:text="Assogba"
                     android:textSize="15sp" />
 
                 <TextView
@@ -124,7 +106,6 @@
                 android:drawableStart="@drawable/circular_background"
                 android:drawableTint="@color/green_active"
                 android:drawablePadding="6dp"
-                android:text="@string/active"
                 android:drawableLeft="@drawable/circular_background" />
 
         </LinearLayout>
@@ -145,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
-                android:text="Paiement:"/>
+                android:text="Dernier paiement:"/>
 
             <TextView
                 android:id="@+id/date_dernier_paiment"
@@ -153,23 +134,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginLeft="6dp"
-                android:text="25 Août 2019"
                 android:textSize="15sp"
                 style="@style/TextAppearance.AppCompat"/>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/status_paiment"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            style="@style/TextAppearance.AppCompat"
-            android:textColor="@color/red_active"
-            android:text="-5000 fcfa"
-            android:textStyle="bold"
+            android:orientation="vertical"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:text="Imayée"
+                style="@style/TextAppearance.AppCompat"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/status_paiment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                style="@style/TextAppearance.AppCompat"
+                android:textColor="@color/red_active"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <!--LinearLayout
             android:layout_width="wrap_content"

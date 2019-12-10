@@ -32,7 +32,7 @@ interface BeneficiaireRepositoryInterface
      *
      * @param array
      */
-    public function create(array $beneficiaire_data);
+    public function create();
 
     /**
      * Update an beneficiaire.

@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="bj.assurance.prevoyancedeces">
 
-    <uses-sdk tools:overrideLibrary="com.shrikanthravi.customnavigationdrawer2,com.gauravk.bubblenavigation,com.fxn.bubbletabbar, me.ibrahimsn.lib, br.com.simplepass.loadingbutton, com.arthurivanets.bottomsheets,com.shreyaspatil.MaterialNavigationView, com.tsongkha.spinnerdatepicker" />
+    <uses-sdk tools:overrideLibrary="com.shrikanthravi.customnavigationdrawer2,com.gauravk.bubblenavigation,com.fxn.bubbletabbar, me.ibrahimsn.lib, br.com.simplepass.loadingbutton, com.arthurivanets.bottomsheets,com.shreyaspatil.MaterialNavigationView, com.tsongkha.spinnerdatepicker, com.skydoves.expandablelayout" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"

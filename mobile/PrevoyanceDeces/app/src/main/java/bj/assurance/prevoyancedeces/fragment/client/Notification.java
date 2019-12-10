@@ -10,15 +10,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.kinda.alert.KAlertDialog;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.model.pagination.OutputPaginate;
 import bj.assurance.prevoyancedeces.utils.AccessToken;
 import bj.assurance.prevoyancedeces.utils.ApiError;
 import bj.assurance.prevoyancedeces.utils.Utils;
@@ -35,13 +42,20 @@ import retrofit2.Response;
 import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
+@SuppressLint("ValidFragment")
 public class Notification extends Fragment {
 
     private RecyclerView recyclerView;
     private NotificationAdapter notificationAdapter;
+    private ProgressBar progressBar;
+    private LinearLayout linearLayout;
+    private RelativeLayout contentError;
 
-    public Notification() {
-        // Required empty public constructor
+    private Long id;
+
+    @SuppressLint("ValidFragment")
+    public Notification(Long id) {
+        this.id = id;
     }
 
     @Override
@@ -58,7 +72,7 @@ public class Notification extends Fragment {
         init(view);
         getMessageofUser(TokenManager.getInstance(getActivity().
                 getSharedPreferences("prefs", MODE_PRIVATE)).
-                getToken());
+                getToken(), id);
 
         return view;
     }
@@ -69,51 +83,46 @@ public class Notification extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        progressBar = view.findViewById(R.id.main_progress);
+        linearLayout = view.findViewById(R.id.no_data_layout);
+        contentError = view.findViewById(R.id.content_error);
     }
 
-    public void getMessageofUser(AccessToken accessToken) {
+    private void getMessageofUser(AccessToken accessToken, Long id) {
 
-        Call<List<Message>> call;
+        Call<JsonObject> call;
         UserService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(UserService.class);
-        call = service.getNotification();
-        System.out.println(call.toString());
-        call.enqueue(new Callback<List<Message>>() {
+        call = service.getNotification(id);
+        call.enqueue(new Callback<JsonObject>() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                System.out.println(response.code());
 
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
-                    notificationAdapter = new NotificationAdapter(getContext(), response.body());
-                    recyclerView.setAdapter(notificationAdapter);
+                    getResponseContrat(response.body());
+                    progressBar.setVisibility(View.INVISIBLE);
                 } else {
-                    if (response.code() == 422) {
-                        System.out.println(response.errorBody());
-                        handleErrors(response.errorBody());
-                    }
-                    if (response.code() == 401) {
-                        ApiError apiError = Utils.converErrors(response.errorBody());
-                        Toast.makeText(getContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                    progressBar.setVisibility(View.INVISIBLE);
+                    ((TextView) contentError.findViewById(R.id.error_text))
+                            .setText("Une erreur s'est produite lors de la récupération des notifications");
+                    contentError.setVisibility(View.VISIBLE);
+                    linearLayout.setVisibility(View.INVISIBLE);
                 }
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onFailure(Call<List<Message>> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Log.w(TAG, "onFailure: " + t.getMessage());
                 System.out.println(t.getMessage());
-                //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-
-                new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
-                        .setTitleText("Connexion impossibe au serveur")
-                        .setContentText("ok")
-                        .showCancelButton(true)
-                        .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(KAlertDialog sDialog) {
-                                sDialog.cancel();
-                            }
-                        })
-                        .show();
+                ((TextView) contentError.findViewById(R.id.error_text))
+                        .setText("Une erreur s'est produite lors de la récupération des notifications");
+                contentError.setVisibility(View.VISIBLE);
+                linearLayout.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -121,6 +130,48 @@ public class Notification extends Fragment {
     private void handleErrors(ResponseBody response) {
 
         ApiError apiError = Utils.converErrors(response);
+
+    }
+
+    private void getResponseContrat(JsonObject jsonObject) {
+        JsonObject error = null, sucess = null;
+        String messageError = null, message = null;
+        OutputPaginate outputPaginate = null;
+        List<Message> notifications = null;
+
+        try {
+            error = jsonObject.getAsJsonObject("errors");
+            messageError = error.get("message").getAsString();
+            ((TextView) contentError.findViewById(R.id.error_text))
+                    .setText(messageError);
+            contentError.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.INVISIBLE);
+
+        }catch (Exception ignored) {}
+
+        try {
+            sucess = jsonObject.getAsJsonObject("success");
+            message = sucess.get("message").getAsString();
+            ((TextView) linearLayout.findViewById(R.id.no_data))
+                    .setText(message);
+            contentError.setVisibility(View.INVISIBLE);
+            linearLayout.setVisibility(View.VISIBLE);
+        } catch (Exception ignored) {}
+
+        try {
+            outputPaginate = new Gson().fromJson(jsonObject, OutputPaginate.class);
+
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<Message>>() {}.getType();
+
+            assert outputPaginate != null;
+            notifications = gson.fromJson(gson.toJson(outputPaginate.getObjects()), listType);
+
+            notificationAdapter = new NotificationAdapter(getContext(), notifications);
+            recyclerView.setAdapter(notificationAdapter);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

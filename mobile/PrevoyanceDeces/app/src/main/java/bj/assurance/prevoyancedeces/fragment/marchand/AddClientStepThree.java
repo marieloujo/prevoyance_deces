@@ -1,9 +1,11 @@
 package bj.assurance.prevoyancedeces.fragment.marchand;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -13,7 +15,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +36,9 @@ import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.model.Assurer;
 import bj.assurance.prevoyancedeces.model.Marchand;
+import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
 import bj.assurance.prevoyancedeces.utils.AccessToken;
 import bj.assurance.prevoyancedeces.utils.ApiError;
 import bj.assurance.prevoyancedeces.utils.Utils;
@@ -64,6 +71,19 @@ public class AddClientStepThree extends Fragment {
     SimpleDateFormat dtYYYY = new SimpleDateFormat("YYYY");
     private ProgressBar progressBar;
 
+    private boolean reset = false;
+    private KAlertDialog pDialog;
+    private KAlertDialog ifBeneficierExist;
+
+    private ImageView addBeneficier;
+    private LinearLayout linearLayout;
+    private RelativeLayout relativeLayout;
+
+    @SuppressLint("ValidFragment")
+    public AddClientStepThree(boolean reset) {
+        this.reset = reset;
+    }
+
     public AddClientStepThree() {
         // Required empty public constructor
     }
@@ -79,10 +99,9 @@ public class AddClientStepThree extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_addclient_stepthree, container, false);
 
-
         init(view);
         setClickListener();
-
+        beginDialog();
 
         return view;
     }
@@ -111,7 +130,8 @@ public class AddClientStepThree extends Fragment {
         etDateNaissance.setMinDate(new Date(minYear,12,31));
         etDateNaissance.setMaxDate(new Date(maxYear, 12,31));
 
-
+        makeSpinnerList();
+        if(reset) resetData(MarchandMainActivity.getContrat().getBenefices().get(0).getBeneficiaire());
 
         tvNom = view.findViewById(R.id.tvNomClient);
         tvPrenoms = view.findViewById(R.id.tvPrenomClient);
@@ -124,29 +144,50 @@ public class AddClientStepThree extends Fragment {
         tvTelephone = view.findViewById(R.id.tvTelephoneClient);
         tvQualification = view.findViewById(R.id.tvQualification);
 
-        makeSpinnerList();
-        //autoCompleCommune();
+        addBeneficier = view.findViewById(R.id.addBeneficier);
+        linearLayout = view.findViewById(R.id.content_many_form_beneficier);
+        relativeLayout = view.findViewById(R.id.form_beneficier);
+
+        pDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#2d8df8"));
+        pDialog.setTitleText("Rechercher");
+        pDialog.setCancelable(false);
 
     }
-
-    /*public void autoCompleCommune() {
-        String communeName[] = {};
-        for (int i = 0; i < communes.size(); i++) {
-            communeName[i] = communes.get(i).getNom();
-        }
-
-        System.out.println(communeName);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, communeName);
-        etCommune.setAdapter(adapter);
-
-    }*/
 
     private void setClickListener() {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFraglent(new ListeClients());
+                if ((etNom.getText().toString().isEmpty() && etPrenoms.getText().toString().isEmpty() &&
+                        etAdresse.getText().toString().isEmpty() && etPrenoms.getText().toString().isEmpty()
+                        && etDateNaissance.getText().toString().isEmpty() &&
+                        etEmail.getText().toString().isEmpty() && etTelephone.getRawText().isEmpty())) {
+
+                    replaceFraglent(new AddClientStepTwo(true));
+
+                } else {
+                    new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
+                        .setTitleText("Confirmation")
+                        .setContentText("Voulez vous vraiment annuler ?? toutes les données entrées seront effacées.")
+                        .setConfirmText("Oui")
+                        .setCancelText("Non")
+                        .showCancelButton(true)
+                        .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.cancel();
+                            }
+                        })
+                        .setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.dismiss();
+                                replaceFraglent(new AddClientStepTwo(true));
+                            }
+                        })
+                        .show();
+                }
             }
         });
 
@@ -183,12 +224,17 @@ public class AddClientStepThree extends Fragment {
                     benefices.add(new Benefice(etQualification.getSelectedItem().toString(), "100", beneficiaire));
 
                     MarchandMainActivity.getContrat().setBenefices(benefices);
+
+                    replaceFraglent(new AddClientStepFour());
+
                     //MarchandMainActivity.getContrat().setMarchand(new Marchand(MarchandMainActivity.getMarchand().getId()));
+
 
                     System.out.println(new Gson().toJson(MarchandMainActivity.getContrat()));
 
+                    /*
                     senContrat(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken(),
-                            MarchandMainActivity.getContrat());
+                            MarchandMainActivity.getContrat());*/
 
                     //replaceFraglent(new AddClientStepFour());
                 }
@@ -196,6 +242,13 @@ public class AddClientStepThree extends Fragment {
             }
             //replaceFraglent(new AddClientStepTwo());
             //}
+        });
+
+        addBeneficier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //linearLayout.addView(relativeLayout);
+            }
         });
     }
 
@@ -269,65 +322,6 @@ public class AddClientStepThree extends Fragment {
 
         return isValid && allValid;
 
-    }
-
-    private void senContrat(AccessToken accessToken, Contrat contrat) {
-
-        Call<JsonObject> call;
-        ClientService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(ClientService.class);
-        call = service.create(contrat);
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-
-                Log.w(TAG, "onResponse: " + response);
-
-                if (response.isSuccessful()) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    System.out.println(response.body());
-
-                    new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
-                            .setTitleText("Contrat créer")
-                            .setCancelText("Ok")
-                            .showCancelButton(true)
-                            .show();
-
-                } else {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    if (response.code() == 422) {
-                        System.out.println(response.code()+" "+response.errorBody().source());
-                    }
-                    if (response.code() == 401) {
-                        ApiError apiError = Utils.converErrors(response.errorBody());
-                        Toast.makeText(getActivity(), response.code() +" " +apiError.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-
-                new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
-                        .setTitleText(String.valueOf(response.body()))
-                        .setContentText(String.valueOf(response.code()))
-                        .setCancelText("Ok")
-                        .setConfirmText("Yes,delete it!")
-                        .showCancelButton(true)
-                        .show();
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                progressBar.setVisibility(View.INVISIBLE);
-                Log.w(TAG, "onFailure: " + t.getMessage());
-                //Toast.makeText(getActivity(), t.getMessage()+ t.getCause().getCause().getCause(), Toast.LENGTH_LONG).show();
-
-                new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
-                        .setTitleText("onfailure")
-                        .setContentText(t.getMessage())
-                        .setCancelText("Ok")
-                        .setConfirmText("Yes,delete it!")
-                        .showCancelButton(true)
-                        .show();
-            }
-        });
     }
 
     private void makeSpinnerList() {
@@ -466,6 +460,155 @@ public class AddClientStepThree extends Fragment {
         etCommune.setAdapter(communeArrayAdapter);
         etQualification.setAdapter(qualificationArrayAdapter);
 
+    }
+
+    private void resetData(Beneficiaire beneficiaire) {
+        etNom.setText(beneficiaire.getUtilisateur().getNom());
+        etPrenoms.setText(beneficiaire.getUtilisateur().getPrenom());
+        etAdresse.setText(beneficiaire.getUtilisateur().getAdresse());
+        etEmail.setText(beneficiaire.getUtilisateur().getEmail());
+        etDateNaissance.setText(beneficiaire.getUtilisateur().getDateNaissance());
+        etTelephone.setText(beneficiaire.getUtilisateur().getTelephone());
+        resetSpiner();
+    }
+
+    private void resetSpiner() {
+        for(int i= 0; i < etSexe.getAdapter().getCount(); i++) {
+            if(etSexe.getAdapter().getItem(i).toString().contains(MarchandMainActivity.getContrat().getBenefices().get(0).getBeneficiaire()
+                    .getUtilisateur().getSexe())) {
+                etSexe.setSelection(i);
+            }
+        }
+
+        for(int i= 0; i < etCommune.getAdapter().getCount(); i++) {
+            if(etCommune.getAdapter().getItem(i).toString().contains(MarchandMainActivity.getContrat().
+                    getBenefices().get(0).getBeneficiaire().getUtilisateur().getCommune().getNom())) {
+                etCommune.setSelection(i);
+            }
+        }
+
+        for(int i= 0; i < etSituationMatrimoniale.getAdapter().getCount(); i++) {
+            if(etSituationMatrimoniale.getAdapter().getItem(i).toString().contains(MarchandMainActivity.getContrat()
+                    .getBenefices().get(0).getBeneficiaire().getUtilisateur().getSituationMatrimoniale()))  {
+                etSituationMatrimoniale.setSelection(i);
+            }
+        }
+
+        for(int i= 0; i < etQualification.getAdapter().getCount(); i++) {
+            if(etQualification.getAdapter().getItem(i).toString().contains(MarchandMainActivity.getContrat()
+                    .getBenefices().get(0).getBeneficiaire().getUtilisateur().getSituationMatrimoniale()))  {
+                etQualification.setSelection(i);
+            }
+        }
+    }
+
+    private void beginDialog() {
+        ifBeneficierExist = new KAlertDialog(getActivity(), KAlertDialog.CUSTOM_IMAGE_TYPE);
+        ifBeneficierExist.setTitleText("Vérification du béneficiaire")
+                .setContentText("Est-ce un ancien béneficiaire ??")
+                .setCancelText("Non")
+                .setConfirmText("Oui")
+                .showCancelButton(true)
+                .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(KAlertDialog sDialog) {
+                        ifBeneficierExist.cancel();
+                    }
+                })
+                .setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(KAlertDialog sDialog) {
+                        openDialog();
+                    }
+                })
+                .show();
+    }
+
+    private void openDialog() {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.find_by_telephone_number, null);
+
+        MaskedEditText textView = alertLayout.findViewById(R.id.etTelephone);
+        TextView textView1 = alertLayout.findViewById(R.id.tvError);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setTitle("Recherche par télephone");
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(false);
+        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alert.setPositiveButton("Recherche", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (textView.getRawText().isEmpty()) {
+                    textView1.setVisibility(View.INVISIBLE);
+                    return;
+                } else {
+                    textView1.setVisibility(View.VISIBLE);
+                    pDialog.show();
+                    findClientbyId(
+                            TokenManager.getInstance(getActivity().
+                                    getSharedPreferences("prefs", MODE_PRIVATE)).
+                                    getToken()
+                    );
+                }
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
+    private void findClientbyId(AccessToken accessToken) {
+        Call<JsonObject> call;
+        UserService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(UserService.class);
+        call = service.findbyTelephone("dsfsd");
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                Log.w(TAG, "onResponse: " + response);
+
+                if (response.isSuccessful()) {
+                    System.out.println(response.body());
+
+                    /*Beneficiaire beneficiaire = new Gson().fromJson(new Gson().toJson(response.body().getObject()), Beneficiaire.class);
+                    resetData(beneficiaire);
+                    disabledInput();
+                    pDialog.dismiss();*/
+
+                } else {
+                    pDialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage());
+                pDialog.dismiss();
+                //Toast.makeText(Main2Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void disabledInput() {
+        etNom.setFocusable(false);
+        etPrenoms.setFocusable(false);
+        etEmail.setFocusable(false);
+        etAdresse.setFocusable(false);
+        etTelephone.setFocusable(false);
+        etDateNaissance.setFocusable(false);
+        etSexe.setFocusable(false);
+        etSituationMatrimoniale.setFocusable(false);
+        etCommune.setFocusable(false);
     }
 
 }

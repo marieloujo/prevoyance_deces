@@ -7,20 +7,27 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MarchandRequest;
 use App\Http\Resources\Marchand\MarchandResource;
 use App\Http\Resources\Departement\UsersDepartementResource;
-use App\Http\Resources\MarchandResources;
-
-use App\Http\Resources\Zone\UsersCommuneResource;
+use App\Http\Resources\Marchand\PortefeuilleResource;
+use App\Http\Resources\MarchandResources\ClientResources;
+use App\Http\Resources\MarchandResources\ContratResources;
+use App\Http\Resources\MarchandResources\TransactionResources;
+use App\Models\Contrat;
+use App\Models\Portefeuille;
 use App\Repositories\Marchand\Interfaces\MarchandRepositoryInterface;
 use App\Repositories\Client\Interfaces\ClientRepositoryInterface;
 use App\Repositories\Portefeuille\Interfaces\PortefeuilleRepositoryInterface;
 use App\Repositories\User\Interfaces\UserRepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MarchandController extends Controller
 {
     protected $user_repository;
     protected $portefeuille_repository;
     protected $marchand_repository;
+    protected $marchand;
     public function __construct(MarchandRepositoryInterface $marchandRepositoryInterface, UserRepositoryInterface $userRepositoryInterface, PortefeuilleRepositoryInterface $portefeuilleRepositoryInterface)
     {
         $this->user_repository=$userRepositoryInterface;    
@@ -90,15 +97,57 @@ class MarchandController extends Controller
      */
     public function destroy($id)
     {
-        return $this->marchand_repository->destroy($id);
+        return $this->marchand_repository->delete($id);
     }
 
-    public function getContrats($marchand)
+    public function getContrats($marchand,$client)
     {
+        //return $this->marchand_repository->getContrats($marchand,$client);
+        return ContratResources::collection($this->marchand_repository->getContrats($marchand,$client)) ;
         return new MarchandResource($this->marchand_repository->getById($marchand));
     }
-    public function getTransaction($contrat,$date)
-    { return $this->portefeuille_repository->getById($contrat,$date);
-        //return new MarchandResource($this->marchand_repository->getById($marchand));
+
+
+
+    public function getClients($marchand)
+    {  
+        return ClientResources::collection($this->marchand_repository->getClients($marchand));
+    }
+
+    public function getTransaction($marchand,$date=null)
+    { 
+        $this->marchand=$marchand;
+        
+        if(!$date){
+
+            $start=Carbon::parse((Carbon::now()->subWeek())->addDay())->format('Y-m-d');
+            $end=Carbon::parse((Carbon::now())->addDay())->format('Y-m-d');
+
+            $portefeuilles=Portefeuille::whereHas('contrat', function(Builder $query){
+                $query->where('marchand_id',$this->marchand);
+            })->where('created_at','<=',$end)
+            ->where('created_at','>=',$start)->orderByDesc('created_at')->paginate();
+
+        }else{
+            $start=Carbon::parse((Carbon::parse($date)->subMonths(3))->addDay())->format('Y-m-d');
+            $end=Carbon::parse((Carbon::parse($date))->addDay())->format('Y-m-d');
+            
+            $portefeuilles=Portefeuille::whereHas('contrat', function(Builder $query){
+                $query->where('marchand_id',$this->marchand);
+            })->where('created_at','<=',$end)
+            ->where('created_at','>=',$start)->orderByDesc('created_at')->paginate();
+
+        }
+        return TransactionResources::collection($portefeuilles);
+    }
+    public function getTransactions($marchand)
+    {   
+        $this->marchand=$marchand;
+        $contrat=Portefeuille::whereHas('contrat', function(Builder $query){
+            $query->where('marchand_id',$this->marchand);
+        })->orderByDesc('created_at')->paginate();
+
+        return TransactionResources::collection($contrat);
+
     }
 }

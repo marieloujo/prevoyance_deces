@@ -94,7 +94,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:drawableStart="@drawable/legende_barre"
-                android:drawableTint="@color/yellow_inactive"
+                android:drawableTint="@color/green_inactive"
                 style="@style/TextAppearance.AppCompat"
                 android:drawableLeft="@drawable/legende_barre" />
 
@@ -103,7 +103,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true">
 
@@ -111,23 +111,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="@string/mes_commisions"/>
+                android:drawableStart="@drawable/ic_reply"
+                android:layout_gravity="center"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_reply" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                style="@style/TextAppearance.AppCompat"
-                android:drawableStart="@drawable/legende_barre"
-                android:drawableTint="@color/white"
-                android:drawableLeft="@drawable/legende_barre" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="@string/mes_commisions"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    style="@style/TextAppearance.AppCompat"
+                    android:drawableStart="@drawable/legende_barre"
+                    android:drawableTint="@color/black_grey"
+                    android:drawableLeft="@drawable/legende_barre" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </RelativeLayout>
 
-    <ir.farshid_roohi.linegraph.LineChart
+    <!--ir.farshid_roohi.linegraph.LineChart
         android:id="@+id/lineChart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -138,6 +154,17 @@
         app:chart_padding_top="20dp"
         app:chart_line_color="#32FFFFFF"
         app:chart_bg_color="@color/black_background"
-        android:layout_margin="15dp"/>
+        android:layout_margin="15dp"/-->
+
+    <HorizontalScrollView android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="15dp">
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            class="im.dacer.androidcharts.LineView"
+            android:id="@+id/line_view" />
+    </HorizontalScrollView>
 
 </LinearLayout>

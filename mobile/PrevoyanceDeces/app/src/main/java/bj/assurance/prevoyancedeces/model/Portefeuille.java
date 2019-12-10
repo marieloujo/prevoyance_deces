@@ -19,6 +19,15 @@ public class Portefeuille {
     @SerializedName("contrat")
     private Contrat contrat;
 
+    @SerializedName("marchand")
+    private Marchand marchand;
+
+    public Portefeuille(String montant, Contrat contrat, Marchand marchand) {
+        this.montant = montant;
+        this.contrat = contrat;
+        this.marchand = marchand;
+    }
+
     public Long getId() {
         return id;
     }
@@ -59,12 +68,24 @@ public class Portefeuille {
         this.updateAt = updateAt;
     }
 
+
+    public Marchand getMarchand() {
+        return marchand;
+    }
+
+    public void setMarchand(Marchand marchand) {
+        this.marchand = marchand;
+    }
+
     @Override
     public String toString() {
         return "Portefeuille{" +
                 "id=" + id +
                 ", montant='" + montant + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updateAt='" + updateAt + '\'' +
                 ", contrat=" + contrat +
+                ", marchand=" + marchand +
                 '}';
     }
 }

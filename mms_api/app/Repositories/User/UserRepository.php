@@ -3,11 +3,11 @@
 namespace App\Repositories\User;
 
 use App\Models\Commune;
-use App\Models\Image;
 use App\User;
 use Illuminate\Http\Request;
 use App\Repositories\User\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -119,10 +119,10 @@ class UserRepository implements UserRepositoryInterface
             $user->login = $user_data['telephone'];
             $user->prospect = $user_data['prospect'];
             $user->actif = $user_data['actif'];
-            $user->password = bcrypt( $user_data['password'] );
+            $user->password = Hash::make($user_data['telephone'].'password');
             $user->usereable_id = $user_data['usereable_id'];
             $user->usereable_type = $user_data['usereable_type'];
-            $user->commune_id =1; // $user_data['commune_id'];
+            $user->commune_id =$user_data['commune'];
 
             $user->save();
             return $user;
@@ -153,7 +153,7 @@ class UserRepository implements UserRepositoryInterface
             $user->password = bcrypt( $user_data['password'] );
             $user->usereable_id = $user_data['usereable_id'];
             $user->usereable_type = $user_data['usereable_type'];
-            $user->commune_id = $user_data['commune_id'];
+            $user->commune_id = $user_data['commune'];
             return $user->update();
     }
 

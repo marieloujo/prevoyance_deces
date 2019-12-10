@@ -15,7 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ import com.diegodobelo.expandingview.ExpandingItem;
 import com.diegodobelo.expandingview.ExpandingList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.kinda.alert.KAlertDialog;
 
@@ -35,6 +39,7 @@ import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.adapter.ListeSouscriptionAdpter;
 import bj.assurance.prevoyancedeces.model.Portefeuille;
 import bj.assurance.prevoyancedeces.model.pagination.OutputPaginate;
 import bj.assurance.prevoyancedeces.utils.AccessToken;
@@ -63,17 +68,20 @@ public class ListeClients extends Fragment {
     private int FIRST_PAGE = 1;
     private int CURRENT_PAGE, LAST_PAGE;
 
-    private ProgressBar progressBar;
+    private ProgressBar progressBar, progressBar1;
     private ScrollView scrollView;
 
     static private List<Client> clients = new ArrayList<>();
+    private TextView errorText;
+    private RelativeLayout contentError, layoutConnexionLose;
+    private LinearLayout noData;
+    private Button retry;
 
     int size = 0;
 
     public ListeClients() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -88,21 +96,16 @@ public class ListeClients extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_liste_clients, container, false);
 
+        try {
 
-        init(view);
-        getClient(
-                TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken()
-        );
-        floatingButtonaddClient();
-
-        System.out.println("\n\n\n");
-        System.out.println("\n\n\n");
-        System.out.println("\n\n\n");
-        System.out.println(MarchandMainActivity.getMarchand());
-        System.out.println("\n\n\n");
-        System.out.println("\n\n\n");
-        System.out.println("\n\n\n");
-        System.out.println("\n\n\n");
+            init(view);
+            getClient(
+                    TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken()
+            );
+            floatingButtonaddClient();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
@@ -113,7 +116,13 @@ public class ListeClients extends Fragment {
         floatingActionButton = view.findViewById(R.id.floatingAdd);
         scrollView = view.findViewById(R.id.scrollview);
         progressBar = view.findViewById(R.id.main_progress);
-
+        progressBar1 = view.findViewById(R.id.scroll_progress);
+        errorText = view.findViewById(R.id.error_text);
+        contentError = view.findViewById(R.id.content_error);
+        retry = view.findViewById(R.id.retry);
+        noData = view.findViewById(R.id.no_data_layout);
+        layoutConnexionLose = view.findViewById(R.id.no_connection);
+        contentError.setVisibility(View.INVISIBLE);
 
         scrollView.getViewTreeObserver()
                 .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
@@ -121,7 +130,7 @@ public class ListeClients extends Fragment {
                     public void onScrollChanged() {
                         if (scrollView.getChildAt(0).getBottom()
                                 <= (scrollView.getHeight() + scrollView.getScrollY())) {
-                            progressBar.setVisibility(View.VISIBLE);
+                            //progressBar1.setVisibility(View.VISIBLE);
                             if (CURRENT_PAGE + 1 > LAST_PAGE ) {
                                 return;
                             } else {
@@ -142,12 +151,12 @@ public class ListeClients extends Fragment {
 
     }
 
-    private void createItems(List<Client> clients, int position) {
+    private void createItems(List<Client> clients) {
 
-        for (int i = position; i < clients.size(); i++) {
-            addItem(clients.get(i));
+        for (int i = 0; i < clients.size(); i++) {
+            if (clients.get(i).getUtilisateur() != null)
+                addItem(clients.get(i));
         }
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -166,36 +175,21 @@ public class ListeClients extends Fragment {
                         client.getUtilisateur().getPrenom());
 
                 ((TextView) item.findViewById(R.id.numero_marchand)).setText(client.getUtilisateur().getTelephone());
-            } catch (Exception e) {}
+            } catch (Exception ignored) {}
 
             try {
                 getContrats(TokenManager.getInstance(getActivity()
                         .getSharedPreferences("prefs", MODE_PRIVATE))
                         .getToken(), client.getId(), item);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
-
-
         }
     }
 
     @SuppressLint("SetTextI18n")
     private void addSubItem(List<Contrat> contrats, ExpandingItem view){
         view.createSubItems(contrats.size());
-
-        System.out.println("dsbus\n\n\n\n");
-        System.out.println("dsbus\n\n\n\n");
-        System.out.println("dsbus\n\n\n\n");
-        System.out.println(contrats.size());
-        System.out.println("dsbus\n\n\n\n");
-        System.out.println("dsbus\n\n\n\n");
-        System.out.println("dsbus\n\n\n\n");
-        System.out.println(contrats.toString());
-        System.out.println("dsbus\n\n\n\n");
-        System.out.println("dsbus\n\n\n\n");
-        System.out.println("dsbus\n\n\n\n");
-        System.out.println("dsbus\n\n\n\n");
 
         for (int i = size; i < contrats.size(); i++) {
                 View subItemZero = view.getSubItemView(i);
@@ -206,6 +200,7 @@ public class ListeClients extends Fragment {
                 ((TextView) subItemZero.findViewById(R.id.prenom_assure)).setText(contrats.get(i).getAssurer().getUtilisateur().getPrenom());
 
                 ((TextView) subItemZero.findViewById(R.id.reference_contat)).setText(contrats.get(i).getNumero());
+
 
                 if(contrats.get(i).isFin())
                     ((TextView) subItemZero.findViewById(R.id.contrat_actif)).setText(getResources().getString(R.string.active));
@@ -271,100 +266,73 @@ public class ListeClients extends Fragment {
         });
     }
 
-
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_main_marchand, fragment).commit();
     }
 
-
     private void getClient(AccessToken accessToken) {
-
-        Call<OutputPaginate> call;
+        Call<JsonObject> call;
         MarchandService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(MarchandService.class);
         call = service.getClients(MarchandMainActivity.getMarchand().getId(), FIRST_PAGE);
-        call.enqueue(new Callback<OutputPaginate>() {
+        call.enqueue(new Callback<JsonObject>() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onResponse(Call<OutputPaginate> call, Response<OutputPaginate> response) {
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
                 Log.w(TAG, "onResponse: " + response);
 
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
-
-                        try {
-                            CURRENT_PAGE = response.body().getMetaPaginate().getCurrentPage();
-                            LAST_PAGE = response.body().getMetaPaginate().getLastPage();
-                        } catch (Exception e) {}
-
-                        Gson gson = new Gson();
-                        Type listType = new TypeToken<ArrayList<Client>>(){}.getType();
-
-                        clients = gson.fromJson(
-                                gson.toJson(response.body().getObjects()), listType);
-
-                        createItems(clients, 0);
-                        progressBar.setVisibility(View.INVISIBLE);
-
+                    getResponseClient(response.body());
+                    progressBar.setVisibility(View.INVISIBLE);
                 } else {
-                    if (response.code() == 422) {
-                        System.out.println(response.errorBody().source());
-                        handleErrors(response.errorBody());
-                    }
-                    if (response.code() == 401) {
-                        ApiError apiError = Utils.converErrors(response.errorBody());
-                        Toast.makeText(getContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                    layoutConnexionLose.setVisibility(View.INVISIBLE);
+                    noData.setVisibility(View.INVISIBLE);
+                    contentError.setVisibility(View.VISIBLE);
+
+
+                    ((TextView) contentError.findViewById(R.id.error_text)).setText("Une erreur s'est produite lors dela récupération des clents");
+
                     progressBar.setVisibility(View.INVISIBLE);
                 }
 
             }
 
             @Override
-            public void onFailure(Call<OutputPaginate> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage());
-                //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                layoutConnexionLose.setVisibility(View.INVISIBLE);
+                noData.setVisibility(View.INVISIBLE);
+                contentError.setVisibility(View.VISIBLE);
+
+                ((TextView) contentError.findViewById(R.id.error_text)).setText("Une erreur s'est produite lors dela récupération des clents");
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
 
-
     private void getContrats(AccessToken accessToken, Long idClient, ExpandingItem view) {
-        Call<OutputPaginate> call;
+        Call<JsonObject> call;
         MarchandService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(MarchandService.class);
         call = service.getConrattoClient(MarchandMainActivity.getMarchand().getId(), idClient, 1);
 
-        call.enqueue(new Callback<OutputPaginate>() {
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<OutputPaginate> call, Response<OutputPaginate> response) {
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 Log.w(TAG, "onResponse: " + response);
 
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
 
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<ArrayList<Contrat>>(){}.getType();
-
-                    List<Contrat> contrats = gson.fromJson(
-                            gson.toJson(response.body().getObjects()), listType);
-
-                    addSubItem(contrats, view);
+                    getResponseContrat(response.body(), view);
 
                 } else {
-                    if (response.code() == 422) {
-                        System.out.println(response.errorBody().source());
-                        handleErrors(response.errorBody());
-                    }
-                    if (response.code() == 401) {
-                        ApiError apiError = Utils.converErrors(response.errorBody());
-                        Toast.makeText(getContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
-                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<OutputPaginate> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage());
 
                 //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
@@ -372,7 +340,6 @@ public class ListeClients extends Fragment {
             }
         });
     }
-
 
     private void handleErrors(ResponseBody response) {
 
@@ -380,21 +347,20 @@ public class ListeClients extends Fragment {
 
     }
 
-
     private void getNextClient(AccessToken accessToken, int page) {
-        Call<OutputPaginate> call;
+        Call<JsonObject> call;
         MarchandService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(MarchandService.class);
         call = service.getClients(MarchandMainActivity.getMarchand().getId(), page);
-        call.enqueue(new Callback<OutputPaginate>() {
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<OutputPaginate> call, Response<OutputPaginate> response) {
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
                 Log.w(TAG, "onResponse: " + response);
 
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
 
-                    CURRENT_PAGE = response.body().getMetaPaginate().getCurrentPage();
+                    /*CURRENT_PAGE = response.body().getMetaPaginate().getCurrentPage();
                     LAST_PAGE = response.body().getMetaPaginate().getLastPage();
 
                     Gson gson = new Gson();
@@ -405,36 +371,233 @@ public class ListeClients extends Fragment {
                     clients.addAll(gson.fromJson(
                             gson.toJson(response.body().getObjects()), listType));
 
-                    createItems(clients, size);
+                    createItems(clients, size);*/
                     progressBar.setVisibility(View.INVISIBLE);
 
                 } else {
-                    if (response.code() == 422) {
-                        System.out.println(response.errorBody().source());
-                        handleErrors(response.errorBody());
-                    }
-                    if (response.code() == 401) {
-                        ApiError apiError = Utils.converErrors(response.errorBody());
-                        Toast.makeText(getContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                    //catchApiEror(response);
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
 
             }
 
             @Override
-            public void onFailure(Call<OutputPaginate> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage());
                 //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    @SuppressLint("SetTextI18n")
+    private void catchApiEror(Response<OutputPaginate> response) {
+
+        switch (response.code()) {
+            case 400:  // Bad Request La syntaxe de la requête est erronée.
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("Une erreur s'est produite lors de l'envoie des données veuillez réessayer ultérieurement");
+                Log.w(TAG, "400: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 401:  // Unauthorized  Une authentification est nécessaire pour accéder à la ressource
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("Vous n'êtes pas autorisé à acceder à cette resource");
+                retry.setVisibility(View.INVISIBLE);
+                Log.w(TAG, "401: " + response.errorBody().byteStream());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 403:  // Forbidden
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("");
+                retry.setVisibility(View.INVISIBLE);
+                Log.w(TAG, "403: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 404: // Not Found Ressource non trouvée.
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("Vous n'etes pas autorisé à acceder à cette ressource");
+                Log.w(TAG, "422: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 405: //  Method Not Allowed Méthode de requête non autorisée.
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("Une erreur s'est produite lors de la récupération des données veuillez réessayer ultérieurement");
+                Log.w(TAG, "405: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 406:  //  Not Acceptable La ressource demandée n'est pas disponible dans un format qui respecterait les en-têtes « Accept » de la requête.
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("Une erreur s'est produite lors de la récupération des données veuillez réessayer ultérieurement");
+                Log.w(TAG, "406: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 408:   //   Request Time-out Temps d’attente d’une requête du client, écoulé côté serveur. D'après les spécifications HTTP : « Le client n'a pas produit de requête dans le délai que le serveur était prêt à attendre. Le client PEUT répéter la demande sans modifications à tout moment ultérieur »8.
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("La récupération des données veuillez réessayer ultérieurement");
+                Log.w(TAG, "408: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 422:  // Unprocessable entity	WebDAV : L’entité fournie avec la requête est incompréhensible ou incomplète.
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("Une erreur s'est produite lors de la récupération des données veuillez réessayer ultérieurement");
+                Log.w(TAG, "422: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 424:  //  Method failure Une méthode de la transaction a échoué.
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("Une erreur s'est produite lors de la récupération des données veuillez réessayer ultérieurement");
+                Log.w(TAG, "424: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 429: //  Too Many Requests Le client a émis trop de requêtes dans un délai donné.
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("Une erreur s'est produite lors de la récupération des données veuillez réessayer ultérieurement");
+                Log.w(TAG, "429: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 444:  // No Response Indique que le serveur n'a retourné aucune information vers le client et a fermé la connexion.
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("Une erreur s'est produite lors de la récupération des données veuillez réessayer ultérieurement");
+                Log.w(TAG, "444: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+            case 500:  // Internal Server Error Erreur interne du serveur.
+                contentError.setVisibility(View.VISIBLE);
+                errorText.setText("Erreur interne au niveau du seveur, veuillez réessayer ultérieurement");
+                Log.w(TAG, "500: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                progressBar.setVisibility(View.INVISIBLE);
+                break;
+
+                /*
+            case 498:  // Client Closed Request	Le client a fermé la connexion avant de recevoir la réponse. Cette erreur se produit quand le traitement est trop long côté serveur16.
+                error.setText("Une erreur s'est produite lors de l'envoie des donnée veuillez réessayer ultérieurement");
+                Log.w(TAG, "422: " + response.errorBody().source());
+                handleErrors(response.errorBody());
+                pDialog.dismiss();
+                break;*/
+        }
+    }
 
 
+    private void getResponseClient(JsonObject jsonObject) {
+        JsonObject error = null, sucess = null;
+        String messageError = null, message = null;
+        OutputPaginate outputPaginate = null;
 
+        TextView errorText = contentError.findViewById(R.id.error_text);
+        TextView nodata = noData.findViewById(R.id.no_data);
 
+        try {
+            error = jsonObject.getAsJsonObject("errors");
+            messageError = error.get("message").getAsString();
+            errorText.setText(messageError);
+            layoutConnexionLose.setVisibility(View.INVISIBLE);
+            noData.setVisibility(View.INVISIBLE);
+            contentError.setVisibility(View.VISIBLE);
+        }catch (Exception ignored) {}
 
+        try {
+            sucess = jsonObject.getAsJsonObject("success");
+            message = sucess.get("message").getAsString();
+            nodata.setText(message);
+            layoutConnexionLose.setVisibility(View.INVISIBLE);
+            noData.setVisibility(View.VISIBLE);
+            contentError.setVisibility(View.INVISIBLE);
+        } catch (Exception ignored) {}
 
+        try {
+            outputPaginate = new Gson().fromJson(jsonObject, OutputPaginate.class);
+        } catch (Exception e) {
+            e.printStackTrace();}
+
+        try {
+            try {
+                CURRENT_PAGE = outputPaginate.getMetaPaginate().getCurrentPage();
+                LAST_PAGE = outputPaginate.getMetaPaginate().getLastPage();
+            } catch (Exception e) {}
+
+            Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<Client>>(){}.getType();
+
+            clients = gson.fromJson(gson.toJson(outputPaginate.getObjects()), listType);
+            System.out.println("clients" + clients);
+            createItems(clients);
+            progressBar.setVisibility(View.INVISIBLE);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getResponseContrat(JsonObject jsonObject, ExpandingItem view) {
+        JsonObject error = null, sucess = null;
+        String messageError = null, message = null;
+        OutputPaginate outputPaginate = null;
+        String string = null, s = null;
+        List<Contrat> contrats = null;
+
+        TextView errorText = contentError.findViewById(R.id.error_text);
+        TextView nodata = noData.findViewById(R.id.no_data);
+
+        try {
+            error = jsonObject.getAsJsonObject("errors");
+            messageError = error.get("message").getAsString();
+            errorText.setText(messageError);
+            layoutConnexionLose.setVisibility(View.INVISIBLE);
+            noData.setVisibility(View.INVISIBLE);
+            contentError.setVisibility(View.VISIBLE);
+        }catch (Exception ignored) {}
+
+        try {
+            sucess = jsonObject.getAsJsonObject("success");
+            message = sucess.get("message").getAsString();
+            nodata.setText(message);
+            layoutConnexionLose.setVisibility(View.INVISIBLE);
+            nodata.setVisibility(View.VISIBLE);
+            contentError.setVisibility(View.INVISIBLE);
+        } catch (Exception ignored) {}
+
+        try {
+            outputPaginate = new Gson().fromJson(jsonObject, OutputPaginate.class);
+        } catch (Exception ignored) {
+        }
+
+        try {
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<Contrat>>() {}.getType();
+
+            assert outputPaginate != null;
+            contrats = gson.fromJson( gson.toJson(outputPaginate.getObjects()), listType);
+
+            addSubItem(contrats, view);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 }

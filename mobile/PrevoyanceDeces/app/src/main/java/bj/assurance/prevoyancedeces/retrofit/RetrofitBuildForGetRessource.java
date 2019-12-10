@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuildForGetRessource {
 
-    private static final String BASE_URL = "http://192.168.137.142:8000/api/";
+    private static final String BASE_URL = "http://192.168.0.129:8000/api/";
     private static AccessToken token;
 
     private final static OkHttpClient client = buildClient();
@@ -45,7 +45,8 @@ public class RetrofitBuildForGetRessource {
 
     }
 
-    private static Retrofit buildRetrofit(OkHttpClient client){
+    private static Retrofit buildRetrofit(OkHttpClient client) {
+
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)
@@ -73,7 +74,8 @@ public class RetrofitBuildForGetRessource {
                 request = builder.build();
                 return chain.proceed(request);
             }
-        }).authenticator(CustomAuthenticator.getInstance(tokenManager)).build();
+        }).
+                authenticator(CustomAuthenticator.getInstance(tokenManager)).build();
 
         Retrofit newRetrofit = retrofit.newBuilder().client(newClient).build();
         return newRetrofit.create(service);
@@ -83,6 +85,5 @@ public class RetrofitBuildForGetRessource {
     public static Retrofit getRetrofit() {
         return retrofit;
     }
-
 
 }

@@ -9,6 +9,9 @@ public class Departement {
     @SerializedName("id")
     private Long id;
 
+    @SerializedName("code")
+    private String code;
+
     @SerializedName("nom")
     private String nom;
 
@@ -45,10 +48,6 @@ public class Departement {
 
     @Override
     public String toString() {
-        return "Departement{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", communes=" + communes +
-                '}';
+        return nom;
     }
 }

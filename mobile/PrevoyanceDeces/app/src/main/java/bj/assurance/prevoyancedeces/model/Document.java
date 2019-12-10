@@ -11,7 +11,7 @@ public class Document {
     private String url;
 
     @SerializedName("documentable")
-    private Object documenteable;
+    private Object documentable;
 
     @SerializedName("documentable_type")
     private String documentType;
@@ -35,12 +35,12 @@ public class Document {
         this.url = url;
     }
 
-    public Object getDocumenteable() {
-        return documenteable;
+    public Object getDocumentable() {
+        return documentable;
     }
 
-    public void setDocumenteable(Object contrat) {
-        this.documenteable = contrat;
+    public void setDocumentable(Object contrat) {
+        this.documentable = contrat;
     }
 
     public String getDocumentType() {
@@ -64,7 +64,7 @@ public class Document {
         return "Document{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
-                ", documenteable=" + documenteable +
+                ", documentable=" + documentable +
                 ", documentType='" + documentType + '\'' +
                 ", documentId='" + documentId + '\'' +
                 '}';

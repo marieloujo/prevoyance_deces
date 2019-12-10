@@ -36,10 +36,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationViewHo
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
 
-        holder.getContenuNotification().setText(notifications.get(position).getBody());
-        holder.getNomPrenomDateNotification().setText(notifications.get(position).getFromUser().getNom() + " " +
-                notifications.get(position).getFromUser().getPrenom() + " " +
-                (notifications.get(position).getDateModification()));
+        try {
+            holder.getContenuNotification().setText(notifications.get(position).getBody());
+            /*holder.getNomPrenomDateNotification().setText(notifications.get(position).getFromUser().getNom() + " " +
+                    notifications.get(position).getFromUser().getPrenom() + " " +
+                    (notifications.get(position).getDateModification()));*/
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -2,6 +2,7 @@ package bj.assurance.prevoyancedeces.retrofit.Service;
 
 import com.google.gson.JsonObject;
 
+import java.util.Date;
 import java.util.List;
 
 import bj.assurance.prevoyancedeces.model.Commune;
@@ -11,7 +12,10 @@ import bj.assurance.prevoyancedeces.model.Marchand;
 import bj.assurance.prevoyancedeces.model.Portefeuille;
 import bj.assurance.prevoyancedeces.model.pagination.OutputPaginate;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -24,13 +28,12 @@ public interface MarchandService {
     @GET("users/usereable")
     Call<Marchand> findById();
 
-
     @GET("departements/{idDepartement}/communes")
     Call<List<Commune>> getCommunebyDepartement(@Path("idDepartement") Long id);
 
 
     @GET("marchands/{idMarchand}/getComptes")
-    Call<List<Compte>> getEvolution();
+    Call<JsonObject> getEvolution(@Path("idMarchand") Long id);
 
 
     @GET("marchands/{idMarchand}/getCompte")
@@ -38,18 +41,31 @@ public interface MarchandService {
 
 
     @GET("marchands/{idMarchand}/transactions")
-    Call<OutputPaginate> getTransactionsForWeek(@Path("idMarchand") Long id, @Query("page") int page);
+    Call<JsonObject> getTransactionsForWeek(@Path("idMarchand") Long id, @Query("page") int page);
 
 
     @GET("marchands/{idMarchand}/clients")
-    Call<OutputPaginate> getClients(@Path("idMarchand") Long id, @Query("page") int page);
-
+    Call<JsonObject> getClients(@Path("idMarchand") Long id, @Query("page") int page);
 
     @GET("marchands/{idMarchand}/clients/{idClient}/contrats")
-    Call<OutputPaginate> getConrattoClient(@Path("idMarchand") Long idMarchand, @Path("idClient") Long idClient, @Query("page") int page);
+    Call<JsonObject> getConrattoClient(@Path("idMarchand") Long idMarchand, @Path("idClient") Long idClient, @Query("page") int page);
 
 
     @GET("marchands/{idMarchand}/getAllTransactions")
     Call<OutputPaginate> getTransactions(@Path("idMarchand") Long id, @Query("page") int page);
+
+    @GET("marchands/{idMarchand}/prospects")
+    Call<JsonObject> getProspects(@Path("idMarchand") Long id);
+
+    @POST("portefeuilles")
+    Call<JsonObject> depot(@Body Portefeuille portefeuille);
+
+    @GET("contrats/{reference}/contrat")
+    Call<JsonObject> findbyContrat(@Path("reference") String reference);
+
+    @GET("marchands/{idMarchand}/transactions/{date}")
+    Call<JsonObject> getTransactionbyDate(@Path("idMarchand") Long id, @Path("date") Date date);
+
+
 
 }

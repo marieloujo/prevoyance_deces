@@ -1,11 +1,8 @@
 package bj.assurance.prevoyancedeces.retrofit;
 
-import android.text.TextUtils;
-
 import java.io.IOException;
 
-import bj.assurance.prevoyancedeces.BuildConfig;
-import okhttp3.Credentials;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -15,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientInstance {
 
-    private static final String BASE_URL = "http://192.168.137.142:8000/api/";
+    private static final String BASE_URL = "http://192.168.0.129:8000/api/";
 
 
     private final static OkHttpClient client = buildClient();

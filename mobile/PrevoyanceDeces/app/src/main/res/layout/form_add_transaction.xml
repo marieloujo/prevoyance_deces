@@ -25,6 +25,20 @@
         android:background="@color/input_border"
         android:layout_marginBottom="15dp"/>
 
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        style="@style/TextAppearance.AppCompat"
+        android:textColor="@color/red_active"
+        android:text=""
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,11 +60,12 @@
                 android:text="@string/reference_du_contrat"/>
 
             <EditText
+                android:id="@+id/reference_contat"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:hint=""
                 android:layout_marginBottom="5dp"
-                android:inputType="textPassword"
+                android:inputType="text"
                 android:lines="1"/>
 
         </LinearLayout>
@@ -70,8 +85,9 @@
                 android:text="@string/montant"/>
 
             <EditText
+                android:id="@+id/montant_paye"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:drawablePadding="15dp"
                 android:layout_marginBottom="5dp"
                 android:inputType="number"
@@ -82,6 +98,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/validate"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/button_border"

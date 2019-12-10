@@ -1,11 +1,14 @@
 package bj.assurance.prevoyancedeces.fragment.marchand;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.andreabaccega.widget.FormEditText;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.kinda.alert.KAlertDialog;
 import com.msa.dateedittext.DateEditText;
 
 import java.text.SimpleDateFormat;
@@ -25,9 +31,21 @@ import androidx.fragment.app.FragmentManager;
 import bj.assurance.prevoyancedeces.R;
 import bj.assurance.prevoyancedeces.activity.MarchandMainActivity;
 import bj.assurance.prevoyancedeces.model.Assurer;
+import bj.assurance.prevoyancedeces.model.Client;
 import bj.assurance.prevoyancedeces.model.Commune;
 import bj.assurance.prevoyancedeces.model.Utilisateur;
+import bj.assurance.prevoyancedeces.retrofit.RetrofitBuildForGetRessource;
+import bj.assurance.prevoyancedeces.retrofit.Service.ClientService;
+import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
+import bj.assurance.prevoyancedeces.retrofit.TokenManager;
+import bj.assurance.prevoyancedeces.utils.AccessToken;
 import br.com.sapereaude.maskedEditText.MaskedEditText;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class AddClientStepTwo extends Fragment {
 
@@ -38,7 +56,19 @@ public class AddClientStepTwo extends Fragment {
     private FormEditText etEmail;
     private Spinner etSituationMatrimoniale, etSexe, etCommune;
     private MaskedEditText etTelephone;
+
+    KAlertDialog pDialog;
+
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat dtYYYY = new SimpleDateFormat("YYYY");
+
+    boolean reset = false;
+    private KAlertDialog ifAssurerExist;
+
+    @SuppressLint("ValidFragment")
+    public AddClientStepTwo(boolean reset) {
+        this.reset = reset;
+    }
 
     public AddClientStepTwo() {
         // Required empty public constructor
@@ -57,10 +87,10 @@ public class AddClientStepTwo extends Fragment {
 
         init(view);
         setClickListener();
+        beginDialog();
 
         return view;
     }
-
 
     public void init(View view) {
         cancel = view.findViewById(R.id.annuler);
@@ -86,7 +116,8 @@ public class AddClientStepTwo extends Fragment {
         etDateNaissance.setMinDate(new Date(minYear,12,31));
         etDateNaissance.setMaxDate(new Date(maxYear, 12,31));
 
-
+        makeSpinnerList();
+        if(reset) resetData(MarchandMainActivity.getContrat().getAssurer());
 
         tvNom = view.findViewById(R.id.tvNomClient);
         tvPrenoms = view.findViewById(R.id.tvPrenomClient);
@@ -100,32 +131,48 @@ public class AddClientStepTwo extends Fragment {
         tvEmployeur = view.findViewById(R.id.tvEmployeurClient);
         tvTelephone = view.findViewById(R.id.tvTelephoneClient);
 
-        makeSpinnerList();
-        //autoCompleCommune();
+        pDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#2d8df8"));
+        pDialog.setTitleText("Rechercher");
+        pDialog.setCancelable(false);
 
     }
-
-    /*public void autoCompleCommune() {
-        String communeName[] = {};
-        for (int i = 0; i < communes.size(); i++) {
-            communeName[i] = communes.get(i).getNom();
-        }
-
-        System.out.println(communeName);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, communeName);
-        etCommune.setAdapter(adapter);
-
-    }*/
 
     private void setClickListener() {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFraglent(new ListeClients());
+                if ((etNom.getText().toString().isEmpty() && etPrenoms.getText().toString().isEmpty() &&
+                        etAdresse.getText().toString().isEmpty() && etPrenoms.getText().toString().isEmpty() &&
+                        etEmployeur.getText().toString().isEmpty() && etDateNaissance.getText().toString().isEmpty() &&
+                        etEmail.getText().toString().isEmpty() && etTelephone.getRawText().isEmpty())) {
+
+                    replaceFraglent(new AddClientStepOne(true));
+
+                } else {
+                    new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
+                        .setTitleText("Confirmation")
+                        .setContentText("Voulez vous vraiment annuler ?? toutes les données entrées seront effacées.")
+                        .setConfirmText("Oui")
+                        .setCancelText("Non")
+                        .showCancelButton(true)
+                        .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.cancel();
+                            }
+                        })
+                        .setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.dismiss();
+                                replaceFraglent(new AddClientStepOne(true));
+                            }
+                        })
+                        .show();
+                }
             }
         });
-
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,76 +211,13 @@ public class AddClientStepTwo extends Fragment {
 
                 }
 
-                // if (verifeData()) {
-
-                    /*
-                    Commune commune = new Commune();
-
-
-                    for (int i = 0; i<MarchandMainActivity.getCommunes().size(); i++) {
-                        if (MarchandMainActivity.getCommunes().get(i).getNom().equals(etCommune.getSelectedItem().toString())) {
-                            commune = MarchandMainActivity.getCommunes().get(i);
-                        }
-                    }
-
-                    Client client = new Client(etProfession.getText().toString(), etEmployeur.getText().toString(),new Utilisateur(
-                            etNom.getText().toString(), etPrenoms.getText().toString(), etTelephone.getRawText(),
-                            etEmail.getText().toString(), etSexe.getSelectedItem().toString(), etDateNaissance.getText().toString(),
-                            etSituationMatrimoniale.getSelectedItem().toString(), etAdresse.getText().toString(), false,
-                            false, commune)
-                    );
-
-                    MarchandMainActivity.getContrat().setClient(client);
-                    replaceFraglent(new AddClientStepTwo());
-
-                    Commune commune = new Commune("Abomey-calavi", new Departement("Atlantique"));
-
-                    Utilisateur utilisateur = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 00", "aziz@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
-
-                    Utilisateur utilisateur1 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 01", "aziz1@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
-
-                    Utilisateur utilisateur2 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 02", "aziz2@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
-
-                    Utilisateur utilisateur3 = new Utilisateur("FLOUKOUNBE", "Aziz", "00 00 00 02", "aziz2@gmail.com", "masculin",
-                            simpleDateFormat.format(new Date()), "celibaire sans enfant", "calavi", false, false,  commune);
-
-
-                    Client client = new Client("electicien", "VISOUSSI carine", utilisateur);
-
-                    Marchand marchand = new Marchand("GYY176767878", "435678", "35467", new SuperMarchand(), utilisateur1);
-
-                    Benefice benefice = new Benefice("epouse", "30", new Beneficiaire(utilisateur3));
-
-                    List<Benefice> benefices = new ArrayList<>();
-                    benefices.add(benefice);
-
-                    Assurer assurer = new Assurer("Vitrie", utilisateur2, false);
-
-                    Contrat contrat = new Contrat("1 000 000", "1 000", "1", simpleDateFormat.format(new Date()),
-                            simpleDateFormat.format(new Date()), simpleDateFormat.format(new Date()), simpleDateFormat.format(new Date()), client,
-                            marchand, benefices, assurer);
-
-
-                System.out.println(contrat.toString());
-
-                    senContrat(TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE)).getToken(),
-                            contrat);
-
-                    //System.out.println(contrat.toString());*/
-
             }
-            //replaceFraglent(new AddClientStepTwo());
-            //}
         });
     }
 
     private void replaceFraglent(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_main_marchand, fragment).commit();
-
     }
 
     private boolean verifeData() {
@@ -307,7 +291,6 @@ public class AddClientStepTwo extends Fragment {
         return isValid && allValid;
 
     }
-
 
     private void makeSpinnerList() {
 
@@ -414,6 +397,148 @@ public class AddClientStepTwo extends Fragment {
         etSexe.setAdapter(sexeArrayAdapter);
         etCommune.setAdapter(communeArrayAdapter);
 
+    }
+
+    private void resetData(Assurer assurer) {
+        etNom.setText(assurer.getUtilisateur().getNom());
+        etPrenoms.setText(assurer.getUtilisateur().getPrenom());
+        etAdresse.setText(assurer.getUtilisateur().getAdresse());
+        etEmail.setText(assurer.getUtilisateur().getEmail());
+        etProfession.setText(assurer.getProfession());
+        etDateNaissance.setText(assurer.getUtilisateur().getDateNaissance());
+        etTelephone.setText(assurer.getUtilisateur().getTelephone());
+        resetSpiner(assurer);
+    }
+
+    private void resetSpiner(Assurer assurer) {
+        for(int i= 0; i < etSexe.getAdapter().getCount(); i++) {
+            if(etSexe.getAdapter().getItem(i).toString().contains(assurer.getUtilisateur().getSexe())) {
+                etSexe.setSelection(i);
+            }
+        }
+
+        for(int i= 0; i < etCommune.getAdapter().getCount(); i++) {
+            if(etCommune.getAdapter().getItem(i).toString().contains(assurer.getUtilisateur().getCommune().getNom())) {
+                etCommune.setSelection(i);
+            }
+        }
+
+        for(int i= 0; i < etSituationMatrimoniale.getAdapter().getCount(); i++) {
+            if(etSituationMatrimoniale.getAdapter().getItem(i).toString().contains(assurer.getUtilisateur().getSituationMatrimoniale())) {
+                etSituationMatrimoniale.setSelection(i);
+            }
+        }
+    }
+
+    private void beginDialog() {
+        ifAssurerExist = new KAlertDialog(getActivity(), KAlertDialog.CUSTOM_IMAGE_TYPE);
+        ifAssurerExist.setTitleText("Vérification de l'assurer")
+                .setContentText("Est-ce un ancien assurer ??")
+                .setCancelText("Non")
+                .setConfirmText("Oui")
+                .showCancelButton(true)
+                .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(KAlertDialog sDialog) {
+                        ifAssurerExist.cancel();
+                    }
+                })
+                .setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(KAlertDialog sDialog) {
+                        openDialog();
+                    }
+                })
+                .show();
+    }
+
+    private void openDialog() {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.find_by_telephone_number, null);
+
+        MaskedEditText textView = alertLayout.findViewById(R.id.etTelephone);
+        TextView textView1 = alertLayout.findViewById(R.id.tvError);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setTitle("Recherche par télephone");
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(false);
+        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alert.setPositiveButton("Recherche", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (textView.getRawText().isEmpty()) {
+                    textView1.setVisibility(View.INVISIBLE);
+                    return;
+                } else {
+                    textView1.setVisibility(View.VISIBLE);
+                    pDialog.show();
+                    findClientbyId(
+                            TokenManager.getInstance(getActivity().
+                                    getSharedPreferences("prefs", MODE_PRIVATE)).
+                                    getToken()
+                    );
+                }
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
+    private void findClientbyId(AccessToken accessToken) {
+        Call<JsonObject> call;
+        UserService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(UserService.class);
+        call = service.findbyTelephone("h,k,k");
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                Log.w(TAG, "onResponse: " + response);
+
+                if (response.isSuccessful()) {
+                    System.out.println(response.body());
+
+                    /*Assurer assurer = new Gson().fromJson(new Gson().toJson(response.body().getObject()), Assurer.class);
+                    resetData(assurer);
+                    disabledInput();*/
+                    pDialog.dismiss();
+
+                } else {
+                    pDialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage());
+                pDialog.dismiss();
+                //Toast.makeText(Main2Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void disabledInput() {
+        etNom.setFocusable(false);
+        etPrenoms.setFocusable(false);
+        etEmail.setFocusable(false);
+        etAdresse.setFocusable(false);
+        etTelephone.setFocusable(false);
+        etProfession.setFocusable(false);
+        etEmployeur.setFocusable(false);
+        etDateNaissance.setFocusable(false);
+        etSexe.setFocusable(false);
+        etSituationMatrimoniale.setFocusable(false);
+        etCommune.setFocusable(false);
     }
 
 

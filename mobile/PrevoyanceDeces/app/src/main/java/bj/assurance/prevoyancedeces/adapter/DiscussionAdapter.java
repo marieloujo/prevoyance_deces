@@ -12,17 +12,18 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.model.ConversationUser;
 import bj.assurance.prevoyancedeces.model.Message;
 import bj.assurance.prevoyancedeces.viewHolder.DiscussionViewHolder;
 
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionViewHolder> {
 
     Context context;
-    List<Message> messages;
+    List<ConversationUser> conversationUsers;
 
-    public DiscussionAdapter(Context context, List<Message> messages) {
+    public DiscussionAdapter(Context context, List<ConversationUser> messages) {
         this.context = context;
-        this.messages = messages;
+        this.conversationUsers = messages;
     }
 
     @NonNull
@@ -39,15 +40,19 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionViewHolder
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        holder.getNomPrenomMessager().setText(messages.get(position).getFromUser().getNom() + " " +
-                messages.get(position).getFromUser().getPrenom());
-        holder.getDateEnvoieMessage().setText(dateFormat.format(messages.get(position).getDateCreation()));
+        holder.getNomPrenomMessager().setText(conversationUsers.get(position).getConversation().getMessages()
+                .get(0).getUtilisateur().getNom() + " " +
+                conversationUsers.get(position).getConversation().getMessages().get(0).getUtilisateur().getPrenom());
 
-        holder.getContenueMessage().setText(messages.get(position).getBody().substring(0, 100) + " ...");
+        holder.getDateEnvoieMessage().setText(dateFormat.format(conversationUsers.get(position).getConversation().getMessages()
+                .get(0).getDateCreation()));
+
+        holder.getContenueMessage().setText(conversationUsers.get(position).getConversation()
+                .getMessages().get(0).getBody().substring(0, 100) + " ...");
     }
 
     @Override
     public int getItemCount() {
-        return messages.size();
+        return conversationUsers.size();
     }
 }

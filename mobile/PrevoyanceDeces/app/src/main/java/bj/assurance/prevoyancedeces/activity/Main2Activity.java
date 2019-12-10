@@ -49,7 +49,7 @@ public class Main2Activity extends AppCompatActivity {
     static TextView title,backTitle;
     ImageView alert;
     static Client  client ;
-    static Utilisateur utilisateur ;
+    static Utilisateur utilisateur;
 
     Gson gson = new Gson();
 
@@ -60,7 +60,6 @@ public class Main2Activity extends AppCompatActivity {
 
         init();
         setOnclickListner();
-
     }
 
     @SuppressLint({"WrongConstant", "SetTextI18n"})
@@ -90,10 +89,9 @@ public class Main2Activity extends AppCompatActivity {
 
         try {
             title.setText("Salut " + utilisateur.getPrenom());
-        }catch (Exception e) {
+        }catch (Exception ignored) {
 
         }
-
     }
 
     public void setView() {
@@ -113,7 +111,7 @@ public class Main2Activity extends AppCompatActivity {
         alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new Notification(), getResources().getString(R.string.notifications));
+                replaceFragment(new Notification(Main2Activity.getUtilisateur().getId()), getResources().getString(R.string.notifications));
             }
         });
     }
@@ -165,7 +163,7 @@ public class Main2Activity extends AppCompatActivity {
         switch (id) {
 
             case R.id.bottom_nav_discussion:
-                replaceFragment(new Discussion(), getResources().getString(R.string.discussion));
+                replaceFragment(new Discussion(utilisateur.getId()), getResources().getString(R.string.discussion));
                 break;
 
             case R.id.bottom_nav_carnet:
@@ -192,7 +190,6 @@ public class Main2Activity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
 
         title.setText(titre);
-
     }
 
     public void share(){

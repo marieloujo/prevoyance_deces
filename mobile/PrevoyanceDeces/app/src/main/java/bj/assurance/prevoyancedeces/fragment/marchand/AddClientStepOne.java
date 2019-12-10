@@ -1,31 +1,45 @@
 package bj.assurance.prevoyancedeces.fragment.marchand;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andreabaccega.widget.FormEditText;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.kinda.alert.KAlertDialog;
 import com.msa.dateedittext.DateEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import androidx.fragment.app.FragmentManager;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.activity.Connexion;
+import bj.assurance.prevoyancedeces.activity.Main2Activity;
+import bj.assurance.prevoyancedeces.activity.SplashScreen;
+import bj.assurance.prevoyancedeces.model.Departement;
+import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
+import bj.assurance.prevoyancedeces.retrofit.TokenManager;
 import bj.assurance.prevoyancedeces.utils.AccessToken;
 import bj.assurance.prevoyancedeces.utils.ApiError;
 import bj.assurance.prevoyancedeces.utils.Utils;
@@ -42,20 +56,33 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class AddClientStepOne extends Fragment {
 
     private Button cancel, next;
-    private TextView tvNom, tvPrenoms, tvEmail, tvAdresse, tvSituationMatrimoniale, tvSexe, tvDateNaissance, tvProfession, tvEmployeur, tvCommune, tvTelephone;
-    private EditText etNom, etPrenoms, etAdresse, etProfession, etEmployeur;
-    private DateEditText etDateNaissance;
-    private FormEditText etEmail;
-    private Spinner etSituationMatrimoniale, etSexe, etCommune;
-    private MaskedEditText etTelephone;
+    private TextView tvNom, tvPrenoms, tvEmail, tvAdresse, tvSituationMatrimoniale, tvSexe, tvDateNaissance,
+            tvProfession, tvEmployeur, tvCommune, tvTelephone;
+    @SuppressLint("StaticFieldLeak")
+    static private EditText etNom, etPrenoms, etAdresse, etProfession, etEmployeur;
+    static private DateEditText etDateNaissance;
+    static private FormEditText etEmail;
+    @SuppressLint("StaticFieldLeak")
+    static private Spinner etSituationMatrimoniale, etSexe, etCommune;
+    static private MaskedEditText etTelephone;
     SimpleDateFormat dtYYYY = new SimpleDateFormat("YYYY");
 
+    boolean reset = false;
+    private KAlertDialog ifClientExist;
+    private Client client;
+    KAlertDialog pDialog;
 
+
+    @SuppressLint("ValidFragment")
+    public AddClientStepOne(boolean reset) {
+        this.reset = reset;
+    }
 
     public AddClientStepOne() {
         // Required empty public constructor
@@ -74,7 +101,7 @@ public class AddClientStepOne extends Fragment {
 
         init(view);
         setClickListener();
-
+        beginDialog();
 
         return view;
     }
@@ -104,6 +131,8 @@ public class AddClientStepOne extends Fragment {
         etDateNaissance.setMaxDate(new Date(maxYear, 12,31));
 
 
+        makeSpinnerList();
+        if (reset) resetData(MarchandMainActivity.getContrat().getClient());
 
         tvNom = view.findViewById(R.id.tvNomClient);
         tvPrenoms = view.findViewById(R.id.tvPrenomClient);
@@ -117,29 +146,48 @@ public class AddClientStepOne extends Fragment {
         tvEmployeur = view.findViewById(R.id.tvEmployeurClient);
         tvTelephone = view.findViewById(R.id.tvTelephoneClient);
 
-        makeSpinnerList();
+        pDialog = new KAlertDialog(getContext(), KAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#2d8df8"));
+        pDialog.setTitleText("Rechercher");
+        pDialog.setCancelable(false);
+
         //autoCompleCommune();
 
     }
-
-    /*public void autoCompleCommune() {
-        String communeName[] = {};
-        for (int i = 0; i < communes.size(); i++) {
-            communeName[i] = communes.get(i).getNom();
-        }
-
-        System.out.println(communeName);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, communeName);
-        etCommune.setAdapter(adapter);
-
-    }*/
 
     private void setClickListener() {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFraglent(new ListeClients());
+                if ((etNom.getText().toString().isEmpty() && etPrenoms.getText().toString().isEmpty() &&
+                        etAdresse.getText().toString().isEmpty() && etPrenoms.getText().toString().isEmpty() &&
+                        etEmployeur.getText().toString().isEmpty() && etDateNaissance.getText().toString().isEmpty() &&
+                        etEmail.getText().toString().isEmpty() && etTelephone.getRawText().isEmpty())) {
+
+                    replaceFraglent(new ListeClients());
+
+                } else {
+                    new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE)
+                        .setTitleText("Confirmation")
+                        .setContentText("Voulez vous vraiment annuler ?? toutes les données entrées seront effacées.")
+                        .setConfirmText("Oui")
+                        .setCancelText("Non")
+                        .showCancelButton(true)
+                        .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.cancel();
+                            }
+                        })
+                        .setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.dismiss();
+                                replaceFraglent(new ListeClients());
+                            }
+                        })
+                        .show();
+                }
             }
         });
 
@@ -250,7 +298,6 @@ public class AddClientStepOne extends Fragment {
     private void replaceFraglent(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_main_marchand, fragment).commit();
-
     }
 
     private boolean verifeData() {
@@ -325,39 +372,6 @@ public class AddClientStepOne extends Fragment {
 
     }
 
-    private void senContrat(AccessToken accessToken, Contrat contrat) {
-
-        Call<JsonObject> call;
-        ClientService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(ClientService.class);
-        call = service.create(contrat);
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-
-                Log.w(TAG, "onResponse: " + response);
-
-                if (response.isSuccessful()) {
-                    System.out.println(response.body());
-                } else {
-                    if (response.code() == 422) {
-                        System.out.println(response.code()+" "+response.errorBody().source());
-                    }
-                    if (response.code() == 401) {
-                        ApiError apiError = Utils.converErrors(response.errorBody());
-                        Toast.makeText(getActivity(), response.code() +" " +apiError.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.w(TAG, "onFailure: " + t.getMessage());
-                Toast.makeText(getActivity(), t.getMessage()+ t.getCause().getCause().getCause(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     private void makeSpinnerList() {
 
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
@@ -419,8 +433,9 @@ public class AddClientStepOne extends Fragment {
             }
         };
 
-        String[] communess = new String[MarchandMainActivity.getCommunes().size()+1];
+        String[] communess = new String[MarchandMainActivity.getCommunes().size()+2];
         communess[0] = "Commune";
+        communess[MarchandMainActivity.getCommunes().size() +1] = "Autre";
         for (int i = 0; i < MarchandMainActivity.getCommunes().size(); i++) {
             communess[i+1] = MarchandMainActivity.getCommunes().get(i).getNom();
             System.out.println(communess);
@@ -463,13 +478,218 @@ public class AddClientStepOne extends Fragment {
         etSexe.setAdapter(sexeArrayAdapter);
         etCommune.setAdapter(communeArrayAdapter);
 
+        etCommune.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+
+                if(position + 1 == parent.getCount()){
+                    // Notify the selected item text
+                    openDepartementDialog();
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
     }
 
+    private void resetData(Client client) {
+        etNom.setText(client.getUtilisateur().getNom());
+        etPrenoms.setText(client.getUtilisateur().getPrenom());
+        etAdresse.setText(client.getUtilisateur().getAdresse());
+        etEmail.setText(client.getUtilisateur().getEmail());
+        etProfession.setText(client.getProfession());
+        etEmployeur.setText(client.getEmployeur());
+        etDateNaissance.setText(client.getUtilisateur().getDateNaissance());
+        etTelephone.setText(client.getUtilisateur().getTelephone());
+        resetSpiner(client);
+    }
 
-    private void handleErrors(ResponseBody response) {
+    private void resetSpiner(Client client) {
+        for(int i= 0; i < etSexe.getAdapter().getCount(); i++)
+        {
+            if(etSexe.getAdapter().getItem(i).toString().contains(client.getUtilisateur().getSexe()))
+            {
+                etSexe.setSelection(i);
+            }
+        }
 
-        ApiError apiError = Utils.converErrors(response);
+        for(int i= 0; i < etCommune.getAdapter().getCount(); i++)
+        {
+            if(etCommune.getAdapter().getItem(i).toString().contains(client.getUtilisateur().getCommune().getNom()))
+            {
+                etCommune.setSelection(i);
+            }
+        }
 
+        for(int i= 0; i < etSituationMatrimoniale.getAdapter().getCount(); i++)
+        {
+            if(etSituationMatrimoniale.getAdapter().getItem(i).toString().contains(client.getUtilisateur().getSituationMatrimoniale()))
+            {
+                etSituationMatrimoniale.setSelection(i);
+            }
+        }
+    }
+
+    private void beginDialog() {
+        ifClientExist = new KAlertDialog(getActivity(), KAlertDialog.CUSTOM_IMAGE_TYPE);
+        ifClientExist.setTitleText("Vérification du souscripteur")
+            .setContentText("Est-ce un ancien souscripteur ??")
+            .setCancelText("Non")
+            .setConfirmText("Oui")
+            .showCancelButton(true)
+            .setCancelClickListener(new KAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(KAlertDialog sDialog) {
+                    ifClientExist.cancel();
+                }
+            })
+            .setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(KAlertDialog sDialog) {
+                    openDialog();
+                }
+            })
+            .show();
+    }
+
+    private void openDialog() {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.find_by_telephone_number, null);
+
+        MaskedEditText textView = alertLayout.findViewById(R.id.etTelephone);
+        TextView textView1 = alertLayout.findViewById(R.id.tvError);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setTitle("Recherche par télephone");
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(false);
+        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alert.setPositiveButton("Recherche", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (textView.getRawText().isEmpty()) {
+                    textView1.setVisibility(View.INVISIBLE);
+                    return;
+                } else {
+                    textView1.setVisibility(View.VISIBLE);
+                    pDialog.show();
+                    findClientbyId(
+                        TokenManager.getInstance(getActivity().
+                            getSharedPreferences("prefs", MODE_PRIVATE)).
+                            getToken(), ""
+                    );
+                }
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
+    private void openDepartementDialog() {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.content_list_departement, null);
+
+        ListView listView = alertLayout.findViewById(R.id.list_departement);
+
+        String[] strings = new  String[MarchandMainActivity.getDepartements().size()];
+
+        for (int i = 0; i < MarchandMainActivity.getDepartements().size(); i ++) {
+            strings[i] = MarchandMainActivity.getDepartements().get(i).getNom();
+        }
+        System.out.println("departement " + strings);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(Objects.requireNonNull(getActivity()),
+                android.R.layout.simple_list_item_1,
+                strings);
+        listView.setAdapter(arrayAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), String.valueOf(MarchandMainActivity.getDepartements().get(position).getId()),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setTitle("Selectionner un département");
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(false);
+
+        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
+    private void findClientbyId(AccessToken accessToken, String number) {
+        Call<JsonObject> call;
+        UserService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(UserService.class);
+        call = service.findbyTelephone(number);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                Log.w(TAG, "onResponse: " + response);
+
+                if (response.isSuccessful()) {
+                    System.out.println(response.body());
+
+                    //client = new Gson().fromJson(new Gson().toJson(response.body().getObject()), Client.class);
+
+                    resetData(client);
+                    disabledInput();
+                    pDialog.dismiss();
+                    ifClientExist.dismiss();
+
+                } else {
+                    pDialog.dismiss();
+                    ifClientExist.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage());
+                pDialog.dismiss();
+                ifClientExist.dismiss();
+                //Toast.makeText(Main2Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void disabledInput() {
+        etNom.setFocusable(false);
+        etPrenoms.setFocusable(false);
+        etEmail.setFocusable(false);
+        etAdresse.setFocusable(false);
+        etTelephone.setFocusable(false);
+        etProfession.setFocusable(false);
+        etEmployeur.setFocusable(false);
+        etDateNaissance.setFocusable(false);
+        etSexe.setFocusable(false);
+        etSituationMatrimoniale.setFocusable(false);
+        etCommune.setFocusable(false);
     }
 
 }

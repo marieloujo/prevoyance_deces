@@ -27,6 +27,11 @@
     <string name="alert_password_not_write">Veuillez saisir le mot de passe</string>
     <string name="alert_telephone_not_write">Veuillez saisir votre numéro de télephone</string>
 
+    <string name="uri">Uri : %1$s</string>
+    <string name="size">Size :  %1$d</string>
+    <string name="mime">Mime: %1$s</string>
+    <string name="bucketname">BucketName : %1$s</string>
+
 
     <string name="lorem">
         Bienvenu sur la plateforme de pévoyance décès .
@@ -108,8 +113,12 @@
 
     <string name="date_paiement">24 Août 2019</string>
 
-    <string name="name">Kokouvi</string>
     <string name="prenom">Torcouvisor</string>
+    <string name="retry">Reéssayer</string>
+    <string name="rechercher">Rechercher</string>
+    <string name="pr_cedent">Précedent</string>
+    <string name="joint_file">Joindre un fichier</string>
+    <string name="confirmation">Confirmation</string>
 
     <string-array name="situation_matrimoniale">
         <item>Situation matrimoniale</item>
@@ -124,13 +133,29 @@
         <item>Qualification</item>
         <item>Conjoint non divorcé</item>
         <item>Enfants</item>
+        <item>Autre</item>
     </string-array>
 
 
     <string-array name="sexe">
         <item>Sexe</item>
         <item>Masculin</item>
-        <item>Féminim</item>
+        <item>Féminin</item>
+    </string-array>
+
+    <string-array name="annee">
+        <item>2019</item>
+        <item>2018</item>
+        <item>2017</item>
+        <item>2018</item>
+    </string-array>
+
+    <string-array name="semestre">
+        <item>10 nov - 10 dec</item>
+        <item>10 oct - 10 nov</item>
+        <item>10 sep - 10 oct</item>
+        <item>10 aût - 10 sep</item>
+        <item>10 juil - 10 aût</item>
     </string-array>
 
 

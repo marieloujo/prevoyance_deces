@@ -12,11 +12,8 @@ public class Message {
     @SerializedName("body")
     private String body;
 
-    @SerializedName("from_user_id")
-    private Utilisateur fromUser;
-
-    @SerializedName("to_user_id")
-    private Utilisateur ToUser;
+    @SerializedName("conversation")
+    private Conversation conversation;
 
     @SerializedName("created_at")
     private Date dateCreation;
@@ -27,8 +24,8 @@ public class Message {
     @SerializedName("notification")
     private boolean notification = false;
 
-    @SerializedName("read_at")
-    private String readAt;
+    @SerializedName("user")
+    private Utilisateur utilisateur;
 
     public Long getId() {
         return id;
@@ -44,22 +41,6 @@ public class Message {
 
     public void setBody(String body) {
         this.body = body;
-    }
-
-    public Utilisateur getFromUser() {
-        return fromUser;
-    }
-
-    public void setFromUser(Utilisateur fromUser) {
-        this.fromUser = fromUser;
-    }
-
-    public Utilisateur getToUser() {
-        return ToUser;
-    }
-
-    public void setToUser(Utilisateur toUser) {
-        ToUser = toUser;
     }
 
     public Date getDateCreation() {
@@ -86,12 +67,20 @@ public class Message {
         this.notification = notification;
     }
 
-    public String getReadAt() {
-        return readAt;
+    public Conversation getConversation() {
+        return conversation;
     }
 
-    public void setReadAt(String readAt) {
-        this.readAt = readAt;
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 
     @Override
@@ -99,12 +88,10 @@ public class Message {
         return "Message{" +
                 "id=" + id +
                 ", body='" + body + '\'' +
-                ", fromUser=" + fromUser +
-                ", ToUser=" + ToUser +
+                ", conversation=" + conversation +
                 ", dateCreation=" + dateCreation +
-                ", dateModification=" + dateModification +
+                ", dateModification='" + dateModification + '\'' +
                 ", notification=" + notification +
-                ", readAt=" + readAt +
                 '}';
     }
 }

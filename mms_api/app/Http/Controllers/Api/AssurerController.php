@@ -8,6 +8,7 @@ use App\Http\Requests\User\RegisterRequest;
 use App\Http\Requests\ValidationRequest;
 use App\Repositories\Assurer\Interfaces\AssurerRepositoryInterface;
 use App\Repositories\User\Interfaces\UserRepositoryInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class AssurerController extends Controller
 { 
@@ -40,7 +41,7 @@ class AssurerController extends Controller
         $request['usereable_id']=$assurer->id;
         $request['usereable_type']='App\\Models\\assurer'; 
 
-        return $this->user_repository->create($assurer->user->id,$request->all());
+        return $this->user_repository->register($assurer->user->id,$request->all());
     }
 
     /**

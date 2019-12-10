@@ -3,6 +3,7 @@
 namespace App\Repositories\Compte;
 
 use App\Models\Compte;
+use App\Models\Marchand;
 use App\Repositories\Compte\Interfaces\CompteRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -28,18 +29,18 @@ class CompteRepository implements CompteRepositoryInterface
     }
 
 
-    public function getCompte()
-    {
-        return Auth::user()->usereable->comptes->where('compte','credit_virtuel')->sortByDesc('created_at')->first();
+    public function getCompte($marchand)
+    {   return Marchand::findOrfail($marchand)->comptes->where('compte','credit_virtuel')->sortByDesc('created_at')->first();
     }
 
-    public function getCompteTime($end){
+    public function getComptes($marchand,$end){
         //$time=$end;
         //$start = $end->subMonths(3);
         //return $start.' '.$time;
         //return Carbon::now()->addMonths(3);
         //return Compte::where('created_at', '2019-10-08 06:04:49')->get();
-        return Auth::user()->usereable->comptes->where('created_at','<=',$end)->where('created_at','>=',$end->subMonths(3)); //->whereBetween('created_at', [$end, $end->subMonths(3)]);
+        
+        return Marchand::findOrfail($marchand)->comptes->where('created_at','<=',$end)->where('created_at','>=',$end->subMonths(3)); //->whereBetween('created_at', [$end, $end->subMonths(3)]);
     }
     /**
      * Get a assure by it's ID

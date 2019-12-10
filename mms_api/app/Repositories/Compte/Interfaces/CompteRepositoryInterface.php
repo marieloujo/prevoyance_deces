@@ -26,9 +26,9 @@ interface CompteRepositoryInterface
      */
     public function getById($id);
     
-    public function getCompteTime($end);
+    public function getComptes($marchand,$end);
     
-    public function getCompte();
+    public function getCompte($marchand);
 
     /**
      * Create a compte.
