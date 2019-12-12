@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -100,11 +101,14 @@ public class Accueil extends Fragment {
         contentMain = view.findViewById(R.id.content_main);
         contentError = view.findViewById(R.id.content_error);
         TextView textView = contentError.findViewById(R.id.error_text);
-        textView.setText("Une erreur s'est produite lors de la récupération des contrats");
+        textView.setText("Aucun contrat");
+        ((Button) contentError.findViewById(R.id.retry)).setVisibility(View.INVISIBLE);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        contentMain.setVisibility(View.VISIBLE);
 
         //generateContrat();
 
@@ -183,19 +187,19 @@ public class Accueil extends Fragment {
                     Log.w(TAG, "onFailure: " + t.getMessage());
 
                     progressBarMain.setVisibility(View.INVISIBLE);
-                    layoutConnexionLose.setVisibility(View.INVISIBLE);
+                   /* layoutConnexionLose.setVisibility(View.INVISIBLE);
                     layoutNodata.setVisibility(View.INVISIBLE);
                     contentError.setVisibility(View.VISIBLE);
-                    contentMain.setVisibility(View.INVISIBLE);
+                    contentMain.setVisibility(View.INVISIBLE);*/
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
             progressBarMain.setVisibility(View.INVISIBLE);
-            layoutConnexionLose.setVisibility(View.INVISIBLE);
+           /* layoutConnexionLose.setVisibility(View.INVISIBLE);
             layoutNodata.setVisibility(View.INVISIBLE);
-            contentError.setVisibility(View.VISIBLE);
-            contentMain.setVisibility(View.INVISIBLE);
+            //contentError.setVisibility(View.VISIBLE);
+            contentMain.setVisibility(View.VISIBLE);*/
         }
     }
 
@@ -213,20 +217,20 @@ public class Accueil extends Fragment {
             error = jsonObject.getAsJsonObject("errors");
             messageError = error.get("message").getAsString();
             errorText.setText(messageError);
-            layoutConnexionLose.setVisibility(View.INVISIBLE);
+            /*layoutConnexionLose.setVisibility(View.INVISIBLE);
             layoutNodata.setVisibility(View.INVISIBLE);
-            contentError.setVisibility(View.VISIBLE);
-            contentMain.setVisibility(View.INVISIBLE);
+            contentError.setVisibility(View.VISIBLE);*/
+            //contentMain.setVisibility(View.INVISIBLE);
         }catch (Exception ignored) {}
 
         try {
             sucess = jsonObject.getAsJsonObject("success");
             message = sucess.get("message").getAsString();
             nodata.setText(message);
-            layoutConnexionLose.setVisibility(View.INVISIBLE);
+            /*layoutConnexionLose.setVisibility(View.INVISIBLE);
             layoutNodata.setVisibility(View.VISIBLE);
-            contentError.setVisibility(View.INVISIBLE);
-            contentMain.setVisibility(View.INVISIBLE);
+            contentError.setVisibility(View.INVISIBLE);*/
+            //contentMain.setVisibility(View.INVISIBLE);
         } catch (Exception ignored) {}
 
         try {
@@ -249,10 +253,10 @@ public class Accueil extends Fragment {
             displayData(contrats);
             listeSouscriptionAdpter = new ListeSouscriptionAdpter(getContext(), contrats);
             recyclerView.setAdapter(listeSouscriptionAdpter);
-            layoutConnexionLose.setVisibility(View.INVISIBLE);
+           /* layoutConnexionLose.setVisibility(View.INVISIBLE);
             layoutNodata.setVisibility(View.INVISIBLE);
             contentError.setVisibility(View.INVISIBLE);
-            contentMain.setVisibility(View.VISIBLE);
+            contentMain.setVisibility(View.VISIBLE);*/
         } catch (Exception ignored) {
         }
     }

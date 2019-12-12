@@ -53,10 +53,10 @@ public class Utilisateur {
     private String rememberToken;
 
     @SerializedName("created_at")
-    private Date dateCreation;
+    private String dateCreation;
 
     @SerializedName("updated_at")
-    private Date dateModification;
+    private String dateModification;
 
     @SerializedName("userable_type")
     private String userableType;
@@ -226,19 +226,19 @@ public class Utilisateur {
         this.rememberToken = rememberToken;
     }
 
-    public Date getDateCreation() {
+    public String getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
+    public void setDateCreation(String dateCreation) {
         this.dateCreation = dateCreation;
     }
 
-    public Date getDateModification() {
+    public String getDateModification() {
         return dateModification;
     }
 
-    public void setDateModification(Date dateModification) {
+    public void setDateModification(String dateModification) {
         this.dateModification = dateModification;
     }
 

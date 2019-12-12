@@ -16,7 +16,7 @@ public class Message {
     private Conversation conversation;
 
     @SerializedName("created_at")
-    private Date dateCreation;
+    private String dateCreation;
 
     @SerializedName("updated_at")
     private String dateModification;
@@ -43,11 +43,11 @@ public class Message {
         this.body = body;
     }
 
-    public Date getDateCreation() {
+    public String getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
+    public void setDateCreation(String dateCreation) {
         this.dateCreation = dateCreation;
     }
 
@@ -89,9 +89,10 @@ public class Message {
                 "id=" + id +
                 ", body='" + body + '\'' +
                 ", conversation=" + conversation +
-                ", dateCreation=" + dateCreation +
+                ", dateCreation='" + dateCreation + '\'' +
                 ", dateModification='" + dateModification + '\'' +
                 ", notification=" + notification +
+                ", utilisateur=" + utilisateur +
                 '}';
     }
 }

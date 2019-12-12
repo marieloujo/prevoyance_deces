@@ -45,8 +45,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
     <string name="montant_menstruel">Montant menstruel</string>
-    <string name="_1000_fcfa">1000 fcfa</string>
-    <string name="_12000_fcfa">12000 fcfa</string>
+    <string name="_1000_fcfa">0 fcfa</string>
+    <string name="_12000_fcfa">0 fcfa</string>
     <string name="bonjour_joan">Salut, Joan</string>
     <string name="immobilier">Gestion immobilière</string>
     <string name="nos_services">Nos services</string>

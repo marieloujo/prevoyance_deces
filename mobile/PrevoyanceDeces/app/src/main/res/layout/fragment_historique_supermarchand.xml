@@ -11,20 +11,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black_background"
+            style="@style/TextAppearance.AppCompat"
+            android:text="Année(s)"/>
 
         <Spinner
             android:id="@+id/etAnnee"
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
             android:layout_height="47dp"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:layout_marginEnd="15dp"
             android:inputType="text"
             android:textSize="16sp"
             android:background="@drawable/spinner_style"
-            tools:ignore="RtlSymmetry"
-            android:layout_marginRight="10dp" />
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black_background"
+            style="@style/TextAppearance.AppCompat"
+            android:text="Semestre"/>
 
         <Spinner
             android:id="@+id/etSemestre"

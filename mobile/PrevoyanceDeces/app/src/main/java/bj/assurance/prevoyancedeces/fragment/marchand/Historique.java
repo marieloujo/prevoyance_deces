@@ -10,7 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +23,14 @@ import com.google.gson.reflect.TypeToken;
 import com.kinda.alert.KAlertDialog;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import bj.assurance.prevoyancedeces.R;
 import bj.assurance.prevoyancedeces.activity.MarchandMainActivity;
@@ -52,9 +61,23 @@ public class Historique extends Fragment {
 
     LineView lineView;
 
-
     private List<Float> creditVirtules = new ArrayList<>();
     private List<Float> commisions = new ArrayList<>();
+
+    private Spinner annee, semestre;
+
+    private List<String> listAnnee = new ArrayList<>();
+    private List<String> listSemestre = new ArrayList<>();
+
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("MMM yyyy", Locale.FRANCE);
+    @SuppressLint("SimpleDateFormat")
+    private SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM", Locale.FRANCE);
+
+    int date;
 
     public Historique() {
         // Required empty public constructor
@@ -80,10 +103,21 @@ public class Historique extends Fragment {
                 getToken()
         );
 
+        try {
+            getValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        makeSpinnerList();
+
         return view;
     }
 
     public void init(View view) {
+
+        annee = view.findViewById(R.id.etAnnee);
+        semestre = view.findViewById(R.id.etSemestre);
 
         lineView = (LineView)view.findViewById(R.id.line_view);
         lineView.setDrawDotLine(false); //optional
@@ -210,6 +244,115 @@ public class Historique extends Fragment {
     }
 
 
+    private void makeSpinnerList() {
+
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                getContext(),R.layout.item_spinner, listAnnee) {
+            @Override
+            public boolean isEnabled(int position){
+                return true;
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                return view;
+            }
+        };
+
+        final ArrayAdapter<String> sexeArrayAdapter = new ArrayAdapter<String>(
+                getContext(),R.layout.item_spinner,listSemestre){
+            @Override
+            public boolean isEnabled(int position){
+                return true;
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                return view;
+            }
+        };
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
+        sexeArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
+
+        annee.setAdapter(spinnerArrayAdapter);
+        semestre.setAdapter(sexeArrayAdapter);
+
+        annee.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+
+                if(position < parent.getCount() && position > 0){
+                    // Notify the selected item text
+                    String[] strings =  (selectedItemText.split("–"));
+
+                    getListCompte(
+                            TokenManager.getInstance(getActivity().
+                                    getSharedPreferences("prefs", MODE_PRIVATE)).
+                                    getToken()
+                    );
+
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+    }
+
+    private void getValue() throws ParseException {
+
+        String dateDebut = "2009-12-31 23:59:59";
+
+        int dateTemp, dateActu;
+        dateTemp = simpleDateFormat.parse(dateDebut).getYear() + 1900;
+        dateActu = (new Date().getYear()) + 1900;
+        date = simpleDateFormat.parse(dateDebut).getDay();
+        String intervalle;
+
+        //System.out.println((new Date().getYear()) + 1900);
+
+        while (dateTemp + 1 <= dateActu) {
+            Date date1 = dateFormat.parse(String.valueOf(dateTemp) + "-" + simpleDateFormat.parse(dateDebut).getMonth() + "-" +
+                    simpleDateFormat.parse(dateDebut).getDay());
+            Date date2 = dateFormat.parse(String.valueOf(dateTemp + 1) + "-" + simpleDateFormat.parse(dateDebut).getMonth() + "-" +
+                    simpleDateFormat.parse(dateDebut).getDay());
+
+            System.out.println(date1 + " " + date2);
+
+            intervalle = format.format(date1) + "  –   " + format.format(date2);
+            listAnnee.add(intervalle);
+            dateTemp = dateTemp + 1;
+        }
+
+        Date lasteDayofIntervalle = dateFormat.parse(String.valueOf(dateTemp) + "-" + simpleDateFormat.parse(dateDebut).getMonth() + "-" +
+                simpleDateFormat.parse(dateDebut).getDay());
+        Date newDate = dateFormat.parse(dateFormat.format(new Date()));
+
+        if (lasteDayofIntervalle.compareTo(newDate) < 0) {
+            listAnnee.add(format.format(lasteDayofIntervalle) + "  –  " + format.format( dateFormat.parse(String.valueOf(dateTemp + 1) + "-" + simpleDateFormat.parse(dateDebut).getMonth() + "-" +
+                    simpleDateFormat.parse(dateDebut).getDay())));
+        }
+
+        listSemestre.add(formatDate.format(lasteDayofIntervalle) + "  –  " + formatDate.format(addMonth(lasteDayofIntervalle, 6)));
+        listSemestre.add(formatDate.format(addMonth(lasteDayofIntervalle, 6)) + "  –  " + formatDate.format(addMonth(lasteDayofIntervalle, 12)));
+
+
+        Collections.reverse(listAnnee);
+
+    }
+
+    private static Date addMonth(Date date, int i) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MONTH, i);
+        return cal.getTime();
+    }
 
 
 

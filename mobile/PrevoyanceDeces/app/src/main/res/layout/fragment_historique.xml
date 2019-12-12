@@ -7,70 +7,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.marchand.Historique">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp">
+        android:layout_margin="15dp"
+        android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            app:cardBackgroundColor="@color/black_background"
-            app:cardCornerRadius="8dp"
-            android:layout_margin="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black_background"
+            style="@style/TextAppearance.AppCompat"
+            android:text="Année(s)"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="@string/cette_semaine"
-                android:textColor="@color/white"
-                style="@style/TextAppearance.AppCompat"
-                android:layout_gravity="center"/>
+        <Spinner
+            android:id="@+id/etAnnee"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:background="@drawable/spinner_style"
+            tools:ignore="RtlSymmetry" />
 
-        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black_background"
+            style="@style/TextAppearance.AppCompat"
+            android:text="Semestre"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="8dp"
-            android:layout_margin="5dp"
-            android:layout_centerInParent="true">
+        <Spinner
+            android:id="@+id/etSemestre"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@drawable/spinner_style"
+            android:inputType="text"
+            android:textSize="16sp"
+            tools:ignore="RtlSymmetry" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="Ce mois"
-                android:layout_gravity="center"
-                style="@style/TextAppearance.AppCompat" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            app:cardBackgroundColor="@color/white"
-            android:layout_alignParentEnd="true"
-            app:cardCornerRadius="8dp"
-            android:layout_margin="5dp"
-            android:layout_alignParentRight="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="Ce mois"
-                android:layout_gravity="center"
-                style="@style/TextAppearance.AppCompat" />
-
-        </androidx.cardview.widget.CardView>
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

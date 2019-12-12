@@ -25,6 +25,12 @@ public class SuperMarchand {
     @SerializedName("comptes")
     private List<Compte> commissions;
 
+    @SerializedName("created_at")
+    private String dateCreation;
+
+    @SerializedName("updated_at")
+    private String dateModification;
+
     public Long getId() {
         return id;
     }
@@ -73,6 +79,22 @@ public class SuperMarchand {
         this.commissions = commissions;
     }
 
+    public String getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public String getDateModification() {
+        return dateModification;
+    }
+
+    public void setDateModification(String dateModification) {
+        this.dateModification = dateModification;
+    }
+
     @Override
     public String toString() {
         return "SuperMarchand{" +
@@ -82,6 +104,8 @@ public class SuperMarchand {
                 ", marchands=" + marchands +
                 ", utilisateur=" + utilisateur +
                 ", commissions=" + commissions +
+                ", dateCreation='" + dateCreation + '\'' +
+                ", dateModification='" + dateModification + '\'' +
                 '}';
     }
 }

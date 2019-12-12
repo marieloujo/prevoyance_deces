@@ -47,4 +47,14 @@ public class ConversationUser {
     public void setRead(boolean read) {
         this.read = read;
     }
+
+    @Override
+    public String toString() {
+        return "ConversationUser{" +
+                "id=" + id +
+                ", utilisateur=" + utilisateur +
+                ", conversation=" + conversation +
+                ", read=" + read +
+                '}';
+    }
 }

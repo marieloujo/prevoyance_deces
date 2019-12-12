@@ -21,12 +21,6 @@
         android:iconTint="@color/black"/>
 
     <item
-        android:id="@+id/bottom_nav_boutique"
-        android:title="@string/boutique_virtuelle"
-        android:icon="@drawable/boutique_virtuelle_icon"
-        android:iconTint="@color/black"/>
-
-    <item
         android:id="@+id/bottom_nav_carnet"
         android:title="@string/mon_carnet"
         android:icon="@drawable/carnet_icon"

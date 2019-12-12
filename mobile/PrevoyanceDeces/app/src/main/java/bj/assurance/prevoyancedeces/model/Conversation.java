@@ -50,4 +50,14 @@ public class Conversation {
     public void setConversationUsers(List<ConversationUser> conversationUsers) {
         this.conversationUsers = conversationUsers;
     }
+
+    @Override
+    public String toString() {
+        return "Conversation{" +
+                "id=" + id +
+                ", messages=" + messages +
+                ", utilisateurs=" + utilisateurs +
+                ", conversationUsers=" + conversationUsers +
+                '}';
+    }
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.kinda.alert.KAlertDialog;
@@ -94,18 +95,18 @@ public class Discussion extends Fragment {
         linearLayout = view.findViewById(R.id.no_data_layout);
         textView = view.findViewById(R.id.no_data);
 
-        linearLayout.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.INVISIBLE);
         textView.setText("Vous n'avez encore aucune discussion en cours");
     }
 
     public void getMessageofUser(AccessToken accessToken) {
 
-        Call<JsonObject> call;
+        Call<JsonArray> call;
         UserService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(UserService.class);
         call = service.getMessageofUser(id);
-        call.enqueue(new Callback<JsonObject>() {
+        call.enqueue(new Callback<JsonArray>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 Log.w(TAG, "onresponse: " + response.body());
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
@@ -117,7 +118,7 @@ public class Discussion extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage());
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 
@@ -131,7 +132,7 @@ public class Discussion extends Fragment {
 
     }
 
-    private void getResponseContrat(JsonObject jsonObject) {
+    private void getResponseContrat(JsonArray jsonObject) {
         JsonObject error = null, sucess = null;
         String messageError = null, message = null;
         OutputPaginate outputPaginate = null;
@@ -139,14 +140,14 @@ public class Discussion extends Fragment {
         List<ConversationUser> conversationUsers = null;
 
         try {
-            error = jsonObject.getAsJsonObject("errors");
+            error = jsonObject.getAsJsonObject();
             messageError = error.get("message").getAsString();
             Toast.makeText(getContext(), messageError, Toast.LENGTH_LONG).show();
         }catch (Exception ignored) {}
 
         try {
             Toast.makeText(getContext(), messageError, Toast.LENGTH_LONG).show();
-            sucess = jsonObject.getAsJsonObject("success");
+            sucess = jsonObject.getAsJsonObject();
             message = sucess.get("message").getAsString();
         } catch (Exception ignored) {}
 

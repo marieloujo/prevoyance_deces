@@ -1,6 +1,7 @@
 package bj.assurance.prevoyancedeces.viewHolder;
 
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -9,7 +10,9 @@ import bj.assurance.prevoyancedeces.R;
 
 public class DiscussionViewHolder extends RecyclerView.ViewHolder {
 
-    TextView nomPrenomMessager, dateEnvoieMessage, contenueMessage;
+    private TextView nomPrenomMessager, dateEnvoieMessage, contenueMessage;
+    private LinearLayout contentDiscussion;
+
 
     public DiscussionViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -17,6 +20,15 @@ public class DiscussionViewHolder extends RecyclerView.ViewHolder {
         nomPrenomMessager = itemView.findViewById(R.id.nom_prenom_messager);
         dateEnvoieMessage = itemView.findViewById(R.id.date_envoie_message);
         contenueMessage = itemView.findViewById(R.id.contenue_message);
+        contentDiscussion = itemView.findViewById(R.id.content_discussion);
+    }
+
+    public LinearLayout getContentDiscussion() {
+        return contentDiscussion;
+    }
+
+    public void setContentDiscussion(LinearLayout contentDiscussion) {
+        this.contentDiscussion = contentDiscussion;
     }
 
     public TextView getNomPrenomMessager() {

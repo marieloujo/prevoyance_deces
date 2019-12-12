@@ -17,12 +17,19 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.tsongkha.spinnerdatepicker.DateUtils;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.fragment.app.Fragment;
 import bj.assurance.prevoyancedeces.R;
@@ -50,11 +57,21 @@ public class Historique extends Fragment {
 
     LineView lineView;
 
-    private List<Float> commisions = new ArrayList<>();
+    private List<Compte> commisions = new ArrayList<>();
     private TextView soldeCommisssions;
     private Spinner annee, semestre;
     private List<String> listAnnee = new ArrayList<>();
     private List<String> listSemestre = new ArrayList<>();
+
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("MMM yyyy", Locale.FRANCE);
+    @SuppressLint("SimpleDateFormat")
+    private SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM", Locale.FRANCE);
+
+    int date;
 
     public Historique() {
         // Required empty public constructor
@@ -80,7 +97,11 @@ public class Historique extends Fragment {
                         getSharedPreferences("prefs", MODE_PRIVATE)).
                         getToken()
         );
-        getValue();
+        try {
+            getValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         makeSpinnerList();
 
 
@@ -92,10 +113,11 @@ public class Historique extends Fragment {
         annee = view.findViewById(R.id.etAnnee);
         semestre = view.findViewById(R.id.etSemestre);
         soldeCommisssions = view.findViewById(R.id.solde_commisssions);
+
         lineView = (LineView)view.findViewById(R.id.line_view);
         lineView.setDrawDotLine(false); //optional
         lineView.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
-        lineView.setColorArray(new int[]{Color.parseColor("#424345"),Color.parseColor("#2dad58")});
+        lineView.setColorArray(new int[]{Color.parseColor("#424345")});
 
         ArrayList<String> test = new ArrayList<String>();
         for (int i = 0; i < randomint; i++) {
@@ -103,7 +125,7 @@ public class Historique extends Fragment {
         }
         lineView.setBottomTextList(test);
 
-        soldeCommisssions.setText(SuperMarchandMainActivity.getSuperMarchand().getCommission() + " fcfa");
+        soldeCommisssions.setText(SuperMarchandMainActivity.getSuperMarchand().getCommission() + " coins");
     }
 
     private void getListCompte(AccessToken accessToken) {
@@ -117,10 +139,37 @@ public class Historique extends Fragment {
                 Log.w(TAG, "onResponse: " + response);
 
                 if (response.isSuccessful()) {
-                    System.out.println(response.body());
+                    //System.out.println(response.body());
                     getResponseTransaction(response.body());
                     //setValue(response.body());
 
+                } else {
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage());
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getListComptebyDate(AccessToken accessToken, Date date) {
+        Call<JsonObject> call;
+        SuperMarchandService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(SuperMarchandService.class);
+        call = service.getEvolutionsCommissionbyDate(SuperMarchandMainActivity.getSuperMarchand().getId(), date);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                Log.w(TAG, "onResponse: " + response);
+
+                if (response.isSuccessful()) {
+                    //System.out.println(response.body());
+                    getResponseTransaction(response.body());
+                    //setValue(response.body());
                 } else {
                 }
 
@@ -164,12 +213,26 @@ public class Historique extends Fragment {
 
             System.out.println("commissions: " + commisions.toString() + "\n" );
 
+            makeGraphe();
+
         }catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
+    private void makeGraphe() {
+        ArrayList<ArrayList<Float>> graphes = new ArrayList<>();
+        ArrayList<Float> commissionFloat = new ArrayList<>();
+
+        for (Compte compte : commisions) {
+            commissionFloat.add(Float.valueOf(compte.getMontant()));
+        }
+
+        graphes.add(commissionFloat);
+
+        lineView.setFloatDataList(graphes);
+    }
 
     private void makeSpinnerList() {
 
@@ -187,9 +250,8 @@ public class Historique extends Fragment {
             }
         };
 
-
         final ArrayAdapter<String> sexeArrayAdapter = new ArrayAdapter<String>(
-                getContext(),R.layout.item_spinner,getResources().getStringArray(R.array.semestre)){
+                getContext(),R.layout.item_spinner,listSemestre){
             @Override
             public boolean isEnabled(int position){
                 return true;
@@ -208,25 +270,78 @@ public class Historique extends Fragment {
         annee.setAdapter(spinnerArrayAdapter);
         semestre.setAdapter(sexeArrayAdapter);
 
+        annee.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+
+                if(position < parent.getCount() && position > 0){
+                    // Notify the selected item text
+                    String[] strings =  (selectedItemText.split("–"));
+
+                    getListComptebyDate(
+                            TokenManager.getInstance(getActivity().
+                                    getSharedPreferences("prefs", MODE_PRIVATE)).
+                                    getToken(), new Date()
+                    );
+
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
     }
 
-    private void getValue() {
+    private void getValue() throws ParseException {
 
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dateDebut = "2009-12-31 23:59:59";
 
-        int dateDebut, dateActu;
-        dateDebut = (SuperMarchandMainActivity.getUtilisateur().getDateCreation().getYear()) + 1900;
-        dateActu = new Date().getYear() + 1900;
+        int dateTemp, dateActu;
+        dateTemp = simpleDateFormat.parse(dateDebut).getYear() + 1900;
+        dateActu = (new Date().getYear()) + 1900;
+        date = simpleDateFormat.parse(dateDebut).getDay();
+        String intervalle;
 
-        while (dateDebut + 1 <= dateActu) {
-            listAnnee.add(String.valueOf(dateDebut));
+        //System.out.println((new Date().getYear()) + 1900);
+
+        while (dateTemp + 1 <= dateActu) {
+            Date date1 = dateFormat.parse(String.valueOf(dateTemp) + "-" + simpleDateFormat.parse(dateDebut).getMonth() + "-" +
+                    simpleDateFormat.parse(dateDebut).getDay());
+            Date date2 = dateFormat.parse(String.valueOf(dateTemp + 1) + "-" + simpleDateFormat.parse(dateDebut).getMonth() + "-" +
+                    simpleDateFormat.parse(dateDebut).getDay());
+
+            System.out.println(date1 + " " + date2);
+
+            intervalle = format.format(date1) + "  –   " + format.format(date2);
+            listAnnee.add(intervalle);
+            dateTemp = dateTemp + 1;
         }
-        listAnnee.add(String.valueOf(dateActu));
 
-       // Date date = simpleDateFormat.parse(SuperMarchandMainActivity.getSuperMarchand().getUtilisateur().getDateCreation());
+        Date lasteDayofIntervalle = dateFormat.parse(String.valueOf(dateTemp) + "-" + simpleDateFormat.parse(dateDebut).getMonth() + "-" +
+                simpleDateFormat.parse(dateDebut).getDay());
+        Date newDate = dateFormat.parse(dateFormat.format(new Date()));
+
+        if (lasteDayofIntervalle.compareTo(newDate) < 0) {
+            listAnnee.add(format.format(lasteDayofIntervalle) + "  –  " + format.format( dateFormat.parse(String.valueOf(dateTemp + 1) + "-" + simpleDateFormat.parse(dateDebut).getMonth() + "-" +
+                    simpleDateFormat.parse(dateDebut).getDay())));
+        }
+
+        listSemestre.add(formatDate.format(lasteDayofIntervalle) + "  –  " + formatDate.format(addMonth(lasteDayofIntervalle, 6)));
+        listSemestre.add(formatDate.format(addMonth(lasteDayofIntervalle, 6)) + "  –  " + formatDate.format(addMonth(lasteDayofIntervalle, 12)));
 
 
+        Collections.reverse(listAnnee);
+
+    }
+
+    private static Date addMonth(Date date, int i) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MONTH, i);
+        return cal.getTime();
     }
 
 }

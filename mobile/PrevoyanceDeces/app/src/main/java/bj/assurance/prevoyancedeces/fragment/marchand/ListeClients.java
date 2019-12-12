@@ -154,8 +154,7 @@ public class ListeClients extends Fragment {
     private void createItems(List<Client> clients) {
 
         for (int i = 0; i < clients.size(); i++) {
-            if (clients.get(i).getUtilisateur() != null)
-                addItem(clients.get(i));
+            addItem(clients.get(i));
         }
     }
 
@@ -167,7 +166,6 @@ public class ListeClients extends Fragment {
         //If item creation is successful, let's configure it
         if (item != null) {
             item.setIndicatorColorRes(R.color.gery_inactive);
-            item.setIndicatorIconRes(R.drawable.ic_location_black);
             //It is possible to get any view inside the inflated layout. Let's set the text in the item
 
             try {

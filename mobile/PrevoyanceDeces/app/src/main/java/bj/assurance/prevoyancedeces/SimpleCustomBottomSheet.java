@@ -165,7 +165,7 @@ public class SimpleCustomBottomSheet extends BaseBottomSheet {
 
                     new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE)
                             .setTitleText("Montant déposé")
-                            .setCancelText(response.body().toString())
+                            .setTitleText(response.body().toString())
                             .showCancelButton(true)
                             .show();
                 } else {

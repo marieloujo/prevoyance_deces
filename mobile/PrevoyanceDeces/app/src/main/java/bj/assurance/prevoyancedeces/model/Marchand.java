@@ -37,6 +37,12 @@ public class Marchand {
     @SerializedName("prospects")
     private List<Utilisateur> prospects;
 
+    @SerializedName("created_at")
+    private String dateCreation;
+
+    @SerializedName("updated_at")
+    private String dateModification;
+
     public Marchand(Long id) {
         this.id = id;
     }
@@ -139,7 +145,28 @@ public class Marchand {
                 ", objects=" + objects +
                 ", superMarchand=" + superMarchand +
                 ", contrats=" + contrats +
+                ", portefeuilles=" + portefeuilles +
                 ", utilisateur=" + utilisateur +
+                ", prospects=" + prospects +
+                ", dateCreation='" + dateCreation + '\'' +
+                ", dateModification='" + dateModification + '\'' +
                 '}';
     }
+
+    public String getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public String getDateModification() {
+        return dateModification;
+    }
+
+    public void setDateModification(String dateModification) {
+        this.dateModification = dateModification;
+    }
+
 }

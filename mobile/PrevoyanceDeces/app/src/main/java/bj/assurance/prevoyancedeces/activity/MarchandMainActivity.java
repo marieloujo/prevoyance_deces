@@ -5,10 +5,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.fragment.Boutique;
+import bj.assurance.prevoyancedeces.fragment.client.Marchands;
+import bj.assurance.prevoyancedeces.fragment.client.MonProfile;
+import bj.assurance.prevoyancedeces.fragment.marchand.AddClientStepOne;
 import bj.assurance.prevoyancedeces.fragment.marchand.AddClientStepThree;
+import bj.assurance.prevoyancedeces.fragment.marchand.Historique;
 import bj.assurance.prevoyancedeces.fragment.marchand.ProfileMarchand;
 import bj.assurance.prevoyancedeces.model.Departement;
 import bj.assurance.prevoyancedeces.model.pagination.OutputPaginate;
+import bj.assurance.prevoyancedeces.retrofit.RetrofitClientInstance;
 import bj.assurance.prevoyancedeces.retrofit.Service.ClientService;
 import bj.assurance.prevoyancedeces.retrofit.Service.UserService;
 import bj.assurance.prevoyancedeces.utils.AccessToken;
@@ -33,18 +39,24 @@ import retrofit2.Response;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.fxn.BubbleTabBar;
 import com.fxn.OnBubbleClickListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.kinda.alert.KAlertDialog;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -65,6 +77,8 @@ public class MarchandMainActivity extends AppCompatActivity {
 
     static Marchand marchand ;
     static Utilisateur utilisateur;
+
+    androidx.appcompat.widget.Toolbar toolbar;
 
 
     private static List<Commune> communes = new ArrayList<>();
@@ -90,6 +104,8 @@ public class MarchandMainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void init() {
+        toolbar = findViewById(R.id.mytoolbar);
+        setSupportActionBar(toolbar);
         title = findViewById(R.id.frame_title);
         bubbleTabBar = findViewById(R.id.bubbleTabBar);
         alert = findViewById(R.id.alertIcon);
@@ -124,8 +140,6 @@ public class MarchandMainActivity extends AppCompatActivity {
         nomPrenom.setText(utilisateur.getNom()+ " " + utilisateur.getPrenom());
         matricule.setText(marchand.getMatricule());
         soldeActuelCreditVirtuel.setText(marchand.getCreditVirtuel());
-
-
     }
 
     public void setClickListener(){
@@ -194,6 +208,125 @@ public class MarchandMainActivity extends AppCompatActivity {
 
         title.setText(titre);
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.option_menu_marchand, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.marchand_option_nav_clients:
+                if (!(getFragmentManager().findFragmentByTag("CLIENTS") != null
+                        && getFragmentManager().findFragmentByTag("CLIENTS").isVisible())) {
+                    replaceFragment(new ListeClients(), getResources().getString(R.string.mes_clients), "CLIENTS");
+                }
+                break;
+
+            case R.id.marchand_option_nav_transactions:
+                if (!(getFragmentManager().findFragmentByTag("TRANSACTIONS") != null
+                        && getFragmentManager().findFragmentByTag("TRANSACTIONS").isVisible())) {
+                    replaceFragment(new Transactions(), getResources().getString(R.string.mon_profil), "TRANSACTIONS");
+                }
+                break;
+
+            case R.id.marchand_option_nav_accueil:
+                if (!(getFragmentManager().findFragmentByTag("ACCUEIL") != null
+                        && getFragmentManager().findFragmentByTag("ACCUEIL").isVisible())) {
+                    replaceFragment(new Accueil(), "Salut "  + utilisateur.getPrenom(), "ACCUEIL");
+                }
+                break;
+
+            case R.id.marchand_option_nav_add_contrat:
+                if (!(getFragmentManager().findFragmentByTag("ADD_CONTRATS") != null
+                        && getFragmentManager().findFragmentByTag("ADD_CONTRATS").isVisible())) {
+                    replaceFragment(new AddClientStepOne(), "Enregistrement", "ADD_CONTRATS");
+                }
+                break;
+
+            case R.id.marchand_option_nav_contrat_en_attente:
+                if (!(getFragmentManager().findFragmentByTag("CONTRAT_ATTENTE") != null
+                        && getFragmentManager().findFragmentByTag("CONTRAT_ATTENTE").isVisible())) {
+                    //replaceFragment(new ListeClients(), getResources().getString(R.string.mes_clients), "CONTRAT_ATTENTE");
+                }
+                break;
+
+            case R.id.marchand_option_nav_historique:
+                if (!(getFragmentManager().findFragmentByTag("HISTORIQUE") != null
+                        && getFragmentManager().findFragmentByTag("HISTORIQUE").isVisible())) {
+                    replaceFragment(new Historique(), getResources().getString(R.string.transactions), "HISTORIQUE");
+                }
+                break;
+
+            case R.id.marchand_option_nav_profil:
+                if (!(getFragmentManager().findFragmentByTag("PROFIL") != null
+                        && getFragmentManager().findFragmentByTag("PROFIL").isVisible())) {
+                    replaceFragment(new ProfileMarchand(), getResources().getString(R.string.mon_profil), "PROFIL");
+                }
+                break;
+
+            case R.id.marchand_option_nav_transfert:
+                if (!(getFragmentManager().findFragmentByTag("DISCUSSIONS") != null
+                        && getFragmentManager().findFragmentByTag("DISCUSSIONS").isVisible())) {
+                    //replaceFragment(new ProfileMarchand(), getResources().getString(R.string.mon_profil), "DISCUSSIONS");
+                }
+                break;
+
+            case R.id.option_nav_logout:
+               lougout(
+                       TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).getToken()
+               );
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+
+    private void lougout(AccessToken accessToken) {
+
+        KAlertDialog pDialog = new KAlertDialog(MarchandMainActivity.this, KAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#2d8df8"));
+        pDialog.setTitleText("Déconnexion");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+        Call<JsonObject> call;
+        UserService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(UserService.class);
+        call = service.logout();
+        call.enqueue(new Callback<JsonObject>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                pDialog.dismiss();
+                Log.w(TAG, "onResponse: " + response.body());
+
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+                    TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE)).deleteToken();
+                    Intent intent = new Intent(MarchandMainActivity.this, Connexion.class);
+                    startActivity(intent);
+                } else {
+                    Log.w(TAG, "onResponse: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+
+
 
 
 

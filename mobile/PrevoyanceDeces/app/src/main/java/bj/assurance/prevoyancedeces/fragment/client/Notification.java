@@ -10,12 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
@@ -25,6 +27,7 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.model.ConversationUser;
 import bj.assurance.prevoyancedeces.model.pagination.OutputPaginate;
 import bj.assurance.prevoyancedeces.utils.AccessToken;
 import bj.assurance.prevoyancedeces.utils.ApiError;
@@ -48,8 +51,8 @@ public class Notification extends Fragment {
     private RecyclerView recyclerView;
     private NotificationAdapter notificationAdapter;
     private ProgressBar progressBar;
-    private LinearLayout linearLayout;
-    private RelativeLayout contentError;
+    /*private LinearLayout linearLayout;
+    private RelativeLayout contentError;*/
 
     private Long id;
 
@@ -84,19 +87,20 @@ public class Notification extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         progressBar = view.findViewById(R.id.main_progress);
-        linearLayout = view.findViewById(R.id.no_data_layout);
-        contentError = view.findViewById(R.id.content_error);
+
+        /*linearLayout = view.findViewById(R.id.no_data_layout);
+        contentError = view.findViewById(R.id.content_error);*/
     }
 
     private void getMessageofUser(AccessToken accessToken, Long id) {
 
-        Call<JsonObject> call;
+        Call<JsonArray> call;
         UserService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(UserService.class);
         call = service.getNotification(id);
-        call.enqueue(new Callback<JsonObject>() {
+        call.enqueue(new Callback<JsonArray>() {
             @SuppressLint("SetTextI18n")
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
 
                 System.out.println(response.code());
 
@@ -106,23 +110,23 @@ public class Notification extends Fragment {
                     progressBar.setVisibility(View.INVISIBLE);
                 } else {
                     progressBar.setVisibility(View.INVISIBLE);
-                    ((TextView) contentError.findViewById(R.id.error_text))
-                            .setText("Une erreur s'est produite lors de la récupération des notifications");
-                    contentError.setVisibility(View.VISIBLE);
-                    linearLayout.setVisibility(View.INVISIBLE);
+
+                    /*((TextView) contentError.findViewById(R.id.error_text))
+                            .setText("Auncune notification");
+                    ((Button) contentError.findViewById(R.id.retry)).setVisibility(View.INVISIBLE);*/
                 }
             }
 
             @SuppressLint("SetTextI18n")
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call, Throwable t) {
                 progressBar.setVisibility(View.INVISIBLE);
                 Log.w(TAG, "onFailure: " + t.getMessage());
                 System.out.println(t.getMessage());
-                ((TextView) contentError.findViewById(R.id.error_text))
-                        .setText("Une erreur s'est produite lors de la récupération des notifications");
-                contentError.setVisibility(View.VISIBLE);
-                linearLayout.setVisibility(View.INVISIBLE);
+
+                /*((TextView) contentError.findViewById(R.id.error_text))
+                        .setText("Auncun notification");
+                ((Button) contentError.findViewById(R.id.retry)).setVisibility(View.INVISIBLE);*/
             }
         });
     }
@@ -133,42 +137,33 @@ public class Notification extends Fragment {
 
     }
 
-    private void getResponseContrat(JsonObject jsonObject) {
+    private void getResponseContrat(JsonArray jsonObject) {
         JsonObject error = null, sucess = null;
         String messageError = null, message = null;
         OutputPaginate outputPaginate = null;
-        List<Message> notifications = null;
+        List<ConversationUser> notifications = null;
 
         try {
-            error = jsonObject.getAsJsonObject("errors");
+            error = jsonObject.getAsJsonObject();
             messageError = error.get("message").getAsString();
-            ((TextView) contentError.findViewById(R.id.error_text))
-                    .setText(messageError);
-            contentError.setVisibility(View.VISIBLE);
-            linearLayout.setVisibility(View.INVISIBLE);
 
         }catch (Exception ignored) {}
 
         try {
-            sucess = jsonObject.getAsJsonObject("success");
+            sucess = jsonObject.getAsJsonObject();
             message = sucess.get("message").getAsString();
-            ((TextView) linearLayout.findViewById(R.id.no_data))
-                    .setText(message);
-            contentError.setVisibility(View.INVISIBLE);
-            linearLayout.setVisibility(View.VISIBLE);
         } catch (Exception ignored) {}
 
         try {
-            outputPaginate = new Gson().fromJson(jsonObject, OutputPaginate.class);
-
             Gson gson = new Gson();
-            Type listType = new TypeToken<List<Message>>() {}.getType();
+            Type listType = new TypeToken<List<ConversationUser>>() {}.getType();
 
-            assert outputPaginate != null;
-            notifications = gson.fromJson(gson.toJson(outputPaginate.getObjects()), listType);
+            notifications = gson.fromJson(jsonObject, listType);
+            System.out.println("notification: " + notifications.toString());
 
             notificationAdapter = new NotificationAdapter(getContext(), notifications);
             recyclerView.setAdapter(notificationAdapter);
+
         }catch (Exception e) {
             e.printStackTrace();
         }

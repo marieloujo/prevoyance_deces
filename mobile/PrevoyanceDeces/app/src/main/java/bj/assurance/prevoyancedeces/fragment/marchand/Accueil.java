@@ -80,7 +80,7 @@ public class Accueil extends Fragment {
     private int FIRST_PAGE = 1;
     private int CURRENT_PAGE, LAST_PAGE;
 
-    private RelativeLayout contentMain, contentError;
+    private RelativeLayout contentError;
     private LinearLayout linearLayout;
     private ProgressBar progressBar;
 
@@ -129,7 +129,6 @@ public class Accueil extends Fragment {
         creditVirtuelleRecharger = view.findViewById(R.id.credit_virtuel_depart);
         recyclerView = view.findViewById(R.id.recycler);
         gotoTransaction = view.findViewById(R.id.view_all_transaction);
-        contentMain = view.findViewById(R.id.content_main);
         contentError = view.findViewById(R.id.content_error);
         progressBar = view.findViewById(R.id.scroll_progress);
         errorText = view.findViewById(R.id.error_text);
@@ -188,7 +187,7 @@ public class Accueil extends Fragment {
 
         nomPrenom.setText(MarchandMainActivity.getUtilisateur().getNom()+ " " + MarchandMainActivity.getUtilisateur().getPrenom());
         matricule.setText(marchand.getMatricule());
-        creditVirtuelleActuelle.setText(marchand.getCreditVirtuel() + " fcfa");
+        creditVirtuelleActuelle.setText(marchand.getCreditVirtuel() + " coins");
 
         getCreditVirtuelle(
                 TokenManager.getInstance(getActivity().
@@ -257,7 +256,7 @@ public class Accueil extends Fragment {
                     catchApiErorCredit(response);
                     linearLayout.setVisibility(View.INVISIBLE);
                     contentError.setVisibility(View.VISIBLE);
-                    contentMain.setVisibility(View.INVISIBLE);
+                    //contentMain.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
                 }
             }
@@ -268,7 +267,7 @@ public class Accueil extends Fragment {
 
                 linearLayout.setVisibility(View.INVISIBLE);
                 contentError.setVisibility(View.VISIBLE);
-                contentMain.setVisibility(View.INVISIBLE);
+                //contentMain.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });
@@ -409,7 +408,7 @@ public class Accueil extends Fragment {
                 break;
 
             case 404: // Not Found Ressource non trouvée.
-                errorText.setText("La ressource demandé est indisponible");
+                errorText.setText("Aucune transaction effectuée dans la semaine");
                 Log.w(TAG, "404: " + response.errorBody().source());
                 handleErrors(response.errorBody());
                 progressBar.setVisibility(View.INVISIBLE);
@@ -504,9 +503,9 @@ public class Accueil extends Fragment {
             messageError = error.get("message").getAsString();
             errorText.setText(messageError);
             //layoutConnexionLose.setVisibility(View.INVISIBLE);
-            linearLayout.setVisibility(View.INVISIBLE);
+            /*linearLayout.setVisibility(View.INVISIBLE);
             contentError.setVisibility(View.VISIBLE);
-            contentMain.setVisibility(View.INVISIBLE);
+            contentMain.setVisibility(View.INVISIBLE);*/
         }catch (Exception ignored) {}
 
         try {
@@ -514,9 +513,9 @@ public class Accueil extends Fragment {
             message = sucess.get("message").getAsString();
             nodata.setText(message);
             //layoutConnexionLose.setVisibility(View.INVISIBLE);
-            linearLayout.setVisibility(View.VISIBLE);
+            /*linearLayout.setVisibility(View.VISIBLE);
             contentError.setVisibility(View.INVISIBLE);
-            contentMain.setVisibility(View.INVISIBLE);
+            contentMain.setVisibility(View.INVISIBLE);*/
         } catch (Exception ignored) {}
 
         try {
@@ -536,7 +535,6 @@ public class Accueil extends Fragment {
 
             linearLayout.setVisibility(View.INVISIBLE);
             contentError.setVisibility(View.INVISIBLE);
-            contentMain.setVisibility(View.VISIBLE);
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -564,7 +562,7 @@ public class Accueil extends Fragment {
         try {
             Compte compte = new Gson().fromJson(sucess.get("data"), Compte.class);
             System.out.println(compte);
-            creditVirtuelleRecharger.setText(compte.getMontant() + " fcfa");
+            creditVirtuelleRecharger.setText(compte.getMontant() + " coins");
 
             Float pourcentage = (Float.valueOf(MarchandMainActivity.getMarchand().getCreditVirtuel()) / Float.valueOf(compte.getMontant()))
                     * 100 ;

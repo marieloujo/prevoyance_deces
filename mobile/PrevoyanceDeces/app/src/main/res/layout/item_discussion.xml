@@ -4,6 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/content_discussion"
     android:layout_marginBottom="25dp"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp">

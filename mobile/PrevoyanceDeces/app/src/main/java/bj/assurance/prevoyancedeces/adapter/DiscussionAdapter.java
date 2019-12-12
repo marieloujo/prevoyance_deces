@@ -2,16 +2,23 @@ package bj.assurance.prevoyancedeces.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import bj.assurance.prevoyancedeces.R;
+import bj.assurance.prevoyancedeces.activity.ChatFrame;
 import bj.assurance.prevoyancedeces.model.ConversationUser;
 import bj.assurance.prevoyancedeces.model.Message;
 import bj.assurance.prevoyancedeces.viewHolder.DiscussionViewHolder;
@@ -40,15 +47,34 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionViewHolder
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+        holder.getContenueMessage().setText(conversationUsers.get(position).getConversation().getMessages().get(0).getBody());
+
         holder.getNomPrenomMessager().setText(conversationUsers.get(position).getConversation().getMessages()
                 .get(0).getUtilisateur().getNom() + " " +
                 conversationUsers.get(position).getConversation().getMessages().get(0).getUtilisateur().getPrenom());
 
-        holder.getDateEnvoieMessage().setText(dateFormat.format(conversationUsers.get(position).getConversation().getMessages()
-                .get(0).getDateCreation()));
+        try {
+            holder.getDateEnvoieMessage().setText(dateFormat.format(dateFormat.parse(conversationUsers.get(position).getConversation().getMessages()
+                    .get(0).getDateCreation())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        holder.getContenueMessage().setText(conversationUsers.get(position).getConversation()
-                .getMessages().get(0).getBody().substring(0, 100) + " ...");
+       if (conversationUsers.get(position).getConversation()
+               .getMessages().get(0).getBody().length() >= 100) {
+           holder.getContenueMessage().setText(conversationUsers.get(position).getConversation()
+                   .getMessages().get(0).getBody().substring(0, 100) + " ...");
+       }
+
+       holder.getContentDiscussion().setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               Intent intent = new Intent(context, ChatFrame.class);
+               intent.putExtra("conversationUsers", new Gson().toJson(conversationUsers.get(position)));
+               context.startActivity(intent);
+           }
+       });
     }
 
     @Override

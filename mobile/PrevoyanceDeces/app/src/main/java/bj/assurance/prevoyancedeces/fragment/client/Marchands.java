@@ -112,7 +112,7 @@ public class Marchands extends Fragment {
         //If item creation is successful, let's configure it
         if (item != null) {
             item.setIndicatorColorRes(R.color.gery_inactive);
-            item.setIndicatorIconRes(R.drawable.ic_location_black);
+            item.setIndicatorIconRes(R.drawable.ic_person);
             //It is possible to get any view inside the inflated layout. Let's set the text in the item
 
             ((TextView) item.findViewById(R.id.title)).setText(commune.getNom());
@@ -132,6 +132,15 @@ public class Marchands extends Fragment {
     private void addSubItem(List<Utilisateur> utilisateurs, ExpandingItem view) {
         //We can create items in batch.
         view.createSubItems(utilisateurs.size());
+
+        if (utilisateurs.isEmpty()) {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Aucun marchand disponible dans cette commune", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
 
         for (int i = 0; i < utilisateurs.size(); i++) {
             View subItemZero = view.getSubItemView(i);
@@ -209,7 +218,7 @@ public class Marchands extends Fragment {
                     progressBar.setVisibility(View.INVISIBLE);
                     connexionLose.setVisibility(View.INVISIBLE);
                     noDataLayout.setVisibility(View.INVISIBLE);
-                    contentEror.setVisibility(View.VISIBLE);
+                    //contentEror.setVisibility(View.VISIBLE);
                     ((TextView) contentEror.findViewById(R.id.error_text)).setText("Une erreur s'est produite lors dela récupération des communes," +
                             "veuillez réesayer");
                 }
@@ -223,7 +232,7 @@ public class Marchands extends Fragment {
                 progressBar.setVisibility(View.INVISIBLE);
                 connexionLose.setVisibility(View.INVISIBLE);
                 noDataLayout.setVisibility(View.INVISIBLE);
-                contentEror.setVisibility(View.VISIBLE);
+               // contentEror.setVisibility(View.VISIBLE);
                 ((TextView) contentEror.findViewById(R.id.error_text)).setText("Une erreur s'est produite lors dela récupération des communes," +
                         "veuillez réesayer");
             }
@@ -287,7 +296,7 @@ public class Marchands extends Fragment {
             errorText.setText(messageError);
             connexionLose.setVisibility(View.INVISIBLE);
             noDataLayout.setVisibility(View.INVISIBLE);
-            contentEror.setVisibility(View.VISIBLE);
+           // contentEror.setVisibility(View.VISIBLE);
         }catch (Exception ignored) {}
 
         try {
@@ -295,7 +304,7 @@ public class Marchands extends Fragment {
             message = sucess.get("message").getAsString();
             nodata.setText(message);
             connexionLose.setVisibility(View.INVISIBLE);
-            noDataLayout.setVisibility(View.VISIBLE);
+           // noDataLayout.setVisibility(View.VISIBLE);
             contentEror.setVisibility(View.INVISIBLE);
         } catch (Exception ignored) {}
 
@@ -309,7 +318,7 @@ public class Marchands extends Fragment {
             createItems(communes);
             connexionLose.setVisibility(View.INVISIBLE);
             noDataLayout.setVisibility(View.INVISIBLE);
-            contentEror.setVisibility(View.VISIBLE);
+           // contentEror.setVisibility(View.VISIBLE);
         }catch (Exception e) {
             e.printStackTrace();
         }

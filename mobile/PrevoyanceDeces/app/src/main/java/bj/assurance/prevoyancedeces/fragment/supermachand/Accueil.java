@@ -31,6 +31,7 @@ import bj.assurance.prevoyancedeces.activity.SuperMarchandMainActivity;
 import bj.assurance.prevoyancedeces.adapter.ListeSouscriptionAdpter;
 import bj.assurance.prevoyancedeces.adapter.MesMarchandAdapter;
 import bj.assurance.prevoyancedeces.model.Client;
+import bj.assurance.prevoyancedeces.model.Compte;
 import bj.assurance.prevoyancedeces.model.Contrat;
 import bj.assurance.prevoyancedeces.model.Marchand;
 import bj.assurance.prevoyancedeces.model.pagination.OutputPaginate;
@@ -103,19 +104,23 @@ public class Accueil extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_main_marchand, new Historique()).commit();
+                fragmentManager.beginTransaction().replace(R.id.content_main, new MesMarchand()).commit();
                 SuperMarchandMainActivity.getTitleFrame().setText(getContext().getResources().getString(R.string.historique));
             }
         });
     }
-
 
     @SuppressLint("SetTextI18n")
     private void bindingata() {
         nomPrenom.setText(SuperMarchandMainActivity.getUtilisateur().getNom() + " " +
             SuperMarchandMainActivity.getUtilisateur().getPrenom());
         matricule.setText(SuperMarchandMainActivity.getSuperMarchand().getMatricule());
-        soldeCommission.setText(SuperMarchandMainActivity.getSuperMarchand().getCommission());
+
+        getCommission(
+                TokenManager.getInstance(getActivity().
+                        getSharedPreferences("prefs", MODE_PRIVATE)).
+                        getToken()
+        );
     }
 
     private void getMarchand(AccessToken accessToken) {
@@ -126,7 +131,7 @@ public class Accueil extends Fragment {
             @Override
             public void onResponse(retrofit2.Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {
-                    //System.out.println(response.body());
+                    System.out.println(response.body());
                     getResponseContrat(response.body());
                 } else System.out.println(response.code());
             }
@@ -244,6 +249,59 @@ public class Accueil extends Fragment {
         }
 
         System.out.println("custumMarchands \n" + custumMarchands);
+    }
+
+    private void getCommission(AccessToken accessToken) {
+        retrofit2.Call<JsonObject> call;
+        SuperMarchandService service = new RetrofitBuildForGetRessource(accessToken).getRetrofit().create(SuperMarchandService.class);
+        call = service.getCommission(SuperMarchandMainActivity.getSuperMarchand().getId());
+        call.enqueue(new Callback<JsonObject>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(retrofit2.Call<JsonObject> call, Response<JsonObject> response) {
+
+                Log.w(TAG, "onResponse: " + response);
+
+                if (response.isSuccessful()) {
+                    System.out.println(response.body());
+                    getResponseCommission(response.body());
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<JsonObject> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    private void getResponseCommission(JsonObject jsonObject) {
+        JsonObject error = null, sucess = null;
+        String messageError = null, message = null;
+        OutputPaginate outputPaginate = null;
+
+        try {
+            error = jsonObject.getAsJsonObject("errors");
+            messageError = error.get("message").getAsString();
+        }catch (Exception ignored) {}
+
+        try {
+            sucess = jsonObject.getAsJsonObject("success");
+            message = sucess.get("message").getAsString();
+        } catch (Exception ignored) {}
+
+        try {
+
+            Gson gson = new Gson();
+
+            Compte compte = new Gson().fromJson(sucess.get("commission"), Compte.class);
+
+            soldeCommission.setText(compte.getMontant() + " coins");
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public class CustumMarchand  {

@@ -1,5 +1,6 @@
 package bj.assurance.prevoyancedeces.retrofit.Service;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -31,9 +32,14 @@ public interface UserService {
     @FormUrlEncoded
     Call<JsonObject> login(@Field("login") String username, @Field("password") String password);
 
+    @POST("logout")
+    Call<JsonObject> logout();
+
     @POST("refresh")
     @FormUrlEncoded
     Call<AccessToken> refresh(@Field("refresh_token") String refreshToken);
+
+
 
     /**
      *
@@ -45,13 +51,11 @@ public interface UserService {
 
 
     @GET("users/{idUser}/conversations")
-    Call<JsonObject> getMessageofUser(@Path("idUser") Long id);
+    Call<JsonArray> getMessageofUser(@Path("idUser") Long id);
 
 
     @GET("users/{idUser}/notifications")
-    Call<JsonObject> getNotification(@Path("idUser") Long id);
-
-
+    Call<JsonArray> getNotification(@Path("idUser") Long id);
 
 
     @GET("users/{number}/telephone")

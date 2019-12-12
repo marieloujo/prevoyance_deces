@@ -10,7 +10,7 @@
 
     <ScrollView
         android:id="@+id/content_main"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -42,7 +42,7 @@
                     android:textColor="@color/black_background"
                     android:layout_marginBottom="6dp"
                     style="@style/TextAppearance.AppCompat"
-                    android:text="@string/_1000_fcfa"
+                    android:text="1000 fcfa"
                     android:textStyle="bold"/>
 
                 <ProgressBar
@@ -239,8 +239,8 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <include layout="@layout/content_recycler"/>
 

@@ -31,10 +31,6 @@
                     android:background="@color/white"
                     android:padding="15dp">
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -62,15 +58,6 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="@drawable/circle_black"
-                            android:src="@drawable/ic_add_"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true" />
-
-                    </RelativeLayout>
 
                     <androidx.legacy.widget.Space
                         android:layout_width="match_parent"
@@ -85,7 +72,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/mes_commisions"
+                            android:text="Solde de commisions"
                             style="@style/TextAppearance.AppCompat"
                             android:textStyle="bold"
                             android:textColor="@color/black_background"

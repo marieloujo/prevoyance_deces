@@ -159,7 +159,8 @@ public class MonProfile extends Fragment {
                         contentEror.setVisibility(View.VISIBLE);
 
                         ((TextView) contentEror.findViewById(R.id.error_text))
-                                .setText("Une erreur s'est produite lors de la récupération des contrats");
+                                .setText("Auncun contrat");
+                        ((Button) contentEror.findViewById(R.id.retry)).setVisibility(View.INVISIBLE);
                     }
 
                 }
@@ -174,7 +175,8 @@ public class MonProfile extends Fragment {
                     contentEror.setVisibility(View.VISIBLE);
 
                     ((TextView) contentEror.findViewById(R.id.error_text))
-                            .setText("Une erreur s'est produite lors de la récupération des contrats");
+                            .setText("Auncun contrat");
+                    ((Button) contentEror.findViewById(R.id.retry)).setVisibility(View.INVISIBLE);
                 }
             });
         } catch (Exception e) {
