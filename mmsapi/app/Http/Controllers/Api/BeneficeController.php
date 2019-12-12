@@ -3,10 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BeneficesResource;
+use App\Services\Contract\ServiceInterface\BeneficeServiceInterface;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BeneficeController extends Controller
 {
+    protected $beneficeService;
+
+    public function __construct(BeneficeServiceInterface $beneficeService)
+    {
+        $this->beneficeService = $beneficeService;
+    } 
+
     /**
      * Display a listing of the resource.
      *
@@ -14,18 +24,12 @@ class BeneficeController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return $beneficeData=$this->beneficeService->index();
+        if(count($beneficeData)>0){
+            return BeneficesResource::collection($beneficeData);
+        }else{
+            return response()->json([ 'success' => ['message' => 'Aucun benefice' ]], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -34,9 +38,24 @@ class BeneficeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($benefice)
     {
-        //
+        $beneficeData=$this->beneficeService->read($benefice);
+        if($beneficeData){
+            return response()->json([ 'success' => ['data' => new BeneficesResource($beneficeData) ]], Response::HTTP_OK);
+        }else{
+            return response()->json([ 'success' => ['message' => 'Aucun benefice' ]], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        try {         
+            return response()->json([ 'success' => ['data' => new BeneficesResource( $this->beneficeService->create($request)) ]], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            return response()->json(['errors' => [ 'message' => $message]],Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -46,19 +65,32 @@ class BeneficeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+
+
+    public function update(Request $request, $benefice){
+        
+        try {         
+            if($this->beneficeService->update($request,$benefice)){
+                return $this->show($benefice);
+            }else{
+                return response()->json([ 'errors' => ['message' =>  'Le benefice n\'a pas été mis à jour'  ]], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            return response()->json(['errors' => [ 'message' => $message]],Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function destroy($benefice){
+        try {       
+            if($this->beneficeService->delete($benefice)){
+                return response()->json([ 'success' => ['message' => 'Le benefice à bien été supprimé' ]], Response::HTTP_OK);
+            }else{
+                return response()->json([ 'errors' => ['message' =>  'Le benefice n\'a pas été supprimé'  ]], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }  
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            return response()->json(['errors' => [ 'message' => $message]],Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

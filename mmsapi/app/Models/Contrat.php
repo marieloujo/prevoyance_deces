@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Contrat extends Pivot
 {
-    
     public $incrementing=true;
     public $table='contrats';
 
     protected $fillable = [
-        'numero_contrat','garantie','prime','duree','numero_police_assurance','frais_dossier','date_debut','date_echeance','date_effet','fin','date_fin','valider','client_id','marchand_id','assure_id',
+        'numero_contrat','garantie','prime','duree','numero_police_assurance','date_debut','date_echeance','date_effet','fin','date_fin','valider','client_id','marchand_id','assure_id',
     ];
     
     public function marchand(){

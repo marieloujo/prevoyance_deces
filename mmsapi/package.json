@@ -17,5 +17,11 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0"
+    },
+    "dependencies": {
+        "axios-vue": "^0.1.3",
+        "vue-cookie": "^1.1.4",
+        "vue-router": "^3.1.3",
+        "vuetify": "^2.1.13"
     }
 }

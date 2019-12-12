@@ -17,7 +17,7 @@ namespace App\Repositories\Contracts;
 
      public function all()
      {
-         return $this->model->all();
+         return $this->model->paginate();
      }
 
      public function create(array $data): Model
@@ -26,7 +26,7 @@ namespace App\Repositories\Contracts;
      }
 
      public function update(array $data, $id)
-     {
+     {  
          return $this->model->find($id)->update($data);
      }
 

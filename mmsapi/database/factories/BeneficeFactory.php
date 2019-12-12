@@ -12,10 +12,10 @@ $factory->define(Benefice::class, function (Faker $faker) {
         'statut' => $faker->randomElement(['Conjoint marié','Mes enfants nés ou à naître','Autres, précisez svp']),
         'taux' => $faker->randomDigit,
         'contrat_id' => function(){
-            return  Contrat::all('id')->random();
+            return  Contrat::all()->random();
         },
         'beneficiaire_id' => function(){
-            return  Beneficiaire::all('id')->random();
+            return  Beneficiaire::all()->random();
         },
     ];
 });

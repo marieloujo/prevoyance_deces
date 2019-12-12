@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Beneficiaire extends Model
 {
+
     public $incrementing=true;
     public $table='beneficiaires';
     /**
@@ -30,4 +31,5 @@ class Beneficiaire extends Model
             'statut','taux',
         ])->withTimestamps();
     }
+
 }

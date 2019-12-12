@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use ErrorException;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
@@ -16,31 +17,32 @@ trait ExceptionTrait
     public function apiExceptions($request,$e){
 
         if($this->isModel($e)){
-
             return $this->ModelResponse($e);
         }
 
         if($this->isHttp($e)){
-
             return $this->HttpResponse($e);
         }
 
         if($this->isAuthentication($e)){
-
             return $this->AuthenticationResponse($e);
         }
 
         if($this->isValidation($e,$request)){
-
              return $this->ValidationResponse($e,$request);
         }
 
         if($this->isTokenMismatch($e)){
-
              return $this->TokenMismatchResponse($e);
         }
-        
-        return parent::render($request, $e);
+
+        if($this->isError($e)){
+            return $this->ErrorResponse($e);
+        }
+    }
+
+    protected function isError($e){
+        return $e instanceof ErrorException;
     }
 
     protected function isModel($e){
@@ -65,32 +67,39 @@ trait ExceptionTrait
     
     protected function ModelResponse($e){
         return response()->json([
-            "errors" => 'Aucun résultat trouvé pour '.str_replace('App\\','',$e->getModel())
+            "errors" =>[ "message" => ['Aucun résultat trouvé pour '.str_replace('App\\','',$e->getModel())]]
         ],Response::HTTP_NOT_FOUND);
+    }
+    
+    protected function ErrorResponse($e){
+        return response()->json([
+            "errors" =>[ "message" => [$e->getMessage()]]
+            
+        ],Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     protected function HttpResponse($e){
         return response()->json([
-            "errors" => 'Chemin incorrecte'
+            "errors" =>[ "message" => ['Route inconnue']]
         ],Response::HTTP_NOT_FOUND);
     }
 
     protected function AuthenticationResponse($e){
         return response()->json([
-            "errors" => 'Pas connecte'
+            "errors" =>[ "message" => ['Pas connecte']]
         ],Response::HTTP_UNAUTHORIZED);
     }
 
     protected function ValidationResponse($e,$request){
         $errors = $e->validator->errors()->getMessages();
         return response()->json([
-            "errors" => $errors
+            "errors" =>[ "message" => [$errors]]
         ],Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     protected function TokenMismatchResponse($e){
         return response()->json([
-            "errors" => 'Mauvaise http request méthode'
-        ],Response::HTTP_NOT_FOUND);
+            "errors" =>[ "message" => ['Mauvaise http request méthode']]
+        ],419);
     }
 }
