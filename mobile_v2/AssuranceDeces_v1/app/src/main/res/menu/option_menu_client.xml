@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/client_option_nav_accueil"
+        android:title="@string/acceuil"
+        android:checked="true" />
+
+
+
+
+    <item
+        android:id="@+id/client_option_nav_marchands"
+        android:title="@string/marchands"/>
+
+
+
+    <item
+        android:id="@+id/client_option_nav_discussion"
+        android:title="@string/discussion"
+        android:icon="@drawable/ic_chat"/>
+
+    <item
+        android:id="@+id/client_option_nav_boutique"
+        android:title="@string/boutique_virtuelle" />
+
+
+
+    <item
+        android:id="@+id/client_option_nav_partager"
+        android:title="Partager"/>
+
+
+
+
+
+    <item
+        android:id="@+id/option_nav_sinistre"
+        android:title="Notifier sinistre"
+        android:iconTint="@color/black"/>
+
+
+
+
+    <item
+        android:id="@+id/option_nav_carnet"
+        android:title="@string/mon_carnet"/>
+
+
+
+    <item
+        android:id="@+id/option_nav_logout"
+        android:title="Déconnexion"/>
+
+
+
+
+</menu>

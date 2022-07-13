@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:ignore="NamespaceTypo"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textSize="18sp"
+        android:text="Télephone"
+        android:textColor="@color/text_black"
+        app:layout_constraintTop_toBottomOf="@id/error" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+
+        <Spinner
+            android:id="@+id/phoneIdentity"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            app:ignore="RtlSymmetry" />
+
+
+
+        <br.com.sapereaude.maskedEditText.MaskedEditText
+            xmlns:mask="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/etTelephone"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:inputType="phone"
+            android:typeface="monospace"
+            mask:allowed_chars="1234567890"
+            mask:mask="###-###-##"
+            app:keep_hint="false"/>
+
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/tvError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="Veuillez renseigner le télephone"
+        android:textColor="@color/red_active"/>
+
+</LinearLayout>

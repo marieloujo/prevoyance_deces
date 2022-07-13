@@ -1,0 +1,64 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "nom": "Alibori",
+      "code": "Y"
+    },
+    {
+      "id": 2,
+      "nom": "Atacora",
+      "code": "V"
+    },
+    {
+      "id": 3,
+      "nom": "Atlantique",
+      "code": "A"
+    },
+    {
+      "id": 4,
+      "nom": "Borgou",
+      "code": "B"
+    },
+    {
+      "id": 5,
+      "nom": "Colline",
+      "code": "C"
+    },
+    {
+      "id": 6,
+      "nom": "Couffo",
+      "code": "U"
+    },
+    {
+      "id": 7,
+      "nom": "Donga",
+      "code": "D"
+    },
+    {
+      "id": 8,
+      "nom": "Littoral",
+      "code": "L"
+    },
+    {
+      "id": 9,
+      "nom": "Mono",
+      "code": "M"
+    },
+    {
+      "id": 10,
+      "nom": "Oueme",
+      "code": "O"
+    },
+    {
+      "id": 11,
+      "nom": "Plateau",
+      "code": "P"
+    },
+    {
+      "id": 12,
+      "nom": "Zou",
+      "code": "Z"
+    }
+  ]
+}

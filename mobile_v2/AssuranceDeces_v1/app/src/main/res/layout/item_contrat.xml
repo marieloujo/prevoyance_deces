@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:foreground="?android:attr/selectableItemBackground">
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp">
+
+
+
+
+                <TextView
+                    android:id="@+id/nom_prenom_assure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#222"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:layout_alignParentEnd="true"
+                   android:layout_alignParentRight="true">
+
+
+
+
+                   <TextView
+                       android:id="@+id/portefeuille_contrat"
+                       android:layout_width="wrap_content"
+                       android:text="@string/historique"
+                       android:layout_height="wrap_content"
+                       android:textColor="#222"
+                       android:gravity="center"
+                       android:layout_marginEnd="10dp"
+                       android:layout_gravity="center"
+                       android:layout_marginRight="10dp" />
+
+
+
+                   <ImageView
+                       android:visibility="visible"
+                       android:id="@+id/item_trend_flag"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:scaleType="centerInside"
+                       android:src="@drawable/ic_more_vert"/>
+
+
+
+
+               </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+
+
+                <TextView
+                    android:id="@+id/reference_contat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="6dp"
+                    android:textColor="#888"
+                    android:textSize="14sp" />
+
+
+
+
+                <TextView
+                    android:id="@+id/statut_paiement"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorGreen" />
+
+
+
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</FrameLayout>

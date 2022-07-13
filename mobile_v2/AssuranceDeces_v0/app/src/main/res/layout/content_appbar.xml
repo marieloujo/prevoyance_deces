@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/app_bar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:fitsSystemWindows="true">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mytoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/frame_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black_background"
+                style="@style/TextAppearance.AppCompat" />
+
+            <RelativeLayout
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/alertIcon"
+                    android:layout_width="28sp"
+                    android:layout_height="28sp"
+                    app:srcCompat="@drawable/ic_notification"
+                    tools:ignore="VectorDrawableCompat"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"/>
+
+                <View
+                    android:visibility="invisible"
+                    android:id="@+id/isRead"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
+                    android:background="@drawable/rounder_red"
+                    android:layout_marginLeft="17dp" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+</RelativeLayout>

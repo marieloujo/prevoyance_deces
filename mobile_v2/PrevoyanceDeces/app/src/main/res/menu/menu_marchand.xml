@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_nav_accueil"
+        android:title="@string/acceuil"
+        android:icon="@drawable/acceuil"
+        android:checked="true"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/bottom_nav_clients"
+        android:title="@string/mes_clients"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/bottom_nav_prospects"
+        android:title="@string/transactions"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/bottom_nav_discussion"
+        android:title="@string/mon_profil"
+        android:icon="@drawable/ic_person"
+        android:iconTint="@color/black"/>
+
+
+</menu>

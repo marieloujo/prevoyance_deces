@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/item_client"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="15dp"
+    android:layout_marginStart="15dp"
+    android:background="@color/white">
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal">
+
+
+
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/default_avatar"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp">
+
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_centerVertical="true">
+
+
+
+                <TextView
+                    android:id="@+id/nom_prenom_super"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/black_background"/>
+
+
+
+                <TextView
+                    android:id="@+id/matricule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/black_background"/>
+
+
+
+
+                </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:gravity="end">
+
+
+
+
+
+                <ImageView
+                    android:id="@+id/onpenOption"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_more_vert"
+                    android:adjustViewBounds="true"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="centerCrop" />
+
+
+
+
+                <TextView
+                    android:id="@+id/nd_clients"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+</androidx.cardview.widget.CardView>

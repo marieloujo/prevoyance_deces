@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.marchand.Historique">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black_background"
+            style="@style/TextAppearance.AppCompat"
+            android:text="Année(s)"/>
+
+        <Spinner
+            android:id="@+id/etAnnee"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:background="@drawable/spinner_style"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black_background"
+            style="@style/TextAppearance.AppCompat"
+            android:text="Semestre"/>
+
+        <Spinner
+            android:id="@+id/etSemestre"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@drawable/spinner_style"
+            android:inputType="text"
+            android:textSize="16sp"
+            tools:ignore="RtlSymmetry" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="@string/credit_virtuel"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:drawableStart="@drawable/legende_barre"
+                android:drawableTint="@color/green_inactive"
+                style="@style/TextAppearance.AppCompat"
+                android:drawableLeft="@drawable/legende_barre" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:drawableStart="@drawable/ic_reply"
+                android:layout_gravity="center"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_reply" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="@string/mes_commisions"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    style="@style/TextAppearance.AppCompat"
+                    android:drawableStart="@drawable/legende_barre"
+                    android:drawableTint="@color/black_grey"
+                    android:drawableLeft="@drawable/legende_barre" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!--ir.farshid_roohi.linegraph.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        app:chart_padding_bottom="35dp"
+        app:chart_padding_left="20dp"
+        app:chart_padding_right="20dp"
+        app:chart_padding_top="20dp"
+        app:chart_line_color="#32FFFFFF"
+        app:chart_bg_color="@color/black_background"
+        android:layout_margin="15dp"/-->
+
+    <HorizontalScrollView android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="15dp">
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            class="im.dacer.androidcharts.LineView"
+            android:id="@+id/line_view" />
+    </HorizontalScrollView>
+
+</LinearLayout>

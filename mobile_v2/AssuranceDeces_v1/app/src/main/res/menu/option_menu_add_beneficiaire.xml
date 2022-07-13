@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item
+        android:id="@+id/add_beneficiaire"
+        android:title="Ajouter une béneficiaire"
+        android:checked="true"/>
+
+
+
+    <item
+        android:id="@+id/supp_beneficiaire"
+        android:title="Supprimer une béneficiaire"/>
+
+
+
+</menu>

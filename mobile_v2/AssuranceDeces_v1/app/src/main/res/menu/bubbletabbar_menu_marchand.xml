@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/marchand_bottom_nav_accueil"
+        android:title="@string/acceuil"
+        android:icon="@drawable/ic_home"
+        android:checked="true"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_bottom_nav_clients"
+        android:title="@string/mes_clients"
+        android:icon="@drawable/ic_people"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_bottom_nav_transactions"
+        android:title="@string/transactions"
+        android:icon="@mipmap/ic_transaction"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_bottom_nav_profil"
+        android:title="@string/mon_profil"
+        android:icon="@drawable/ic_person"
+        android:iconTint="@color/black"/>
+
+
+</menu>

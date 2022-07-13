@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.supermarchand.AddMarchand"
+    android:orientation="vertical"
+    android:layout_marginBottom="20sp">
+
+
+
+
+
+
+
+
+    <ScrollView
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="55dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="5dp">
+
+
+                <!-- nom -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp">
+
+
+                    <TextView
+                        android:id="@+id/tvNomMarchand"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+
+
+                    <EditText
+                        android:id="@+id/etNomMarchand"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:background="@drawable/input_style"
+                        android:hint="@string/nom"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:inputType="text"
+                        android:textSize="16sp"
+                        style="@style/TextAppearance.AppCompat"
+                        tools:ignore="RtlSymmetry" />
+
+
+                </LinearLayout>
+
+
+                <!-- prenom -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20sp">
+
+                    <TextView
+                        android:id="@+id/tvPrenomMarchand"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+                    <EditText
+                        android:id="@+id/etPrenomMarchand"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:background="@drawable/input_style"
+                        android:hint="@string/pr_noms"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:inputType="text"
+                        android:textSize="16sp"
+                        style="@style/TextAppearance.AppCompat"
+                        tools:ignore="RtlSymmetry" />
+
+
+                </LinearLayout>
+
+
+                <!-- sexe -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20sp">
+
+                    <TextView
+                        android:id="@+id/tvetSexeMarchand"
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+                    <Spinner
+                        android:id="@+id/etSexeMarchand"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:inputType="text"
+                        android:textSize="16sp"
+                        android:background="@drawable/input_style"
+                        tools:ignore="RtlSymmetry" />
+
+                </LinearLayout>
+
+
+                <!--  date naissance -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20sp">
+
+
+                    <TextView
+                        android:id="@+id/tvDateNaissanceMarchand"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+
+                    <EditText
+                        android:id="@+id/dateEditText"
+                        android:layout_width="match_parent"
+                        android:hint="@string/date_de_naissance"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:layout_height="47dp"
+                        android:background="@drawable/input_style"
+                        tools:ignore="RtlSymmetry"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:editable="false"/>
+
+
+                </LinearLayout>
+
+
+                <!-- email -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20sp">
+
+
+                    <TextView
+                        android:id="@+id/tvEmailMarchand"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+
+                    <EditText
+                        android:id="@+id/et_email"
+                        android:background="@drawable/input_style"
+                        android:layout_width="match_parent"
+                        android:paddingStart="10dp"
+                        android:layout_height="47dp"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:paddingLeft="10dp"
+                        tools:ignore="RtlSymmetry" />
+
+
+                </LinearLayout>
+
+
+                <!-- telephone -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp">
+
+
+                    <TextView
+                        android:id="@+id/tvTelephoneMarchand"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/rougeFade"
+                        android:layout_marginBottom="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/phoneIdentity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="47dp"
+                            android:paddingStart="10dp"
+                            android:paddingLeft="10dp"
+                            android:inputType="text"
+                            android:textSize="16sp"
+                            tools:ignore="RtlSymmetry" />
+
+
+                        <br.com.sapereaude.maskedEditText.MaskedEditText
+                            xmlns:mask="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/etTelephoneMarchand"
+                            android:layout_width="match_parent"
+                            android:layout_height="47dp"
+                            android:background="@drawable/input_style"
+                            android:inputType="phone"
+                            android:typeface="monospace"
+                            mask:allowed_chars="1234567890"
+                            mask:mask="###-###-##"
+                            android:paddingStart="10dp"
+                            app:keep_hint="false"
+                            android:paddingLeft="10dp"
+                            tools:ignore="RtlSymmetry" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <!-- adresse -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20sp">
+
+
+                    <TextView
+                        android:id="@+id/tvAdresseDomicileMarchand"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone"/>
+
+
+                    <EditText
+                        android:id="@+id/etAdresseMarchand"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:background="@drawable/input_style"
+                        android:hint="@string/adresse_du_domicile"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:inputType="text"
+                        android:textSize="16sp"
+                        style="@style/TextAppearance.AppCompat"
+                        tools:ignore="RtlSymmetry" />
+
+
+                </LinearLayout>
+
+
+                <!-- commune -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20sp">
+
+
+                    <TextView
+                        android:id="@+id/tvCommuneMarchand"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone"
+                        android:layout_marginBottom="10dp"/>
+
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:id="@+id/etCommuneMarchand"
+                        android:background="@drawable/input_style"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        tools:ignore="RtlSymmetry" />
+
+
+
+                </LinearLayout>
+
+
+                <!-- situation ::: -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20sp">
+
+
+                    <TextView
+                        android:id="@+id/tvSituationMatrimonialeMarchand"
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/rougeFade"
+                        app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+
+
+                    <Spinner
+                        android:id="@+id/etSituationMatrimonialeMarchand"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:layout_marginBottom="10dp"
+                        android:paddingStart="10dp"
+                        android:background="@drawable/input_style"
+                        android:hint="@string/situation_matrimoniale"
+                        android:paddingLeft="10dp"
+                        tools:ignore="RtlSymmetry" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+
+        <Button
+            android:id="@+id/annuler"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/annuler"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="@drawable/button_cancel"/>
+
+
+        <Button
+            android:id="@+id/suivant"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/suivant"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/button_next"
+            android:layout_alignParentRight="true" />
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+</RelativeLayout>

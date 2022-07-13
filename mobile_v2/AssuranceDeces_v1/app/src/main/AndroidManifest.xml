@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="bj.assurance.assurancedeces">
+
+    <uses-sdk tools:overrideLibrary="com.fxn.bubbletabbar,com.chaos.view,br.com.simplepass.loading_button_lib,br.com.simplepass.loadingbutton,pl.droidsonroids.gif,com.picker.gallery,com.skydoves.expandablelayout,com.thoughtbot.expandablerecyclerview, gun0912.tedimagepicker,com.example.flatdialoglibrary, com.airbnb.lottie, com.labters.lottiealertdialoglibrary, com.arthurivanets.bottomsheets" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/logo_transparent"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/logo_transparent"
+        android:supportsRtl="true"
+        android:theme="@style/PrincipalTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="n">
+        <activity
+            android:name=".activity.SplashScreen"
+            android:theme="@style/PrincipalTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.Connexion"
+            android:theme="@style/PrincipalTheme" />
+        <activity
+            android:name=".activity.MarchandActivity"
+            android:theme="@style/PrincipalTheme" />
+        <activity
+            android:name=".activity.FragmentActivity"
+            android:theme="@style/PrincipalTheme" />
+        <activity
+            android:name=".activity.ContentAddBeneficier"
+            android:theme="@style/PrincipalTheme" />
+        <activity
+            android:name=".activity.ClientActivity"
+            android:theme="@style/PrincipalTheme" />
+        <activity
+            android:name=".activity.SuperMarchandActivity"
+            android:theme="@style/PrincipalTheme" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:theme="@style/SearchTheme" />
+        <activity android:name=".activity.ResetPassword"></activity>
+    </application>
+
+</manifest>

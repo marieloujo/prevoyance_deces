@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/option_nav_accueil"
+        android:title="@string/acceuil"
+        android:icon="@drawable/acceuil"
+        android:checked="true"
+        android:iconTint="@color/black" />
+
+    <item
+        android:id="@+id/option_nav_marchands"
+        android:title="@string/marchands"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/option_nav_discussion"
+        android:title="@string/discussion"
+        android:icon="@drawable/ic_chat"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/option_nav_boutique"
+        android:title="@string/boutique_virtuelle"
+        android:icon="@drawable/boutique_virtuelle_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/option_nav_partager"
+        android:title="Partager"
+        android:icon="@drawable/ic_share"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/option_nav_sinistre"
+        android:title="Notifier sinistre"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/option_nav_carnet"
+        android:title="@string/mon_carnet"
+        android:icon="@drawable/carnet_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/option_nav_logout"
+        android:title="Déconnexion"
+        android:icon="@drawable/carnet_icon"
+        android:iconTint="@color/black"/>
+
+
+</menu>

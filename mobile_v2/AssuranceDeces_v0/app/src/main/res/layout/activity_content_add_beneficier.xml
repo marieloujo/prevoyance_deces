@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ContenteAddBeneficier">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="5dp"
+            android:elevation="8dp">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+
+
+                <ImageView
+                    android:id="@+id/backFrame"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:tint="@color/black54_disable"
+                    android:src="@drawable/ic_arrow_back"/>
+
+
+                <TextView
+                    android:id="@+id/title_frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:text="Enregistrement d'un contrat"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20sp"
+                    android:layout_marginLeft="20sp" />
+
+
+            </LinearLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:id="@+id/timeline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:tint="@color/colorGreen"
+                        app:srcCompat="@drawable/timeline_active" />
+
+
+                    <View
+                        android:layout_width="90dp"
+                        android:layout_height="1.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/grayPale" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:tint="@color/colorGreen"
+                        app:srcCompat="@drawable/circle_black" />
+
+
+                    <View
+                        android:layout_width="90dp"
+                        android:layout_height="1.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/grayPale" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        app:srcCompat="@drawable/timeline_active" />
+
+
+                    <View
+                        android:layout_width="90dp"
+                        android:layout_height="1.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/grayPale" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:tint="@color/grayPale"
+                        app:srcCompat="@drawable/circle_black" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_below="@+id/timeline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                style="@style/TextAppearance.AppCompat"
+                android:layout_marginBottom="15dp"
+                android:textAlignment="center"
+                android:layout_marginTop="15dp"
+                android:text="@string/infos_beneficiaire"/>
+
+
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tablayout"
+                android:minHeight="?attr/actionBarSize"
+                app:tabTextColor="@color/black"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                app:tabMode="scrollable"
+                android:layout_marginTop="10dp"
+                android:id="@+id/pager"
+                android:layout_marginBottom="20sp"/>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingAdd"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dp" />
+
+
+
+</RelativeLayout>

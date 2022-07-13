@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ChatFrame"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:cardElevation="10dp"
+        android:id="@+id/card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:tint="@color/black"
+                android:src="@drawable/ic_arrow_back"/>
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/female_icon"
+                app:civ_border="false"
+                app:civ_shadow="true"
+                app:civ_shadow_radius="0"
+                android:layout_gravity="center"
+                android:layout_marginStart="20sp"
+                android:layout_marginLeft="20sp" />
+
+            <TextView
+                android:id="@+id/nom_prenom_messager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:text="@string/nom_prenom"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginStart="20sp"
+                android:layout_marginLeft="20sp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/card">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/content_recycler"/>
+
+            <!--androidx.recyclerview.widget.RecyclerView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recycler_send"/-->
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="10dp">
+
+            <EditText
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_bottom_left_rigth"
+                android:hint="@string/entrer_votre_texte"
+                android:paddingStart="10dp"
+                style="@style/TextAppearance.AppCompat"
+                android:layout_marginEnd="60dp"
+                android:textSize="14sp"
+                android:paddingLeft="10dp"
+                tools:ignore="RtlSymmetry"
+                android:layout_marginRight="60dp" />
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:tint="@color/white"
+                android:src="@drawable/ic_send_black_24dp"
+                android:background="@drawable/circle_black"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

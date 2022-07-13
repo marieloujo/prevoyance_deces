@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    android:layout_marginBottom="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:background="@drawable/rounded_rect_white_transparent"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/nom_prenom_assure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                style="@style/TextAppearance.AppCompat"
+                android:text="@string/nom_prenom"
+                android:textColor="@color/black_background"
+                android:layout_marginBottom="6dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/numero_assurance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    style="@style/TextAppearance.AppCompat"
+                    android:text="@string/policy_number"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginRight="15dp" />
+
+                <TextView
+                    android:id="@+id/status_assurance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    style="@style/TextAppearance.AppCompat"
+                    android:text="@string/active"
+                    android:textColor="@color/green_active" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/portefeuil_assurance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            style="@style/TextAppearance.AppCompat"
+            android:layout_marginStart="15dp"
+            android:text="@string/_1000_fcfa"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/black_background"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

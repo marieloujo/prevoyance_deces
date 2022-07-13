@@ -1,0 +1,711 @@
+{
+  "data": [
+
+    {
+      "id": 1,
+      "nom": "Banikoara",
+      "departement": {
+        "id": 1,
+        "nom": "Alibori",
+        "code": "Y"
+      }
+    },
+    {
+      "id": 2,
+      "nom": "Gogounou",
+      "departement": {
+        "id": 1,
+        "nom": "Alibori",
+        "code": "Y"
+      }
+    },
+    {
+      "id": 3,
+      "nom": "Kandi",
+      "departement": {
+        "id": 1,
+        "nom": "Alibori",
+        "code": "Y"
+      }
+    },
+    {
+      "id": 4,
+      "nom": "Karimama",
+      "departement": {
+        "id": 1,
+        "nom": "Alibori",
+        "code": "Y"
+      }
+    },
+    {
+      "id": 5,
+      "nom": "Malanville",
+      "departement": {
+        "id": 1,
+        "nom": "Alibori",
+        "code": "Y"
+      }
+    },
+    {
+      "id": 6,
+      "nom": "Segbana",
+      "departement": {
+        "id": 1,
+        "nom": "Alibori",
+        "code": "Y"
+      }
+    },
+    {
+      "id": 7,
+      "nom": "Boukoumbé",
+      "departement": {
+        "id": 2,
+        "nom": "Atacora",
+        "code": "V"
+      }
+    },
+    {
+      "id": 8,
+      "nom": "Cobly",
+      "departement": {
+        "id": 2,
+        "nom": "Atacora",
+        "code": "V"
+      }
+    },
+    {
+      "id": 9,
+      "nom": "Kérou",
+      "departement": {
+        "id": 2,
+        "nom": "Atacora",
+        "code": "V"
+      }
+    },
+    {
+      "id": 10,
+      "nom": "Kouandé",
+      "departement": {
+        "id": 2,
+        "nom": "Atacora",
+        "code": "V"
+      }
+    },
+    {
+      "id": 11,
+      "nom": "Matéri",
+      "departement": {
+        "id": 2,
+        "nom": "Atacora",
+        "code": "V"
+      }
+    },
+    {
+      "id": 12,
+      "nom": "Natitingou",
+      "departement": {
+        "id": 2,
+        "nom": "Atacora",
+        "code": "V"
+      }
+    },
+    {
+      "id": 13,
+      "nom": "Pehonko",
+      "departement": {
+        "id": 2,
+        "nom": "Atacora",
+        "code": "V"
+      }
+    },
+    {
+      "id": 14,
+      "nom": "Tanguiéta",
+      "departement": {
+        "id": 2,
+        "nom": "Atacora",
+        "code": "V"
+      }
+    },
+    {
+      "id": 15,
+      "nom": "Toucountouna",
+      "departement": {
+        "id": 2,
+        "nom": "Atacora",
+        "code": "V"
+      }
+    },
+
+    {
+      "id": 16,
+      "nom": "Abomey-Calavi",
+      "departement": {
+        "id": 3,
+        "nom": "Atlantique",
+        "code": "A"
+      }
+    },
+    {
+      "id": 17,
+      "nom": "Allada",
+      "departement": {
+        "id": 3,
+        "nom": "Atlantique",
+        "code": "A"
+      }
+    },
+    {
+      "id": 18,
+      "nom": "Kpomassè",
+      "departement": {
+        "id": 3,
+        "nom": "Atlantique",
+        "code": "A"
+      }
+    },
+    {
+      "id": 19,
+      "nom": "Ouidah",
+      "departement": {
+        "id": 3,
+        "nom": "Atlantique",
+        "code": "A"
+      }
+    },
+    {
+      "id": 20,
+      "nom": "Sô-Ava",
+      "departement": {
+        "id": 3,
+        "nom": "Atlantique",
+        "code": "A"
+      }
+    },
+    {
+      "id": 21,
+      "nom": "Toffo",
+      "departement": {
+        "id": 3,
+        "nom": "Atlantique",
+        "code": "A"
+      }
+    },
+    {
+      "id": 22,
+      "nom": "Tori-Bossito",
+      "departement": {
+        "id": 3,
+        "nom": "Atlantique",
+        "code": "A"
+      }
+    },
+    {
+      "id": 23,
+      "nom": "Zê",
+      "departement": {
+        "id": 3,
+        "nom": "Atlantique",
+        "code": "A"
+      }
+    },
+    {
+      "id": 24,
+      "nom": "Bembèrèkè",
+      "departement": {
+        "id": 4,
+        "nom": "Borgou",
+        "code": "B"
+      }
+    },
+    {
+      "id": 25,
+      "nom": "Kalalé",
+      "departement": {
+        "id": 4,
+        "nom": "Borgou",
+        "code": "B"
+      }
+    },
+    {
+      "id": 26,
+      "nom": "N'Dali",
+      "departement": {
+        "id": 4,
+        "nom": "Borgou",
+        "code": "B"
+      }
+    },
+    {
+      "id": 27,
+      "nom": "Nikki",
+      "departement": {
+        "id": 4,
+        "nom": "Borgou",
+        "code": "B"
+      }
+    },
+    {
+      "id": 28,
+      "nom": "Parakou",
+      "departement": {
+        "id": 4,
+        "nom": "Borgou",
+        "code": "B"
+      }
+    },
+    {
+      "id": 29,
+      "nom": "Pèrèrè",
+      "departement": {
+        "id": 4,
+        "nom": "Borgou",
+        "code": "B"
+      }
+    },
+    {
+      "id": 30,
+      "nom": "Sinendé",
+      "departement": {
+        "id": 4,
+        "nom": "Borgou",
+        "code": "B"
+      }
+    },
+
+
+    {
+      "id": 31,
+      "nom": "Tchaourou",
+      "departement": {
+        "id": 4,
+        "nom": "Borgou",
+        "code": "B"
+      }
+    },
+    {
+      "id": 32,
+      "nom": "Bantè",
+      "departement": {
+        "id": 5,
+        "nom": "Colline",
+        "code": "C"
+      }
+    },
+    {
+      "id": 33,
+      "nom": "Dassa-Zoumé",
+      "departement": {
+        "id": 5,
+        "nom": "Colline",
+        "code": "C"
+      }
+    },
+    {
+      "id": 34,
+      "nom": "Glazoué",
+      "departement": {
+        "id": 5,
+        "nom": "Colline",
+        "code": "C"
+      }
+    },
+    {
+      "id": 35,
+      "nom": "Ouèssè",
+      "departement": {
+        "id": 5,
+        "nom": "Colline",
+        "code": "C"
+      }
+    },
+    {
+      "id": 36,
+      "nom": "Savalou",
+      "departement": {
+        "id": 5,
+        "nom": "Colline",
+        "code": "C"
+      }
+    },
+    {
+      "id": 37,
+      "nom": "Savè",
+      "departement": {
+        "id": 5,
+        "nom": "Colline",
+        "code": "C"
+      }
+    },
+    {
+      "id": 38,
+      "nom": "Aplahoué",
+      "departement": {
+        "id": 6,
+        "nom": "Couffo",
+        "code": "U"
+      }
+    },
+    {
+      "id": 39,
+      "nom": "Djakotomey",
+      "departement": {
+        "id": 6,
+        "nom": "Couffo",
+        "code": "U"
+      }
+    },
+    {
+      "id": 40,
+      "nom": "Dogbo-Tota",
+      "departement": {
+        "id": 6,
+        "nom": "Couffo",
+        "code": "U"
+      }
+    },
+    {
+      "id": 41,
+      "nom": "Klouékanmè",
+      "departement": {
+        "id": 6,
+        "nom": "Couffo",
+        "code": "U"
+      }
+    },
+    {
+      "id": 42,
+      "nom": "Lalo",
+      "departement": {
+        "id": 6,
+        "nom": "Couffo",
+        "code": "U"
+      }
+    },
+    {
+      "id": 43,
+      "nom": "Toviklin",
+      "departement": {
+        "id": 6,
+        "nom": "Couffo",
+        "code": "U"
+      }
+    },
+    {
+      "id": 44,
+      "nom": "Bassila",
+      "departement": {
+        "id": 7,
+        "nom": "Donga",
+        "code": "D"
+      }
+    },
+    {
+      "id": 45,
+      "nom": "Copargo",
+      "departement": {
+        "id": 7,
+        "nom": "Donga",
+        "code": "D"
+      }
+    },
+
+
+    {
+      "id": 46,
+      "nom": "Djougou",
+      "departement": {
+        "id": 7,
+        "nom": "Donga",
+        "code": "D"
+      }
+    },
+    {
+      "id": 47,
+      "nom": "Ouaké",
+      "departement": {
+        "id": 7,
+        "nom": "Donga",
+        "code": "D"
+      }
+    },
+    {
+      "id": 48,
+      "nom": "Cotonou",
+      "departement": {
+        "id": 8,
+        "nom": "Littoral",
+        "code": "L"
+      }
+    },
+    {
+      "id": 49,
+      "nom": "Athiémé",
+      "departement": {
+        "id": 9,
+        "nom": "Mono",
+        "code": "M"
+      }
+    },
+    {
+      "id": 50,
+      "nom": "Bopa",
+      "departement": {
+        "id": 9,
+        "nom": "Mono",
+        "code": "M"
+      }
+    },
+    {
+      "id": 51,
+      "nom": "Comè",
+      "departement": {
+        "id": 9,
+        "nom": "Mono",
+        "code": "M"
+      }
+    },
+    {
+      "id": 52,
+      "nom": "Grand-Popo",
+      "departement": {
+        "id": 9,
+        "nom": "Mono",
+        "code": "M"
+      }
+    },
+    {
+      "id": 53,
+      "nom": "Houéyogbé",
+      "departement": {
+        "id": 9,
+        "nom": "Mono",
+        "code": "M"
+      }
+    },
+    {
+      "id": 54,
+      "nom": "Lokossa",
+      "departement": {
+        "id": 9,
+        "nom": "Mono",
+        "code": "M"
+      }
+    },
+    {
+      "id": 55,
+      "nom": "Adjarra",
+      "departement": {
+        "id": 10,
+        "nom": "Oueme",
+        "code": "O"
+      }
+    },
+    {
+      "id": 56,
+      "nom": "Adjohoun",
+      "departement": {
+        "id": 10,
+        "nom": "Oueme",
+        "code": "O"
+      }
+    },
+    {
+      "id": 57,
+      "nom": "Aguégués",
+      "departement": {
+        "id": 10,
+        "nom": "Oueme",
+        "code": "O"
+      }
+    },
+    {
+      "id": 58,
+      "nom": "Akpro-Missérété",
+      "departement": {
+        "id": 10,
+        "nom": "Oueme",
+        "code": "O"
+      }
+    },
+    {
+      "id": 59,
+      "nom": "Avrankou",
+      "departement": {
+        "id": 10,
+        "nom": "Oueme",
+        "code": "O"
+      }
+    },
+    {
+      "id": 60,
+      "nom": "Bonou",
+      "departement": {
+        "id": 10,
+        "nom": "Oueme",
+        "code": "O"
+      }
+    },
+
+
+    {
+      "id": 61,
+      "nom": "Dangbo",
+      "departement": {
+        "id": 10,
+        "nom": "Oueme",
+        "code": "O"
+      }
+    },
+    {
+      "id": 62,
+      "nom": "Porto-Novo",
+      "departement": {
+        "id": 10,
+        "nom": "Oueme",
+        "code": "O"
+      }
+    },
+    {
+      "id": 63,
+      "nom": "Sèmè-Kpodji",
+      "departement": {
+        "id": 10,
+        "nom": "Oueme",
+        "code": "O"
+      }
+    },
+    {
+      "id": 64,
+      "nom": "Adja-Ouèrè",
+      "departement": {
+        "id": 11,
+        "nom": "Plateau",
+        "code": "P"
+      }
+    },
+    {
+      "id": 65,
+      "nom": "Ifangni",
+      "departement": {
+        "id": 11,
+        "nom": "Plateau",
+        "code": "P"
+      }
+    },
+    {
+      "id": 66,
+      "nom": "Kétou",
+      "departement": {
+        "id": 11,
+        "nom": "Plateau",
+        "code": "P"
+      }
+    },
+    {
+      "id": 67,
+      "nom": "Pobè",
+      "departement": {
+        "id": 11,
+        "nom": "Plateau",
+        "code": "P"
+      }
+    },
+    {
+      "id": 68,
+      "nom": "Sakété",
+      "departement": {
+        "id": 11,
+        "nom": "Plateau",
+        "code": "P"
+      }
+    },
+    {
+      "id": 69,
+      "nom": "Abomey",
+      "departement": {
+        "id": 12,
+        "nom": "Zou",
+        "code": "Z"
+      }
+    },
+    {
+      "id": 70,
+      "nom": "Agbangnizoun",
+      "departement": {
+        "id": 12,
+        "nom": "Zou",
+        "code": "Z"
+      }
+    },
+    {
+      "id": 71,
+      "nom": "Bohicon",
+      "departement": {
+        "id": 12,
+        "nom": "Zou",
+        "code": "Z"
+      }
+    },
+    {
+      "id": 72,
+      "nom": "Covè",
+      "departement": {
+        "id": 12,
+        "nom": "Zou",
+        "code": "Z"
+      }
+    },
+    {
+      "id": 73,
+      "nom": "Djidja",
+      "departement": {
+        "id": 12,
+        "nom": "Zou",
+        "code": "Z"
+      }
+    },
+    {
+      "id": 74,
+      "nom": "Ouinhi",
+      "departement": {
+        "id": 12,
+        "nom": "Zou",
+        "code": "Z"
+      }
+    },
+    {
+      "id": 75,
+      "nom": "Zangnanado",
+      "departement": {
+        "id": 12,
+        "nom": "Zou",
+        "code": "Z"
+      }
+    },
+
+
+
+    {
+      "id": 76,
+      "nom": "Za-Kpota",
+      "departement": {
+        "id": 12,
+        "nom": "Zou",
+        "code": "Z"
+      }
+    },
+    {
+      "id": 77,
+      "nom": "Zogbodomey",
+      "departement": {
+        "id": 12,
+        "nom": "Zou",
+        "code": "Z"
+      }
+    }
+
+
+  ]
+
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/marchand_option_nav_accueil"
+        android:title="@string/acceuil"
+        android:checked="true"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_clients"
+        android:title="@string/mes_clients"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_transactions"
+        android:title="@string/transactions"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_historique"
+        android:title="@string/historique"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_contrat_en_attente"
+        android:title="@string/contrats_en_attente"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_add_contrat"
+        android:title="@string/ajout_de_contrat"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_add_prospect"
+        android:title="@string/ajout_de_pospect"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_transfert"
+        android:title="@string/tranfert_de_commisions"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_profil"
+        android:title="@string/mon_profil"/>
+
+    <item
+        android:id="@+id/option_nav_logout"
+        android:title="@string/d_connexion"/>
+
+
+</menu>

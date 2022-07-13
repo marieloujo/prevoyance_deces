@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item
+        android:id="@+id/supermarchand_option_nav_accueil"
+        android:title="@string/acceuil"
+        android:checked="true"/>
+
+
+
+    <item
+        android:id="@+id/supermarchand_option_nav_marchands"
+        android:title="@string/mes_marchands"/>
+
+
+
+    <item
+        android:id="@+id/supermarchand_option_nav_add_marchand"
+        android:title="Ajouter un marchand"/>
+
+
+
+    <item
+        android:id="@+id/supermarchand_option_nav_historique"
+        android:title="@string/historique"/>
+
+
+
+
+    <item
+        android:id="@+id/supermarchand_option_nav_logpout"
+        android:title="Déconnexion" />
+
+
+</menu>

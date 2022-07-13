@@ -1,0 +1,159 @@
+<resources>
+    <string name="app_name">Prévoyance Décès</string>
+    <string name="app_description">Prévoyance Décès</string>
+    <string name="app_qualification">FIABLE - PRATIQUE - ASSURÉ</string>
+
+    <!--- Textes des menus de bas -->
+    <string name="acceuil">Accueil</string>
+    <string name="marchands">Les marchands</string>
+    <string name="mon_carnet">Mon carnet</string>
+    <string name="boutique_virtuelle">Boutique</string>
+    <string name="discussion">Mes discussions</string>
+    <string name="notifications">Notifications</string>
+
+
+    <!-- Drawer menu section tittle -->
+    <string name="title_section1">Menu principal</string>
+    <string name="title_section2">Menu secondaire</string>
+    <string name="title_section3">Autres</string>
+    <string name="title_activity_welcome">Welcome</string>
+
+
+    <string name="se_connecter">Se connecter</string>
+    <string name="visiter">Visiter</string>
+    <string name="connexion">Connexion</string>
+    <string name="oublie">Mot de passe oublié</string>
+
+    <string name="alert_password_not_write">Veuillez saisir le mot de passe</string>
+    <string name="alert_telephone_not_write">Veuillez saisir votre numéro de télephone</string>
+
+    <string name="uri">Uri : %1$s</string>
+    <string name="size">Size :  %1$d</string>
+    <string name="mime">Mime: %1$s</string>
+    <string name="bucketname">BucketName : %1$s</string>
+
+
+    <string name="lorem">
+        Bienvenu sur la plateforme de pévoyance décès .
+    </string>
+
+    <string name="lorem2">
+        Lorem ipsum dolor sit
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="montant_menstruel">Montant menstruel</string>
+    <string name="_1000_fcfa">0 fcfa</string>
+    <string name="_12000_fcfa">0 fcfa</string>
+    <string name="bonjour_joan">Salut, Joan</string>
+    <string name="immobilier">Gestion immobilière</string>
+    <string name="nos_services">Nos services</string>
+    <string name="mes_assurances">Mes contrats</string>
+    <string name="nom_prenom">AKLOUGAN Cossi</string>
+    <string name="policy_number">013386478</string>
+    <string name="active">actif</string>
+    <string name="tel">+229 000 000 00</string>
+    <string name="adresse">Adresse</string>
+    <string name="mobile">Mobile</string>
+    <string name="mail_adresse">contact@gmail.com</string>
+    <string name="il_a_8h">Lorem ipsum . Il a 8h</string>
+    <string name="profession">Developpeur web</string>
+    <string name="funeral">Organisation des funérailles</string>
+    <string name="heure">14:45</string>
+    <string name="bonjour">Bonjour</string>
+    <string name="robert">Robert</string>
+    <string name="balance">Compte principal</string>
+    <string name="transactions">Transactions</string>
+    <string name="historique">Historique</string>
+    <string name="cette_semaine">Cette semaine</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="numero_tel">Téléphone</string>
+    <string name="user">Nom prénoms</string>
+    <string name="valider">Valider</string>
+    <string name="credit_virtuel">Mon crédit virtuel</string>
+    <string name="mes_commisions">Mes commisions</string>
+    <string name="mes_clients">Mes clients</string>
+    <string name="mes_prospects">Mes prospects</string>
+    <string name="nom">Nom</string>
+    <string name="pr_noms">Prénoms</string>
+    <string name="email">Email</string>
+    <string name="situation_matrimoniale">Situation matrimoniale</string>
+    <string name="adresse_du_domicile">Adresse du domicile</string>
+    <string name="sexe">Sexe</string>
+    <string name="annuler">Annuler</string>
+    <string name="suivant">Suivant</string>
+    <string name="qualification">Qualification</string>
+    <string name="dur_e_du_contrat">Durée</string>
+    <string name="date_de_paiement_de_prime">Date de paiement de prime</string>
+    <string name="date_de_prise_d_effet_du_contrat">Date de prise d\'effet du contrat</string>
+    <string name="date_d_ch_ance">Date d\'échéance</string>
+    <string name="info_client">Informations relative au souscripteur</string>
+    <string name="mes_marchands">Mes marchands</string>
+    <string name="mon_profil">Mon profil</string>
+    <string name="assurance_d_c_s">Assurance décès</string>
+    <string name="notre_boutique">Notre boutique</string>
+    <string name="ajout_d_un_paiement_de_prime">Ajout d\'un paiement de prime</string>
+    <string name="date">Date</string>
+    <string name="montant">Montant</string>
+
+
+    <string name="portefeuille">Portefeuille</string>
+    <string name="commander">Commander</string>
+    <string name="entrer_votre_texte">Entrer votre texte</string>
+    <string name="date_de_naissance">Date de naissance</string>
+    <string name="error_input_sexe">Veuillez renseigner le sexe du client</string>
+    <string name="error_input_date">Veuillez renseinger la date de naissance du client</string>
+    <string name="error_input_sm">Veuillez renseigner la situation matrimonial du client</string>
+    <string name="profession_cli">Profession</string>
+    <string name="info_assure">Informations relatives à l\'assurer</string>
+    <string name="reference_du_contrat">Reférence du contrat</string>
+    <string name="username">Nom d\'utilisateur</string>
+
+    <string name="date_paiement">24 Août 2019</string>
+
+    <string name="prenom">Torcouvisor</string>
+    <string name="retry">Reéssayer</string>
+    <string name="rechercher">Rechercher</string>
+    <string name="pr_cedent">Précedent</string>
+    <string name="joint_file">Joindre un fichier</string>
+    <string name="confirmation">Confirmation</string>
+
+    <string-array name="situation_matrimoniale">
+        <item>Situation matrimoniale</item>
+        <item>Célibataire</item>
+        <item>Marié(e)</item>
+        <item>Divorcé(e)</item>
+        <item>Veuf(ve)</item>
+        <item>Concubin(e)</item>
+    </string-array>
+
+    <string-array name="qualification">
+        <item>Qualification</item>
+        <item>Conjoint non divorcé</item>
+        <item>Enfants</item>
+        <item>Autre</item>
+    </string-array>
+
+
+    <string-array name="sexe">
+        <item>Sexe</item>
+        <item>Masculin</item>
+        <item>Feminin</item>
+    </string-array>
+
+    <string-array name="annee">
+        <item>2019</item>
+        <item>2018</item>
+        <item>2017</item>
+        <item>2018</item>
+    </string-array>
+
+    <string-array name="identity">
+        <item>00229</item>
+        <item>00225</item>
+    </string-array>
+
+
+</resources>

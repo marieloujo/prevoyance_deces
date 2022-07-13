@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.marchand.AddProspect"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="5dp">
+
+            <!-- nom -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etNomProspect"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:background="@drawable/input_style"
+                    android:hint="@string/nom"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    style="@style/TextAppearance.AppCompat"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tvNomProspect"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="Veuillez donner le nom de l'aasurer"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+            </LinearLayout>
+
+            <!-- prenom -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etPrenomProspect"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:background="@drawable/input_style"
+                    android:hint="@string/pr_noms"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    style="@style/TextAppearance.AppCompat"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tvPrenomProspect"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="Veuillez donner le(s) prenom(s) de l'aasurer"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+            </LinearLayout>
+
+            <!-- sexe -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/etSexeProspect"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    android:background="@drawable/input_style"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tvetSexeProspect"
+                    android:visibility="invisible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/error_input_sexe"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+            </LinearLayout>
+
+            <!-- email -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.andreabaccega.widget.FormEditText
+                    xmlns:whatever="http://schemas.android.com/apk/res-auto"
+                    whatever:testType="regexp"
+                    whatever:customRegexp="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+                    whatever:testErrorString="Adresse email invalid"
+                    android:id="@+id/et_emailProspect"
+                    android:background="@drawable/input_style"
+                    android:layout_width="match_parent"
+                    android:paddingStart="10dp"
+                    android:layout_height="47dp"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="10dp"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tvEmailProspect"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="Veuillez renseigner l' email du client"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+            </LinearLayout>
+
+            <!-- telephone -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <br.com.sapereaude.maskedEditText.MaskedEditText
+                    xmlns:mask="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/etTelephoneProspect"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:background="@drawable/input_style"
+                    android:inputType="phone"
+                    android:typeface="monospace"
+                    mask:allowed_chars="1234567890"
+                    mask:mask="+229 ### - ### - ##"
+                    app:keep_hint="false"/>
+
+                <TextView
+                    android:id="@+id/tvTelephoneProspect"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="6dp"
+                    android:text="Veuillez reinseigner le numero du client"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+            </LinearLayout>
+
+            <!-- commune -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:id="@+id/etCommuneProspect"
+                    android:background="@drawable/input_style"
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tvCommuneProspect"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Veuillez renseigner la commune du client"
+                    android:textColor="@color/rougeFade"
+                    app:layout_constraintTop_toBottomOf="@id/etTelephone"
+                    android:layout_marginBottom="10dp"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+        <Button
+            android:id="@+id/annuler"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/pr_cedent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="@drawable/button_cancel"/>
+
+        <Button
+            android:id="@+id/suivant"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/valider"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/button_next"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

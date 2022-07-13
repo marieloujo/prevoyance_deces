@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.client.Marchands"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+
+
+    <Spinner
+        android:id="@+id/etDepartement"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:layout_margin="15dp"
+        android:background="@drawable/spinner_style"
+        tools:ignore="RtlSymmetry" />
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp">
+
+
+
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <include layout="@layout/content_recycler"/>
+
+
+        </ScrollView>
+
+
+
+
+        <ProgressBar
+            android:visibility="visible"
+            android:id="@+id/scroll_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+</LinearLayout>

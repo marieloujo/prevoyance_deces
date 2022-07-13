@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutTransfertTomarchand">
+
+
+
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <include layout="@layout/fragment_catch_error"/>
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/content_main"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat"
+            android:text="Transfert de ma commission à marchand"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/input_border"
+            android:layout_marginBottom="15dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                style="@style/TextAppearance.AppCompat"
+                android:text="Solde de commission :"
+                android:layout_gravity="start"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/solde"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                style="@style/TextAppearance.AppCompat"
+                android:text=""
+                android:layout_gravity="start"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                style="@style/TextAppearance.AppCompat"
+                android:text="Télephone du marchand"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <Spinner
+                    android:id="@+id/phoneIdentity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="47dp"
+                    android:inputType="text"
+                    android:textSize="16sp"/>
+
+                <br.com.sapereaude.maskedEditText.MaskedEditText
+                    xmlns:mask="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/etTelephoneMarchand"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:inputType="phone"
+                    android:typeface="monospace"
+                    mask:allowed_chars="1234567890"
+                    mask:mask="### - ### - ##"
+                    app:keep_hint="false"/>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/errorMatricule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                style="@style/TextAppearance.AppCompat"
+                android:textColor="@color/red_active"
+                android:text=""/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                style="@style/TextAppearance.AppCompat"
+                android:text="Montant à transférer"/>
+
+            <EditText
+                android:id="@+id/montant_paye"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:drawablePadding="15dp"
+                android:inputType="number"
+                android:lines="1" />
+
+            <TextView
+                android:id="@+id/errorMontant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                style="@style/TextAppearance.AppCompat"
+                android:textColor="@color/red_active"
+                android:text=""/>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/validate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/border_black"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/valider"
+            android:textSize="16sp"
+            android:textAllCaps="false"/>
+
+
+
+    </LinearLayout>
+
+
+
+
+    <ProgressBar
+        android:id="@+id/main_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/marchand_option_nav_accueil"
+        android:title="@string/acceuil"
+        android:icon="@drawable/acceuil"
+        android:checked="true"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_clients"
+        android:title="@string/mes_clients"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_transactions"
+        android:title="@string/transactions"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_historique"
+        android:title="@string/historique"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_contrat_en_attente"
+        android:title="Contrats en attente"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_add_contrat"
+        android:title="Ajout de contrat"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_add_prospect"
+        android:title="Ajout de pospect"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_transfert"
+        android:title="Tranfert de commisions"
+        android:icon="@drawable/marchands_icon"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/marchand_option_nav_profil"
+        android:title="@string/mon_profil"
+        android:icon="@drawable/ic_person"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/option_nav_logout"
+        android:title="Déconnexion"
+        android:icon="@drawable/carnet_icon"
+        android:iconTint="@color/black"/>
+
+
+</menu>

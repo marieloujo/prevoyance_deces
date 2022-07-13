@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.marchand.AddProspect"
+    android:orientation="vertical">
+
+
+    
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_centerInParent="true">
+
+
+
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="20sp">
+
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:layout_marginStart="15dp"
+               android:layout_marginEnd="15dp"
+               android:layout_marginTop="5dp">
+
+
+               <!-- nom -->
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:layout_marginBottom="10dp">
+
+
+
+
+                   <TextView
+                       android:id="@+id/tvNomProspect"
+                       android:visibility="invisible"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="13sp"
+                       android:layout_marginBottom="5dp"
+                       android:textColor="@color/rougeFade"
+                       app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+
+
+                   <EditText
+                       android:id="@+id/etNomProspect"
+                       android:layout_width="match_parent"
+                       android:layout_height="47dp"
+                       android:background="@drawable/input_style"
+                       android:hint="@string/nom"
+                       android:paddingStart="10dp"
+                       android:paddingLeft="10dp"
+                       android:inputType="text"
+                       android:textSize="16sp"
+                       style="@style/TextAppearance.AppCompat"
+                       tools:ignore="RtlSymmetry" />
+
+
+
+               </LinearLayout>
+
+
+
+               <!-- prenom -->
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:layout_marginBottom="10dp">
+
+
+
+                   <TextView
+                       android:id="@+id/tvPrenomProspect"
+                       android:visibility="invisible"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="13sp"
+                       android:layout_marginBottom="5dp"
+                       android:textColor="@color/rougeFade"
+                       app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+
+
+                   <EditText
+                       android:id="@+id/etPrenomProspect"
+                       android:layout_width="match_parent"
+                       android:layout_height="47dp"
+                       android:background="@drawable/input_style"
+                       android:hint="@string/pr_noms"
+                       android:paddingStart="10dp"
+                       android:paddingLeft="10dp"
+                       android:inputType="text"
+                       android:textSize="16sp"
+                       style="@style/TextAppearance.AppCompat"
+                       tools:ignore="RtlSymmetry" />
+
+
+
+
+
+               </LinearLayout>
+
+
+               <!-- sexe -->
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:layout_marginBottom="10dp">
+
+
+
+
+                   <TextView
+                       android:id="@+id/tvetSexeProspect"
+                       android:visibility="invisible"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textSize="13sp"
+                       android:layout_marginBottom="5dp"
+                       android:textColor="@color/rougeFade"
+                       app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+
+
+                   <Spinner
+                       android:id="@+id/etSexeProspect"
+                       android:layout_width="match_parent"
+                       android:layout_height="47dp"
+                       android:paddingStart="10dp"
+                       android:paddingLeft="10dp"
+                       android:inputType="text"
+                       android:textSize="16sp"
+                       android:background="@drawable/input_style"
+                       tools:ignore="RtlSymmetry" />
+
+
+
+               </LinearLayout>
+
+
+               <!-- email -->
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:layout_marginBottom="10dp">
+
+
+
+                   <TextView
+                       android:id="@+id/tvEmailProspect"
+                       android:visibility="invisible"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="13sp"
+                       android:layout_marginBottom="5dp"
+                       android:textColor="@color/rougeFade"
+                       app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+
+
+
+                   <EditText
+                       android:id="@+id/et_emailProspect"
+                       android:background="@drawable/input_style"
+                       android:layout_width="match_parent"
+                       android:paddingStart="10dp"
+                       android:layout_height="47dp"
+                       android:hint="@string/email"
+                       android:inputType="textEmailAddress"
+                       android:paddingLeft="10dp"
+                       tools:ignore="RtlSymmetry" />
+
+
+
+               </LinearLayout>
+
+
+               <!-- telephone -->
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:layout_marginBottom="10dp">
+
+
+
+                   <TextView
+                       android:id="@+id/tvTelephoneProspect"
+                       android:visibility="invisible"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="13sp"
+                       android:layout_marginBottom="5dp"
+                       android:textColor="@color/rougeFade"
+                       app:layout_constraintTop_toBottomOf="@id/etTelephone" />
+
+
+
+
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+
+                       <Spinner
+                           android:id="@+id/phoneIdentity"
+                           android:layout_width="wrap_content"
+                           android:layout_height="47dp"
+                           android:paddingStart="10dp"
+                           android:paddingLeft="10dp"
+                           android:inputType="text"
+                           android:textSize="16sp"
+                           tools:ignore="RtlSymmetry" />
+
+
+                       <br.com.sapereaude.maskedEditText.MaskedEditText
+                           xmlns:mask="http://schemas.android.com/apk/res-auto"
+                           android:id="@+id/etTelephoneProspect"
+                           android:layout_width="match_parent"
+                           android:layout_height="47dp"
+                           android:background="@drawable/input_style"
+                           android:inputType="phone"
+                           android:paddingStart="10dp"
+                           android:typeface="monospace"
+                           mask:allowed_chars="1234567890"
+                           mask:mask="###-###-##"
+                           app:keep_hint="false"
+                           android:paddingLeft="10dp" />
+
+
+                   </LinearLayout>
+
+
+
+
+               </LinearLayout>
+
+
+               <!-- commune -->
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:layout_marginBottom="10dp">
+
+
+
+                   <TextView
+                       android:id="@+id/tvCommuneProspect"
+                       android:visibility="invisible"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="14sp"
+                       android:textColor="@color/rougeFade"
+                       app:layout_constraintTop_toBottomOf="@id/etTelephone"
+                       android:layout_marginBottom="5dp"/>
+
+
+
+                   <Spinner
+                       android:layout_width="match_parent"
+                       android:layout_height="47dp"
+                       android:id="@+id/etCommuneProspect"
+                       android:background="@drawable/input_style"
+                       android:paddingStart="10dp"
+                       android:paddingLeft="10dp"
+                       tools:ignore="RtlSymmetry" />
+
+
+
+               </LinearLayout>
+
+
+           </LinearLayout>
+
+       </ScrollView>
+
+
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginStart="15dp"
+           android:layout_marginEnd="15dp">
+
+           <Button
+               android:id="@+id/annuler"
+               android:layout_width="150dp"
+               android:layout_height="wrap_content"
+               android:text="@string/annuler"
+               android:textSize="14sp"
+               android:textStyle="bold"
+               android:textAllCaps="false"
+               android:background="@drawable/button_cancel"/>
+
+           <Button
+               android:id="@+id/suivant"
+               android:layout_width="150dp"
+               android:layout_height="wrap_content"
+               android:text="@string/valider"
+               android:textSize="14sp"
+               android:textStyle="bold"
+               android:textColor="@color/white"
+               android:textAllCaps="false"
+               android:layout_alignParentEnd="true"
+               android:background="@drawable/button_next"
+               android:layout_alignParentRight="true" />
+
+       </RelativeLayout>
+
+
+   </LinearLayout>
+
+
+</RelativeLayout>

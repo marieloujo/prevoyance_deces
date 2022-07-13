@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="15dp">
+
+
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginBottom="6dp"
+        android:layout_marginRight="5dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        android:layout_marginEnd="5dp">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp">
+
+
+
+                    <TextView
+                        android:id="@+id/nom_prenom_assure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#222"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+
+
+
+                    <TextView
+                        android:id="@+id/portefeuille_contrat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#222" />
+
+
+
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true">
+
+
+
+                        <TextView
+                            android:id="@+id/reference_contat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="6dp"
+                            android:textColor="#888"
+                            android:textSize="14sp"/>
+
+
+
+
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <TextView
+                                android:id="@+id/etatContratActif"
+                                android:visibility="invisible"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lineSpacingExtra="6dp"
+                                android:text="Actif"
+                                android:layout_marginStart="10dp"
+                                android:textColor="@color/colorGreen"
+                                android:textStyle="bold"
+                                android:drawableStart="@drawable/rounder_red"
+                                android:drawableTint="@color/colorGreen"
+                                android:drawablePadding="6dp"
+                                android:textSize="11sp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
+                                android:drawableLeft="@drawable/rounder_red" />
+
+
+
+
+                            <TextView
+                                android:id="@+id/etatContratExpirer"
+                                android:visibility="invisible"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lineSpacingExtra="6dp"
+                                android:text="Expirer"
+                                android:layout_marginStart="10dp"
+                                android:textColor="@color/red_active"
+                                android:textStyle="bold"
+                                android:drawableStart="@drawable/rounder_red"
+                                android:drawableTint="@color/red_active"
+                                android:drawablePadding="6dp"
+                                android:textSize="11sp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
+                                android:drawableLeft="@drawable/rounder_red" />
+
+
+
+
+                        </RelativeLayout>
+
+
+
+
+                    </LinearLayout>
+
+
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true">
+
+
+
+
+
+                        <TextView
+                            android:visibility="invisible"
+                            android:id="@+id/statut_contrat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:textColor="@color/orange_active"
+                            android:drawableStart="@drawable/rounder_red"
+                            android:drawablePadding="10dp"
+                            android:layout_gravity="center"
+                            android:textStyle="bold"
+                            android:layout_marginRight="10dp"
+                            android:layout_centerVertical="true"
+                            android:text="@string/en_attente"
+                            android:drawableLeft="@drawable/rounder_red" />
+
+
+
+
+
+                        <LinearLayout
+                            android:visibility="visible"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+
+                            <Button
+                                android:visibility="invisible"
+                                android:id="@+id/notifier_paiement"
+                                android:layout_width="70dp"
+                                android:layout_height="20sp"
+                                android:text="Notifier"
+                                android:textAllCaps="false"
+                                android:textSize="10sp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_gravity="end"
+                                android:textColor="@color/white"
+                                android:background="@drawable/button_next"
+                                tools:ignore="SmallSp"
+                                android:layout_marginRight="10dp" />
+
+
+
+                            <TextView
+                                android:id="@+id/statut_paiement"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12dp"
+                                android:textColor="@color/colorGreen"
+                                android:layout_gravity="center"/>
+
+
+
+
+                        </LinearLayout>
+
+
+
+                    </RelativeLayout>
+
+
+
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/error_text_layout"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerInParent="true">
+
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_mood_bad"
+                    android:tint="@color/input_border"
+                    android:layout_gravity="center"/>
+
+
+
+
+
+                <TextView
+                    android:id="@+id/error_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_margin="10dp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"/>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</LinearLayout>

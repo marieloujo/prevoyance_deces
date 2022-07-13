@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrey"
+    tools:context=".fragment.client.MonProfile">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="35dp"
+                        android:elevation="10dp"
+                        android:src="@drawable/profile_image"
+                        app:civ_border="true"
+                        app:civ_border_color="@color/colorWhite"
+                        app:civ_border_width="4dp"
+                        app:civ_shadow="true"
+                        app:civ_shadow_radius="0"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/nom_prenom_clent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:elevation="10dp"
+                        android:text=""
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                        android:layout_gravity="center"
+                        tools:ignore="UnusedAttribute" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/adresse_client"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textColor="@color/colorNormalText"
+                            android:drawableStart="@drawable/icon_location"
+                            android:drawableLeft="@drawable/icon_location"
+                            android:drawablePadding="15dp"/>
+
+
+                        <TextView
+                            android:id="@+id/adresse_mail_client"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textColor="@color/colorNormalText"
+                            android:drawableStart="@drawable/icon_web"
+                            android:drawablePadding="15dp"
+                            android:drawableLeft="@drawable/icon_web" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/mes_messages"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/message_button"
+                            android:text="Message"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="@string/mes_assurances"
+                android:textColor="@color/colorDarkBlue"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/grayPale"
+                android:minHeight="1dp"
+                android:paddingBottom="20dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include layout="@layout/content_recycler"/>
+
+                <ProgressBar
+                    android:visibility="visible"
+                    android:id="@+id/scroll_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+
+                <include layout="@layout/layout_catch_error"/>
+
+                <include layout="@layout/layout_no_data"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

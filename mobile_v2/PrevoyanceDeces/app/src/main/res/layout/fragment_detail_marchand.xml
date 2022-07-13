@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.client.DetailMarchand">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        app:cardElevation="65dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/avatar"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/nom_prenom_marchand"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/green_inactive"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="@string/nom_prenom"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+
+        <ImageView
+            android:id="@+id/icon_contact_marchand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_chat_green"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            tools:ignore="VectorDrawableCompat"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/icon_phone_marchand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_local_phone_green"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            tools:ignore="VectorDrawableCompat"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/icon_mail_marchand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_mail_green"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            tools:ignore="VectorDrawableCompat"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/ic_location_black"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:ignore="VectorDrawableCompat" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp">
+
+                <TextView
+                    android:id="@+id/adresse_marchand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/text_black"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:text="calavi, Benin"
+                    android:layout_marginBottom="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="@string/adresse"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/ic_phone_black"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:ignore="VectorDrawableCompat" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp">
+
+                <TextView
+                    android:id="@+id/mobile_marchand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_black"
+                    android:textSize="15sp"
+                    android:text="@string/tel"
+                    android:layout_marginBottom="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="@string/mobile"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/ic_mail_black"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:ignore="VectorDrawableCompat" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp">
+
+                <TextView
+                    android:id="@+id/adresse_mail_marchand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_black"
+                    android:textSize="15sp"
+                    android:text="@string/mail_adresse"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="@string/email"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

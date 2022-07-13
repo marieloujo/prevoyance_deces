@@ -1,0 +1,113 @@
+<resources>
+
+
+    <string name="app_name">AssuranceDeces</string>
+
+
+    <!-- Connexion frame texte -->
+    <string name="connexion">Connexion</string>
+    <string name="se_connecter">Se connecter</string>
+    <string name="oublie">Mot de passe oublié</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="mot_de_passe">Mot de passe</string>
+
+
+    <!-- Edittext error -->
+    <string name="alert_password_not_write">Veuillez saisir le mot de passe</string>
+    <string name="alert_telephone_not_write">Veuillez saisir votre numéro de télephone</string>
+
+
+    <!--- Textes des menus de bas -->
+    <string name="acceuil">Accueil</string>
+    <string name="marchands">Les marchands</string>
+    <string name="mon_carnet">Mon carnet</string>
+    <string name="boutique_virtuelle">Boutique</string>
+    <string name="discussion">Mes discussions</string>
+    <string name="notifications">Notifications</string>
+    <string name="mes_clients">Mes clients</string>
+    <string name="transactions">Transactions</string>
+    <string name="historique">Historique</string>
+    <string name="mon_profil">Mon profil</string>
+    <string name="see_all_transactions">Voir toutes les transactions</string>
+
+
+    <string name="solde">O points</string>
+    <string name="balance">Compte principal</string>
+
+    <string name="ajout_d_un_paiement_de_prime">Ajout d\'un paiement de prime</string>
+    <string name="reference_du_contrat">Reférence du contrat</string>
+    <string name="montant">Montant</string>
+
+
+    <string name="info_client">Informations relative au souscripteur</string>
+    <string name="info_assure">Informations relatives à l\'assurer</string>
+
+    <string name="nom">Nom</string>
+    <string name="pr_noms">Prénoms</string>
+    <string name="email">Email</string>
+    <string name="situation_matrimoniale">Situation matrimoniale</string>
+    <string name="adresse_du_domicile">Adresse du domicile</string>
+    <string name="sexe">Sexe</string>
+    <string name="annuler">Annuler</string>
+    <string name="suivant">Suivant</string>
+    <string name="qualification">Qualification</string>
+    <string name="dur_e_du_contrat">Durée</string>
+    <string name="date_de_naissance">Date de naissance</string>
+    <string name="profession_cli">Profession</string>
+
+
+    <string name="valider">Valider</string>
+
+    <string name="funeral">Organisation des funérailles</string>
+    <string name="immobilier">Gestion immobilière</string>
+    <string name="montant_menstruel">Montant menstruel</string>
+
+
+    <string-array name="situation_matrimoniale">
+        <item>Situation matrimoniale</item>
+        <item>Célibataire</item>
+        <item>Marié(e)</item>
+        <item>Divorcé(e)</item>
+        <item>Veuf(ve)</item>
+        <item>Concubin(e)</item>
+    </string-array>
+
+    <string-array name="qualification">
+        <item>Qualification</item>
+        <item>Conjoint non divorcé</item>
+        <item>Enfants</item>
+        <item>Autre</item>
+    </string-array>
+
+
+    <string-array name="sexe">
+        <item>Sexe</item>
+        <item>Masculin</item>
+        <item>Feminin</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="infos_beneficiaire">Informations relatives au(x) béneficier(s)</string>
+    <string name="pr_cedent">Précedent</string>
+    <string name="d_connexion">Déconnexion</string>
+    <string name="tranfert_de_commisions">Tranfert de commisions</string>
+    <string name="ajout_de_pospect">Ajout de pospect</string>
+    <string name="ajout_de_contrat">Ajout de contrat</string>
+    <string name="contrats_en_attente">Contrats en attente</string>
+    <string name="retry">Réessayer</string>
+
+
+    <string name="credit_virtuel">Mon crédit virtuel</string>
+    <string name="mes_commisions">Mes commisions</string>
+    <string name="montant_0">0 fcfa</string>
+    <string name="mes_marchands">Mes marchands</string>
+    <string name="nos_services">Nos services</string>
+    <string name="solde_credit_virtuelle">Solde de crédit virtuel :</string>
+    <string name="compte_de_commission">Commission</string>
+    <string name="mes_prospects">Mes prospects</string>
+    <string name="contrat_en_attente_de_validation">Contrat en attente de validation</string>
+    <string name="en_attente">En attente</string>
+
+
+</resources>

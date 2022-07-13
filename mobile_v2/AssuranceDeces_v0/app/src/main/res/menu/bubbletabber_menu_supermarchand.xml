@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item
+        android:id="@+id/supermarchand_bottom_nav_accueil"
+        android:title="@string/acceuil"
+        android:icon="@drawable/ic_home"
+        android:checked="true"
+        android:iconTint="@color/black"
+        tools:ignore="UnusedAttribute"/>
+
+
+
+    <item
+        android:id="@+id/supermarchand_bottom_nav_marchands"
+        android:title="@string/mes_marchands"
+        android:icon="@drawable/ic_people"
+        android:iconTint="@color/black"
+        tools:ignore="UnusedAttribute"/>
+
+
+
+    <item
+        android:id="@+id/supermarchand_bottom_nav_historique"
+        android:title="@string/historique"
+        android:icon="@mipmap/ic_transaction"
+        android:iconTint="@color/black"
+        tools:ignore="UnusedAttribute"/>
+
+
+
+    <item
+        android:id="@+id/supermarchand_bottom_nav_profil"
+        android:title="@string/mon_profil"
+        android:icon="@drawable/ic_person"
+        android:iconTint="@color/black"
+        tools:ignore="UnusedAttribute" />
+
+
+</menu>
